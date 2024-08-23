@@ -1,0 +1,44 @@
+#servicos .content .content-title{
+    justify-content: center;
+    display: flex;
+    margin-bottom: 3rem;
+}
+
+.services-card-wrapper{
+    display: flex;
+    flex-direction: column;
+    gap: 4.8rem;
+}
+
+.services-card-box:nth-child(1n){
+    margin-left: 8.4rem;
+}
+.services-card-box:nth-child(2n){
+    margin-left: 19.6rem;
+}
+
+.services-card-box{
+    display: flex;
+    flex-direction: row;
+    gap: 4.8rem;
+}
+
+.services-card{
+    padding: 3.2rem;
+    padding-bottom: 2rem;
+    outline: 1px solid var(--cor-secundaria);
+    border-radius: 2rem;
+    width: 52rem;
+}
+
+#servicos .content .services-card .content-title{
+    display: flex;
+    flex-direction: row;
+    gap: 2rem;
+    align-items: center;
+    justify-content: start;
+}
+
+.content-title h3{
+    font-size: 2.4rem;
+}

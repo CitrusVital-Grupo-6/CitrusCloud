@@ -1,0 +1,23 @@
+#sobre{
+    display: flex;
+    flex-direction: row;
+}
+
+#sobre .content{
+    width: 67.7rem;
+}
+
+#sobre .content-title{
+    display: flex;
+    flex-direction: column;
+    gap: 3.2rem;
+}
+
+#sobre .content-title h3 {
+    margin-bottom: 2rem;
+}
+
+#sobre aside{
+    margin-left: 8.4rem;
+    margin-right: 7rem;
+}

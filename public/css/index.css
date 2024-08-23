@@ -1,0 +1,135 @@
+@import url('https://fonts.googleapis.com/css2?family=Manrope:wght@200..800&display=swap');
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "Manrope", sans-serif;
+    font-size: 62.5%;
+    text-decoration: none;
+}
+
+:root{
+    --cor-primaria: #EEEBE4;
+    --cor-secundaria: #D4721C;
+    --cor-titulo: #282626;
+    --cor-font: #28262680;
+}
+
+body{
+    background-color: var(--cor-primaria);
+    margin: 0;
+}
+
+header{
+    display: flex;
+    flex-direction: row;
+    margin-inline: 4rem;
+    margin-block: 3.2rem;
+    justify-content: space-between;
+}
+
+main{
+    display: flex;
+    flex-direction: column;
+    gap: 8.5rem;
+}
+
+.left-header{
+    display: flex;
+    align-items: center;
+}
+
+.logo{
+    margin-right: 7.6rem;
+}
+.logo a{
+    font-size: 2.4rem;
+    color: var(--cor-secundaria);
+}
+
+.header-option-wrapper{
+    display: flex;
+    flex-direction: row;
+    gap: 4rem;
+    align-items: center;
+}
+
+.header-option a{
+    font-size: 2rem;
+    color: var(--cor-titulo);
+}
+
+.wire-button{
+    border-radius: 50vw;
+    padding-block: 1.4rem;
+    padding-inline: 3.2rem;
+    border: 0;
+    outline: 1px solid var(--cor-secundaria);
+    font-size: 2rem;
+    color: var(--cor-secundaria);
+    font-family: "Manrope", sans-serif;
+    line-height: 2rem;
+}
+
+.solid-button{
+    border-radius: 50vw;
+    padding-block: 1.4rem;
+    padding-inline: 3.2rem;
+    border: 0;
+    font-size: 2rem;
+    color: var(--cor-primaria);
+    background-color: var(--cor-secundaria);
+    font-family: "Manrope", sans-serif;
+    line-height: 2rem;
+}
+
+#introduction{
+    display: flex;
+    gap: 8.1rem;
+    margin-inline: 8.4rem;
+}
+
+#introduction .content{
+    width: 72.9rem;
+    display: flex;
+    flex-direction: column;
+    gap: 3.2rem;
+}
+
+.content-title h1{
+    font-size: 6.4rem;
+}
+
+#introduction .content-text{
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+}
+
+.content-text h3{
+    font-size: 2.4rem;
+}
+
+.content-text span{
+    font-size: 2rem;
+    color: var(--cor-font);
+}
+
+#introduction .content-button{
+    display: flex;
+    flex-direction: row;
+    gap: 4.3rem;
+}
+
+#introduction .solid-button{
+    display: flex;
+    align-items: center;
+    flex-direction: row;
+    padding: 0.4rem;
+    gap: 1rem;
+}
+
+#introduction .solid-button span{
+    padding-left: 3.2rem;
+    font-size: 2rem;
+}
