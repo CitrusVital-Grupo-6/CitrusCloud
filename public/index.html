@@ -2,22 +2,24 @@
 <html lang="pt-br">
 <head>
   <meta charset="UTF-8">
-  <title>Home | CitrusCloud</title>
+  <title>CitrusCloud</title>
   <link rel="stylesheet" href="./css/index.css">
   <link rel="stylesheet" href="./css/servicos.css">
   <link rel="stylesheet" href="./css/sobre.css">
   <link rel="stylesheet" href="./css/contato.css">
+  <link rel="stylesheet" href="./css/sidebar.css">
   <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="shortcut icon" href="./assets/icon/logo.ico" type="image/x-icon">
 </head>
 <body>
   <header>
     <div class="left-header">
       <div class="logo">
-        <img src="./assets/img/logo.png">
+        <img src="./assets/img/logo-extended.png">
       </div>
   
       <div class="header-option-wrapper">
-        <div class="header-option"><a href="#home">Home</a></div>
+        <div class="header-option"><a href="#introduction">Home</a></div>
         <div class="header-option"><a href="#servicos">Serviços</a></div>
         <div class="header-option"><a href="#sobre">Sobre</a></div>
         <div class="header-option"><a href="#contato">Contato</a></div>
@@ -26,10 +28,24 @@
 
     <div class="right-header">
         <button class="wire-button">Login</button>
-        <img id="burguer1" src="./assets/svg/burguer-white.svg">
-        <img id="burguer2" src="./assets/svg/burguer-black.svg">
+        <img id="burguer1" src="./assets/svg/burguer-white.svg" onclick="abrirMenu()">
+        <img id="burguer2" src="./assets/svg/burguer-black.svg" onclick="abrirMenu()">
     </div>
   </header>
+
+  <div class="sidebar">
+    <div class="sidebar-header">
+        <img src="./assets/img/logo.png" class="sidebar-header-logo">
+        <img src="./assets/svg/x.svg" class="sidebar-header-close" onclick="abrirMenu()">
+    </div>
+    <ul class="sidebar-buttons">
+        <li><a href="#introduction">Home</a></li>
+        <li><a href="#servicos">Serviços</a></li>
+        <li><a href="#sobre">Sobre</a></li>
+        <li><a href="#contato">Contato</a></li>
+    </ul>
+    <button class="login-button-sidebar">LOGIN <img src="./assets/svg/sign-in.svg"></button>
+</div>
 
   <main>
     <section id="introduction">
@@ -58,7 +74,7 @@
     <section id="servicos">
       <div class="content">
         <div class="content-title">
-          <h1>NOSSOS SERVIÇOS</h1>
+          <h1>Nossos &nbsp;<span style="color: var(--cor-secundaria);">serviços</span></h1>
         </div>
         
         <div class="services-card-wrapper">
@@ -93,11 +109,11 @@
       <aside><img src="./assets/img/sobre-img.png"></aside>
       <div class="content">
         <div class="content-title">
-          <h1>SOBRE NÓS</h1>
+          <h1>Quem nós <span style="color: var(--cor-secundaria);">somos</span>?</h1>
           <img src="./assets/img/sobre-img-mobile.png">
         </div>
         <div class="content-text">
-          <h3>---</h3>
+          <h3>Um pouco de nossas ambições</h3>
           <span>Somos uma empresa dedicada a transformar a vida do produtor rural por meio da tecnologia. Nossa missão é oferecer soluções que otimizem o cultivo de laranjas, combinando o monitoramento climático em tempo real com análises inteligentes e relatórios personalizados.
             <br><br>
             Acreditamos que, com as ferramentas certas, os agricultores podem tomar decisões mais precisas, reduzir desperdícios e melhorar a produtividade. Nosso compromisso é fornecer informações confiáveis que garantam mais eficiência nas operações agrícolas, ajudando a enfrentar os desafios diários de maneira sustentável e inovadora.
@@ -109,7 +125,7 @@
     <section id="contato">
       <aside>
         <div class="contact-info">
-          <h1>Lorem <span style="color: var(--cor-secundaria);">ipsum dolor</span> sit amet, consectetur.</h1>
+          <h1>Tem algum <span style="color: var(--cor-secundaria)">dúvida</span> ou deseja contratar a <span style="color: var(--cor-secundaria)">solução?</span></h1>
           <h3>Vamos conversar!</h3>
         </div>
         <div class="contact-topics-box">
@@ -131,6 +147,9 @@
           </div>
         </div>
       </aside>
+      <div class="content-title">
+        <h1>Entre em <span style="color: var(--cor-secundaria);">contato</span></h1>
+      </div>
       <div class="contact-box">
         <div class="contact-box-section">
           <span>Nome</span>
@@ -152,9 +171,48 @@
       </div>
     </section>
   </main>
+  
   <footer>
-    <span>Todos os direitos reservados para © CitrusVital</span>
+    <div class="footer-mobile-wrapper">
+      <div class="upper-footer">
+        <img src="./assets/img/logo-extended.png" class="footer-logo">
+        <div class="social-media-box">
+          <img src="./assets/svg/x-logo.svg" class="social-media"></img>
+          <img src="./assets/svg/linkedin-logo.svg" class="social-media"></img>
+        </div>
+      </div>
+      <div class="lower-footer">
+        <div class="contact-topics-box">
+          <div class="contact-topics">
+            <h4>Endereço</h4>
+            <span>Rua Haddock Lobo, 193 - Cerqueira Cesar,<br> São Paulo - SP, Brasil</span>
+          </div>
+          <div class="contact-topics">
+            <h4>Email</h4>
+            <span>citrusvital@contact.com</span>
+          </div>
+          <div class="contact-topics">
+            <h4>Atendimento</h4>
+            <span>Segunda a Sexta 09:00 - 18:00</span>
+          </div>
+          <div class="contact-topics">
+            <h4>Telefone</h4>
+            <span>+55 11 9 8159 3730</span>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="rights-footer">
+      <span>Todos os direitos reservados para © CitrusVital</span>
+    </div>
   </footer>
   
 </body>
 </html>
+
+<script>
+  function abrirMenu(){
+    var sideBar = document.getElementsByClassName("sidebar")[0];
+    sideBar.classList.toggle("onScreen");
+  }
+</script>

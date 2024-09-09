@@ -87,3 +87,32 @@
     color: #00000085;
     font-weight: 500;
 }
+#contato .content-title{
+    display: none;
+}
+#contato .content-title h1{
+    text-align: center;
+    width: 100%;
+}
+
+@media(max-width: 1200px){
+    #contato{
+        padding-right: 0;
+    }
+}
+
+@media(max-width: 1090px){
+    #contato .content-title{
+        display: flex;
+    }
+    #contato aside {
+        display: none;
+    }
+    #contato{
+        padding-inline: 4rem;
+        flex-direction: column;
+    }
+    #contato .content-title {
+        margin-bottom: 1.8rem;
+    }
+}

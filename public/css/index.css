@@ -18,6 +18,7 @@
 body{
     background-color: var(--cor-primaria);
     margin: 0;
+    /* overflow-y: hidden; */
 }
 
 header{
@@ -26,6 +27,9 @@ header{
     padding-inline: 4rem;
     padding-block: 3.2rem;
     justify-content: space-between;
+    position: sticky;
+    top: 0;
+    z-index: 1;
 }
 
 main{
@@ -79,6 +83,10 @@ main{
     color: var(--cor-secundaria);
     font-family: "Manrope", sans-serif;
     line-height: 2rem;
+}
+
+.wire-button, #burguer1, #burguer2 {
+    cursor: pointer;
 }
 
 .solid-button{
@@ -145,14 +153,55 @@ main{
 }
 
 footer{
+    background-color: #151F09;
+}
+
+.footer-mobile-wrapper{
+    display: flex;
+    flex-direction: column;
+    gap: 3rem;
+    padding-inline: 5%;
+    padding-block: 4%;
+
+}
+footer .contact-topics-box{
+    color: white;
+    display: grid;
+    grid-template-columns: max-content max-content;
+
+    gap: 2rem;
+}
+.upper-footer{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.social-media-box{
+    padding-top: 2%;
+}
+
+.footer-logo{
+    height: 8rem;
+}
+
+footer .rights-footer{
     background-color: var(--cor-primaria);
     display: flex;
     justify-content: center;
     padding-block: 1.5rem;
 }
 
-footer span{
+.rights-footer span{
     font-size: 1.5rem;
+}
+
+@media(max-width: 640px){
+    footer .contact-topics-box{
+        display: flex;
+        flex-direction: column;
+    }
 }
 
 @media(max-width: 920px){
@@ -179,7 +228,6 @@ footer span{
     }
     .content-title h1{
         text-align: center;
-        font-size: 5.8rem;
     }
     #introduction .content-text{
         text-align: center;
