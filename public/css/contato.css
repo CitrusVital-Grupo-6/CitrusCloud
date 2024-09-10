@@ -102,6 +102,9 @@
 }
 
 @media(max-width: 1090px){
+    .footer-mobile-wrapper{
+        display: flex;
+    }
     #contato .content-title{
         display: flex;
     }
