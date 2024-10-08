@@ -1,0 +1,55 @@
+@import url('https://fonts.googleapis.com/css2?family=Manrope:wght@200..800&display=swap');
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "Manrope", sans-serif;
+    text-decoration: none;
+}
+
+:root{
+    --cor-primaria: #EEEBE4;
+    --cor-secundaria: #D4721C;
+    --cor-titulo: #282626;
+    --cor-font: #636363;
+}
+
+html {
+    width: 100vw;
+    height: 100vh;
+    font-size: 62.5%;
+}
+
+body {
+    background-color: var(--cor-primaria);
+    margin: 0;
+}
+
+/****** FAZENDAS ******/
+#fazendas aside {
+    max-width: 19.2rem;
+    padding: 2rem 0 0 2rem;
+    position: relative;
+    height: 100vh;
+    border-right: 1px solid var(--cor-font);
+}
+
+#fazendas aside .logo {
+    margin-bottom: 3.2rem;
+}
+
+#fazendas aside .logo img {
+    width: 16rem;
+}
+
+#fazendas aside nav .nav-items {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+    list-style: none;
+}
+
+#fazendas aside .log-out-icon {
+    position: absolute;
+    bottom: 2rem;
+}
