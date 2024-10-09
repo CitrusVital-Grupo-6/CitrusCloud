@@ -71,7 +71,8 @@ CREATE TABLE Agrotoxico (
     minTemperatura INT,
     maxTemperatura INT,
     minSemChuva INT,
-    maxSemChuva INT
+    maxSemChuva INT,
+    qtdML DECIMAL
 );
 
 -- Tabela Cronograma (Relacionamento entre Agrotóxicos e Plantação)
