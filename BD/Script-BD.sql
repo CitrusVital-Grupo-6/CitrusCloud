@@ -54,8 +54,8 @@ CREATE TABLE Telefone (
 );
 
 -- Tabela Plantacao
-CREATE TABLE Plantacao (
-    idPlantacao INT PRIMARY KEY,
+CREATE TABLE Talhao (
+    idTalhao INT PRIMARY KEY,
     tipoLaranja VARCHAR(45),
     tamanhoHec VARCHAR(45),
     fkFazenda INT,
@@ -76,12 +76,12 @@ CREATE TABLE Agrotoxico (
 );
 
 -- Tabela Cronograma (Relacionamento entre Agrotóxicos e Plantação)
-CREATE TABLE Cronograma (
-	idCronograma INT PRIMARY KEY,
-    fkPlantacao INT,
+CREATE TABLE Pulverizacao (
+	idPulverizacao INT PRIMARY KEY,
+    fkTalhao INT,
     fkAgrotoxico INT,
-    dataCronograma DATE,
-    FOREIGN KEY (fkPlantacao) REFERENCES Plantacao(idPlantacao),
+    dataPulverizacao DATE,
+    FOREIGN KEY (fkTalhao) REFERENCES Talhao(idTalhao),
     FOREIGN KEY (fkAgrotoxico) REFERENCES Agrotoxico(idAgrotoxico)
 );
 
