@@ -21,7 +21,7 @@ public class EtlXlsx {
     public String textoVermelho = "\u001B[31mERRO:\u001B[0m";
 
     public void executarEtlComS3(String caminho) {
-        String nomeBucket = "base-dados-citrus";
+        String nomeBucket = "s3-bucket-so";
         Region region = Region.US_EAST_1;
 
         S3Client s3 = S3Client.builder()
