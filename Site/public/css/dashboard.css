@@ -10,8 +10,10 @@
 :root{
     --cor-primaria: #EEEBE4;
     --cor-secundaria: #D4721C;
+    --cor-secundaria-light: #FF7B0026;
     --cor-titulo: #282626;
     --cor-font: #636363;
+    --cor-font-light: #636363AE;
 }
 
 html {
@@ -27,11 +29,14 @@ body {
 
 /****** FAZENDAS ******/
 #fazendas aside {
-    max-width: 19.2rem;
-    padding: 2rem 0 0 2rem;
-    position: relative;
+    display: flex;
+    flex-direction: column;
+    width: 8.8rem;
     height: 100vh;
-    border-right: 1px solid var(--cor-font);
+    padding: 2rem 0 0 2rem;
+    border-right: 1px solid var(--cor-font-light);
+    position: relative;
+    transition: all .4s ease-out;
 }
 
 #fazendas aside .logo {
@@ -39,7 +44,49 @@ body {
 }
 
 #fazendas aside .logo img {
-    width: 16rem;
+    width: 4.8rem;
+}
+
+#fazendas aside .nav-caret {
+    position: absolute;
+    right: 0;
+    top: 7.6rem;
+    height: 3.2rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+}
+
+#fazendas aside .nav-caret-background,
+#fazendas aside .nav-caret-icon {
+    position: absolute;
+    width: 2.8rem;
+    height: 2.8rem;
+    z-index: 99;
+    transition: 0.2s all ease-out;
+    padding: .2rem;
+    box-sizing: content-box;
+    border-radius: 20px;
+}
+
+#fazendas aside.open .nav-caret-icon {
+    transform: rotate(180deg);
+}
+
+#fazendas aside .nav-caret-background {
+    background-color: var(--cor-primaria);
+}
+
+#fazendas aside .nav-caret-icon:hover {
+    margin-right: -1rem;
+    transform: scale(1.1);
+}
+
+#fazendas aside.open .nav-caret-icon:hover {
+    margin-right: 1rem;
+    transform: scale(1.1);
+    transform: rotate(180deg);
 }
 
 #fazendas aside nav .nav-items {
@@ -49,7 +96,53 @@ body {
     list-style: none;
 }
 
-#fazendas aside .log-out-icon {
+#fazendas aside nav .nav-items .log-out-icon {
     position: absolute;
     bottom: 2rem;
+    width: 90%;
+}
+
+#fazendas aside a {
+    display: flex;
+    align-items: center;
+    font-size: 2rem;
+    color: var(--cor-font);
+    gap: 1.4rem;
+    width: 4.8rem;
+    height: 4.8rem;
+    border-radius: 10px;
+    padding: 0 .8rem;
+    overflow: hidden;
+    transition: all .2s ease-in-out;
+}
+
+#fazendas aside a:hover {
+    background-color: #ff7b0026;
+}
+
+#fazendas aside svg {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 3.2rem;
+    height: 3.2rem;
+    fill: var(--cor-font-light);
+    position: fixed;
+}
+
+#fazendas aside a:hover svg {
+    fill: var(--cor-secundaria);
+}
+
+#fazendas aside a span {
+    margin-left: 4.8rem;
+}
+
+#fazendas aside.open {
+    width: 18rem;
+}
+
+#fazendas aside.open a {
+    justify-content: flex-start;
+    width: 90%;
 }
