@@ -1,0 +1,51 @@
+#sobre{
+    display: flex;
+    flex-direction: row;
+}
+
+#sobre .content{
+    width: 67.7rem;
+}
+
+#sobre .content-title{
+    display: flex;
+    flex-direction: column;
+    gap: 3.2rem;
+}
+
+#sobre .content-text{
+    display: flex;
+    flex-direction: column;
+    gap: 1.6rem;
+}
+
+#sobre .content-title img{
+    /* width: 100vw; */
+    display: none;
+}
+
+#sobre .content-title h3 {
+    margin-bottom: 2rem;
+}
+
+#sobre aside{
+    margin-inline: 3vw;
+}
+
+@media(max-width: 855px){
+    #sobre .content{
+        width: 100% !important;
+    }
+    #sobre .content-title img{
+        display: block;
+    }
+    #sobre aside{
+        display: none;
+    }
+    #sobre .content-text{
+        padding-inline: 6.3rem;
+        padding-top: 3.6rem;
+        padding-bottom: 3.6rem;
+        background-color: var(--cor-secundaria);
+    }
+}

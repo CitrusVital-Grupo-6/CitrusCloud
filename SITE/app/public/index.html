@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <title>CitrusCloud</title>
+  <link rel="stylesheet" href="./css/index.css">
+  <link rel="stylesheet" href="./css/servicos.css">
+  <link rel="stylesheet" href="./css/sobre.css">
+  <link rel="stylesheet" href="./css/contato.css">
+  <link rel="stylesheet" href="./css/sidebar.css">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="shortcut icon" href="./assets/icon/logo.ico" type="image/x-icon">
+</head>
+<body>
+  <header>
+    <div class="left-header">
+      <div class="logo">
+        <img src="./assets/img/logo-extended.png">
+      </div>
+  
+      <div class="header-option-wrapper">
+        <div class="header-option"><a href="#introduction">Home</a></div>
+        <div class="header-option"><a href="#servicos">Serviços</a></div>
+        <div class="header-option"><a href="#sobre">Sobre</a></div>
+        <div class="header-option"><a href="#contato">Contato</a></div>
+      </div>
+    </div>
+
+    <div class="right-header">
+        <a href="./pages/login.html"><button class="wire-button">Login</button></a>
+        <img id="burguer1" src="./assets/svg/burguer-white.svg" onclick="abrirMenu()">
+        <img id="burguer2" src="./assets/svg/burguer-black.svg" onclick="abrirMenu()">
+    </div>
+  </header>
+
+  <div class="sidebar">
+    <div class="sidebar-header">
+        <img src="./assets/img/logo.png" class="sidebar-header-logo">
+        <img src="./assets/svg/x.svg" class="sidebar-header-close" onclick="abrirMenu()">
+    </div>
+    <ul class="sidebar-buttons">
+        <li><a href="#introduction">Home</a></li>
+        <li><a href="#servicos">Serviços</a></li>
+        <li><a href="#sobre">Sobre</a></li>
+        <li><a href="#contato">Contato</a></li>
+    </ul>
+    <button class="login-button-sidebar">LOGIN <img src="./assets/svg/sign-in.svg"></button>
+</div>
+
+  <main>
+    <section id="introduction">
+      <div class="content">
+        <div class="content-title">
+          <h1>Controle o <span style="color: var(--cor-secundaria);">clima</span>,<br> colha <span style="color: var(--cor-secundaria);">eficiência</span></h1>
+        </div>
+        <div class="content-text">
+          <span>
+            Antecipe as mudanças climáticas, reduza as perdas e aumente a produtividade com dados e análises precisas sobre o clima e recomendações inteligentes para sua plantação de laranjas.
+          </span>
+        </div>
+        <div class="content-button">
+          <button class="solid-button">
+            <span>Contrate o Serviço</span>
+            <img src="./assets/svg/button-arrow-icon.svg">
+          </button>
+        </div>
+
+      </div>
+      <aside class="aside-introduction-img">
+        <img src="./assets/img/main-orange.png">
+      </aside>
+    </section>
+
+    <section id="servicos">
+      <div class="content">
+        <div class="content-title">
+          <h1>Nossos &nbsp;<span style="color: var(--cor-secundaria);">serviços</span></h1>
+        </div>
+        
+        <div class="services-card-wrapper">
+          <div class="services-card-box">
+            <div class="services-card">
+              <div class="content-title">
+                <img src="./assets/svg/card-icon.svg">
+                <h3>Monitoramente do Clima</h3>
+              </div>
+              <div class="content-text">
+                <span>Serviço especializado em acompanhar as condições climáticas em áreas de plantio de laranja. Ele fornece informações precisas sobre chuvas, umidade e temperatura, permitindo que os agricultores tomem decisões mais acertadas sobre irrigação e controle de pragas. Com dados em tempo real, o serviço ajuda a otimizar a produtividade e reduzir perdas causadas por condições climáticas adversas. 
+              </div>
+            </div>
+
+            <div class="services-card">
+              <div class="content-title">
+                <img src="./assets/svg/card-icon.svg">
+                <h3>Recomendações de Produtos</h3>
+              </div>
+              <div class="content-text">
+                <span>Com base nos dados climáticos e nas necessidades específicas da sua plantação, nosso sistema oferece recomendações precisas sobre o uso de defensivos agrícolas e fertilizantes. Essas sugestões ajudam a otimizar o rendimento, garantindo que os produtos certos sejam aplicados no momento ideal para máxima eficácia e economia.<span>
+              </div>
+            </div>
+          </div>
+
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="sobre">
+      <aside><img src="./assets/img/sobre-img.png"></aside>
+      <div class="content">
+        <div class="content-title">
+          <h1>Quem nós <span style="color: var(--cor-secundaria);">somos</span>?</h1>
+          <img src="./assets/img/sobre-img-mobile.png">
+        </div>
+        <div class="content-text">
+          <h3>Um pouco de nossas ambições</h3>
+          <span>Somos uma empresa dedicada a transformar a vida do produtor rural por meio da tecnologia. Nossa missão é oferecer soluções que otimizem o cultivo de laranjas, combinando o monitoramento climático em tempo real com análises inteligentes e relatórios personalizados.
+            <br><br>
+            Acreditamos que, com as ferramentas certas, os agricultores podem tomar decisões mais precisas, reduzir desperdícios e melhorar a produtividade. Nosso compromisso é fornecer informações confiáveis que garantam mais eficiência nas operações agrícolas, ajudando a enfrentar os desafios diários de maneira sustentável e inovadora.
+          </span>
+        </div>
+      </div>
+    </section>
+
+    <section id="contato">
+      <aside>
+        <div class="contact-info">
+          <h1>Tem algum <span style="color: var(--cor-secundaria)">dúvida</span> ou deseja contratar a <span style="color: var(--cor-secundaria)">solução?</span></h1>
+          <h3>Vamos conversar!</h3>
+        </div>
+        <div class="contact-topics-box">
+          <div class="contact-topics">
+            <h4>Email</h4>
+            <span>citrusvital@contact.com</span>
+          </div>
+          <div class="contact-topics">
+            <h4>Telefone</h4>
+            <span>+55 11 9 8159 3730</span>
+          </div>
+          <div class="contact-topics">
+            <h4>Endereço</h4>
+            <span>Rua Haddock Lobo, 193 - Cerqueira Cesar,<br> São Paulo - SP, Brasil</span>
+          </div>
+          <div class="contact-topics">
+            <h4>Atendimento</h4>
+            <span>Segunda a Sexta 09:00 - 18:00</span>
+          </div>
+        </div>
+      </aside>
+      <div class="content-title">
+        <h1>Entre em <span style="color: var(--cor-secundaria);">contato</span></h1>
+      </div>
+      <div class="contact-box">
+        <div class="contact-box-section">
+          <span>Nome</span>
+          <input type="text" placeholder="Digite seu nome">
+        </div>
+        <div class="contact-box-section">
+          <span>Email</span>
+          <input type="email" placeholder="Digite seu e-mail">
+        </div>
+        <div class="contact-box-section">
+          <span>Assunto</span>
+          <input type="text" placeholder="Digite o assunto">
+        </div>
+        <div class="contact-box-section">
+          <span>Mensagem</span>
+          <textarea type="text" placeholder="Digite sua mensagem"></textarea>
+        </div>
+        <button>ENVIAR</button>
+      </div>
+    </section>
+  </main>
+  
+  <footer>
+    <div class="footer-mobile-wrapper">
+      <div class="upper-footer">
+        <img src="./assets/img/logo-extended.png" class="footer-logo">
+        <div class="social-media-box">
+          <img src="./assets/svg/x-logo.svg" class="social-media"></img>
+          <img src="./assets/svg/linkedin-logo.svg" class="social-media"></img>
+        </div>
+      </div>
+      <div class="lower-footer">
+        <div class="contact-topics-box">
+          <div class="contact-topics">
+            <h4>Endereço</h4>
+            <span>Rua Haddock Lobo, 193 - Cerqueira Cesar,<br> São Paulo - SP, Brasil</span>
+          </div>
+          <div class="contact-topics">
+            <h4>Email</h4>
+            <span>citrusvital@contact.com</span>
+          </div>
+          <div class="contact-topics">
+            <h4>Atendimento</h4>
+            <span>Segunda a Sexta 09:00 - 18:00</span>
+          </div>
+          <div class="contact-topics">
+            <h4>Telefone</h4>
+            <span>+55 11 9 8159 3730</span>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="rights-footer">
+      <span>Todos os direitos reservados para © CitrusVital</span>
+    </div>
+  </footer>
+  
+</body>
+</html>
+
+<script>
+  function abrirMenu(){
+    var sideBar = document.getElementsByClassName("sidebar")[0];
+    sideBar.classList.toggle("onScreen");
+  }
+</script>

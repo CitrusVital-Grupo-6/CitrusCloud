@@ -1,0 +1,261 @@
+@import url('https://fonts.googleapis.com/css2?family=Manrope:wght@200..800&display=swap');
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "Manrope", sans-serif;
+    font-size: 62.5%;
+    text-decoration: none;
+}
+
+:root{
+    --cor-primaria: #EEEBE4;
+    --cor-secundaria: #D4721C;
+    --cor-titulo: #282626;
+    --cor-font: #28262680;
+}
+
+html {
+    width: 100vw;
+    height: 100vh;
+}
+
+body{
+    background-color: var(--cor-primaria);
+    margin: 0;
+    /* overflow-y: hidden; */
+}
+
+header{
+    display: flex;
+    flex-direction: row;
+    padding-inline: 4rem;
+    padding-block: 3.2rem;
+    justify-content: space-between;
+    position: sticky;
+    top: 0;
+    z-index: 1;
+    background-color: var(--cor-primaria);
+}
+
+main{
+    display: flex;
+    flex-direction: column;
+    gap: 5rem;
+}
+
+.left-header{
+    display: flex;
+    align-items: center;
+}
+
+.right-header{
+    display: flex;
+    align-items: center;
+}
+
+.right-header img{
+    display: none;
+    color: white;
+    height: 5rem;
+}
+
+.logo{
+    margin-right: 7.6rem;
+}
+.logo img{
+    height: 8.2rem;
+}
+
+.header-option-wrapper{
+    display: flex;
+    flex-direction: row;
+    gap: 4rem;
+    align-items: center;
+}
+
+.header-option a{
+    font-size: 2rem;
+    color: var(--cor-titulo);
+}
+
+.wire-button{
+    border-radius: 50vw;
+    padding-block: 1.4rem;
+    padding-inline: 3.2rem;
+    border: 0;
+    outline: 1px solid var(--cor-secundaria);
+    font-size: 2rem;
+    color: var(--cor-secundaria);
+    font-family: "Manrope", sans-serif;
+    line-height: 2rem;
+}
+
+.wire-button, #burguer1, #burguer2 {
+    cursor: pointer;
+}
+
+.solid-button{
+    border-radius: 50vw;
+    padding-block: 1.4rem;
+    padding-inline: 3.2rem;
+    border: 0;
+    font-size: 2rem;
+    color: var(--cor-primaria);
+    background-color: var(--cor-secundaria);
+    font-family: "Manrope", sans-serif;
+    line-height: 2rem;
+}
+
+#introduction{
+    display: flex;
+    gap: 8.1rem;
+    padding-inline: 8.4rem;
+}
+
+#introduction .content{
+    width: 60vw;
+    display: flex;
+    flex-direction: column;
+    gap: 3.2rem;
+}
+
+.content-title h1,span{
+    font-size: 6.4rem;
+}
+
+#introduction .content-text{
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+}
+
+.content-text h3{
+    font-size: 2.4rem;
+}
+
+.content-text span{
+    font-size: 2rem;
+    color: var(--cor-font);
+}
+
+#introduction .content-button{
+    display: flex;
+    flex-direction: row;
+    gap: 4.3rem;
+}
+
+#introduction .solid-button{
+    display: flex;
+    align-items: center;
+    flex-direction: row;
+    padding: 0.4rem;
+    gap: 1rem;
+}
+
+#introduction .solid-button span{
+    padding-left: 3.2rem;
+    font-size: 2rem;
+}
+
+footer{
+    background-color: #151F09;
+}
+
+.footer-mobile-wrapper{
+    display: flex;
+    flex-direction: column;
+    gap: 3rem;
+    padding-inline: 5%;
+    padding-block: 4%;
+    display: none;
+}
+footer .contact-topics-box{
+    color: white;
+    display: grid;
+    grid-template-columns: max-content max-content;
+
+    gap: 2rem;
+}
+.upper-footer{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.social-media-box{
+    padding-top: 2%;
+}
+
+.footer-logo{
+    height: 8rem;
+}
+
+footer .rights-footer{
+    background-color: var(--cor-primaria);
+    display: flex;
+    justify-content: center;
+    padding-block: 1.5rem;
+}
+
+.rights-footer span{
+    font-size: 1.5rem;
+}
+
+@media(max-width: 640px){
+    footer .contact-topics-box{
+        display: flex;
+        flex-direction: column;
+    }
+}
+
+@media(max-width: 920px){
+    .right-header #burguer2{
+        display: flex;
+    }
+    .wire-button, .header-option{
+        display: none;
+    }
+    #servicos .content-title{
+        text-align: center;
+    }
+}
+
+@media(max-width: 855px){
+    .right-header #burguer1{
+        display: flex;
+    }
+    .aside-introduction-img, .right-header #burguer2{
+        display: none;
+    }
+    #introduction .content, .content-title h1{
+        width: 100% !important;
+    }
+    .content-title h1{
+        text-align: center;
+    }
+    #introduction .content-text{
+        text-align: center;
+    }
+    #introduction .content-text span{
+        color: var(--cor-primaria);
+        opacity: 0.7;
+    }
+    #introduction  .content-title{
+        color: var(--cor-primaria);
+    }
+    #introduction{
+        padding-inline: 6.4rem;
+        padding-top: 7.9rem;
+        background-image: url(../assets/img/main-orange-mobile.png);
+        background-size: cover;
+        height: 60.5rem;
+    }
+    header{
+        background-color: #151F09;
+    }
+    .content-button{
+        justify-content: center;
+    }
+}
