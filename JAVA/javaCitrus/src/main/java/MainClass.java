@@ -3,7 +3,7 @@ public class MainClass {
         EtlXlsx etlAgrotoxico = new EtlXlsx();
         etlAgrotoxico.executarEtlComS3("base_defen.xlsx");
 
-        EtlXlsx etlPraga = new EtlXlsx();
-        etlPraga.executarEtlComS3("base_praga.xlsx");
+//        EtlXlsx etlPraga = new EtlXlsx();
+//        etlPraga.executarEtlComS3("base_praga.xlsx");
     }
 }

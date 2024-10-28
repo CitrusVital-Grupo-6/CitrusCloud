@@ -4,7 +4,9 @@ import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.apache.poi.ss.usermodel.*;
 
+import software.amazon.awssdk.auth.credentials.AwsBasicCredentials;
 import software.amazon.awssdk.auth.credentials.DefaultCredentialsProvider;
+import software.amazon.awssdk.auth.credentials.StaticCredentialsProvider;
 import software.amazon.awssdk.services.s3.S3Client;
 import software.amazon.awssdk.services.s3.model.GetObjectRequest;
 import software.amazon.awssdk.services.s3.model.S3Exception;
@@ -21,14 +23,13 @@ public class EtlXlsx {
     public String textoVermelho = "\u001B[31mERRO:\u001B[0m";
 
     public void executarEtlComS3(String caminho) {
+        String accessKeyId = System.getenv("AWS_ACCESS_KEY_ID");
+        String secretAccessKey = System.getenv("AWS_SECRET_ACCESS_KEY");
+        String sessionToken = System.getenv("AWS_SESSION_TOKEN");
+
+        S3Client s3 = new S3Provider(accessKeyId, secretAccessKey, sessionToken).getS3Client();
+
         String nomeBucket = "base-dados-citrus";
-        Region region = Region.US_EAST_1;
-
-        S3Client s3 = S3Client.builder()
-                .region(region)
-                .credentialsProvider(DefaultCredentialsProvider.create())
-                .build();
-
         try (InputStream s3InputStream = s3.getObject(GetObjectRequest.builder()
                 .bucket(nomeBucket)
                 .key(caminho)
@@ -39,7 +40,7 @@ public class EtlXlsx {
             for (Agrotoxico agrotoxico : agrotoxicos) {
                 jogandoNoBanco(agrotoxico);
             }
-            System.out.println(textoVerde + "Tudo certo rei");
+            System.out.println(textoVerde + "ETL Concluída com sucesso");
 
         } catch (S3Exception e) {
             System.err.println(textoVermelho + e.awsErrorDetails().errorMessage());
@@ -92,9 +93,9 @@ public class EtlXlsx {
         JdbcTemplate con = conexao.getConexaoDoBanco();
 
         System.out.println(textoAmarelo+"Inserindo dados no banco de dados...");
-        String sql = "INSERT INTO Agrotoxico(idAgrotoxico, nome, tipo, minTemperatura, maxTemperatura, minSemChuva, maxSemChuva) VALUES (?, ?, ?, ?, ?, ?, ?)";
+        String sql = "INSERT INTO Agrotoxico(nome, tipo, minTemperatura, maxTemperatura, minSemChuva, maxSemChuva) VALUES (?, ?, ?, ?, ?, ?)";
 
-        con.update(sql, agrot.getIdAgrotoxico(), agrot.getNome(), agrot.getTipo(), agrot.getMinTemperatura(), agrot.getMaxTemperatura(), agrot.getMinSemChuva(), agrot.getMaxSemChuva());
+        con.update(sql, agrot.getNome(), agrot.getTipo(), agrot.getMinTemperatura(), agrot.getMaxTemperatura(), agrot.getMinSemChuva(), agrot.getMaxSemChuva());
 
         System.out.println(textoVerde+"Dados inseridos com sucesso: "+ agrot);
     }
