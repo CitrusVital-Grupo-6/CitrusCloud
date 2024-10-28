@@ -88,9 +88,7 @@ main {
 }
 
 .create-account {
-    
     width: 300px;
- 
 }
 
 #login-content .login-box .login-form {
@@ -136,6 +134,9 @@ main {
     opacity: .7;
     transition: opacity .2s ease-in-out;
     cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 #login-content .login-box .login-form .btn-primary:hover {
