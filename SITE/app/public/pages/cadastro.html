@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../css/cadastro.css">
+    <title>Cadastro</title>
+    <link rel="shortcut icon" href="../assets/icon/logo.ico" type="image/x-icon">
+
+</head>
+<body>
+    <img src="../assets/img/logo.png" id="logo" alt="">
+    <div class="background-image"></div>
+
+    
+    <main class="login-container">
+        <div id="primeiro-cadastro" class="login-box" style="display: block;">
+            <h1 class="main-title">Faça o cadastro da sua empresa!
+            </h1>
+            <div class="scrollable-content" >
+                <form action="#" class="login-form">
+                    <div class="login-form-field">
+                        <label for="nome">Nome</label>
+                        <input type="text" id="nome" name="nome">
+                    </div>
+
+                    <div class="login-form-field">
+                        <label for="cnpj">CNPJ</label>
+                        <input type="text" id="email" name="cnpj">
+                    </div>
+
+                    <div class="login-form-field">
+                        <label for="cep">CEP</label>
+                        <input type="text" id="cep" name="cep" onblur="buscarCEP()">
+                    </div>
+
+                    <div class="login-form-field">
+                        <label for="Complemento">Complemento</label>
+                        <input type="text" id="Complemento" name="Complemento">
+                    </div>
+
+                    <div class="login-form-field">
+                        <label for="numero">Número</label>
+                        <input type="number" id="numero" name="numero">
+                    </div>
+
+                    <div class="login-form-field">
+                        <label for="Telefone">Telefone</label>
+                        <input type="number" id="Telefone" name="Telefone">
+                    </div>
+
+
+                    <!-- <div class="btn-primary" onclick="entrar()">Cadastrar</div> -->
+                  
+                    <button onclick="mudar()">
+                      <div class="svg-wrapper-1">
+                        <div class="svg-wrapper">
+                          <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            viewBox="0 0 24 24"
+                            width="24"
+                            height="24"
+                          >
+                            <path fill="none" d="M0 0h24v24H0z"></path>
+                            <path
+                              fill="currentColor"
+                              d="M1.946 9.315c-.522-.174-.527-.455.01-.634l19.087-6.362c.529-.176.832.12.684.638l-5.454 19.086c-.15.529-.455.547-.679.045L12 14l6-8-8 6-8.054-2.685z"
+                            ></path>
+                          </svg>
+                        </div>
+                      </div>
+                      <span>Próxima etapa!</span>
+                    </button>
+                    
+                </form>
+            </div>
+        </div>
+        <div id="segundo-cadastro" class="login-box" style="display: none;">
+            <h1 class="main-title">Continue seu cadastro!
+            </h1>
+            <div class="scrollable-content" >
+                <form action="#" class="login-form">
+                    <div class="login-form-field">
+                        <label for="nome">Nome</label>
+                        <input type="text" id="nome" name="nome">
+                    </div>
+
+                    <div class="login-form-field">
+                        <label for="cpf">CPF</label>
+                        <input type="text" id="email" name="cpf">
+                    </div>
+
+                    <div class="login-form-field">
+                        <label for="email">Email</label>
+                        <input type="text" id="email" name="email">
+                    </div>
+
+                    <div class="login-form-field">
+                        <label for="senha">Senha</label>
+                        <input type="password" id="senha" name="senha">
+                    </div>
+
+                    <div class="login-form-field">
+                        <label for="confirmar-senha">Confirmar senha</label>
+                        <input type="password" id="confirmar-senha" name="confirmar-senha">
+                    </div>
+
+                    <a href="#"  id="esqueci-senha" class="link">Esqueci minha senha</a>
+
+                    <!-- <div class="btn-primary" onclick="entrar()">Cadastrar</div> -->
+                  
+                    <button>
+                      <div class="svg-wrapper-1">
+                        <div class="svg-wrapper">
+                          <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            viewBox="0 0 24 24"
+                            width="24"
+                            height="24"
+                          >
+                            <path fill="none" d="M0 0h24v24H0z"></path>
+                            <path
+                              fill="currentColor"
+                              d="M1.946 9.315c-.522-.174-.527-.455.01-.634l19.087-6.362c.529-.176.832.12.684.638l-5.454 19.086c-.15.529-.455.547-.679.045L12 14l6-8-8 6-8.054-2.685z"
+                            ></path>
+                          </svg>
+                        </div>
+                      </div>
+                      <span>Próxima etapa!</span>
+                    </button>
+                    
+                </form>
+            </div>
+        </div>
+    </main>
+</body>
+
+</html>
+
+<script>
+
+    function mudar() {
+        document.getElementById('primeiro-cadastro').style.display = 'none'
+        document.getElementById('segundo-cadastro').style.display = 'block'
+    }
+</script>
