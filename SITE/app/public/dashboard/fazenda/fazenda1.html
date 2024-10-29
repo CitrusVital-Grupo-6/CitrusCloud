@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="../../css/dashboard.css">
+    <link href='https://fonts.googleapis.com/css?family=Inter' rel='stylesheet'>
     <title>Talhao</title>
 </head>
 <body id="fazendas">
@@ -31,7 +32,26 @@
         <div class="title">
             <h1 class="main-title">Fazenda Citrus</h1>
             <div class="buttons">
-                <div class="main-button">Adicionar</div>
+                <button class="main-button" onclick="modal.showModal()">Adicionar</button>
+                <dialog id="modal">
+                    <div class="container-modal">
+                        <div class="box-titulo">
+                            <span class="titulo-modal">ADICIONAR FAZENDA</span>
+                            <button class="botao-fechar-modal" onclick="modal.close()">x</button>
+                        </div>
+                        <div class="box-input">
+                        <div class="dados-fazenda">
+                            <span>NOME</span>
+                            <input class="input-dados-fazenda" type="text" name="" id="input-nome-fazenda">
+                        </div>
+                        <div class="dados-fazenda">
+                            <span>CIDADE</span>
+                            <input class="input-dados-fazenda" type="text" name="" id="input-cidade-fazenda">
+                        </div>
+                    </div>
+                        <button class="botao-adicionar-fazenda">ADICIONAR</button>
+                    </div>
+                </dialog>
                 <div class="main-button">Pulverizar</div>   
             </div>
         </div>
