@@ -15,7 +15,6 @@ function autenticar(req, res) {
                 function (resultadoAutenticar) {
                     if (resultadoAutenticar.length == 1) {
                         console.log(resultadoAutenticar);
-
                                     res.json({
                                         idUsuario: resultadoAutenticar[0].idUsuario,
                                         email: resultadoAutenticar[0].email,

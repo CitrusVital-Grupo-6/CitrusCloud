@@ -56,14 +56,17 @@ main {
 
 #login-image img {
     filter: brightness(.6);
+    height: 100vh;
+    user-select: none;
 }
 
 
 #login-image h1 {
     position: absolute;
     color: var(--cor-primaria);
-    width: 20rem;
+    width: 34rem;
     z-index: 99;
+    font-weight: 400;
 }
 
 #login-content {
@@ -73,7 +76,7 @@ main {
 #login-content .login-box {
     display: flex;
     flex-direction: column;
-    gap: 3.2rem;
+    gap: 2rem;
     background-color: var(--cor-primaria);
     padding: 3.2rem 4.8rem;
     border-radius: 2rem;
@@ -84,11 +87,15 @@ main {
     font-weight: 500;
     letter-spacing: 0.04em;
     text-transform: uppercase;
-    
+    margin-bottom: 1rem;
 }
 
 .create-account {
-    width: 300px;
+    width: 30rem;
+}
+
+.create-account label {
+    color: var(--cor-font);
 }
 
 #login-content .login-box .login-form {
@@ -96,6 +103,15 @@ main {
     flex-direction: column;
     gap: 2rem;
     align-items: center;
+}
+
+#login-content .login-box .login-form #error-span {
+    color: #9d2828;
+    background-color: #efb7b7;
+    width: 100%;
+    text-align: center;
+    padding-block: .4rem;
+    display: none;
 }
 
 #login-content .login-box .login-form .login-form-field {
@@ -109,36 +125,45 @@ main {
     height: 4.8rem;
     background-color: var(--cor-primaria);
     outline: none;
-    border: 1px solid var(--cor-titulo);
-    border-radius: 20px;
+    border: 1px solid var(--cor-font);
+    border-radius: 10px;
     padding-left: 1rem;
+    font-size: 2rem;
+    caret-color: var(--cor-secundaria);
 }
 
 #login-content .login-box .login-form .login-form-field input:focus {
-    border: 2px solid var(--cor-secundaria);
+    border: 1px solid var(--cor-titulo);
 }
 
-#login-content .login-box .login-form .link {
+.link {
     text-decoration: underline;
-    color: #D4721C;
+    color: var(--cor-secundaria);
+    opacity: 0.7;
+    transition: all .2s ease-out;
+}
+
+.link:hover {
+    opacity: 1;
 }
 
 #login-content .login-box .login-form .btn-primary {
-    height: 4.8rem;
     width: 36rem;
-    border-radius: 20px;
-    border: none;
-    background-color: var(--cor-secundaria);
     font-size: 2rem;
-    color: var(--cor-primaria);
-    opacity: .7;
-    transition: opacity .2s ease-in-out;
+    color: var(--cor-font);
+    padding: .8rem 1.2rem;
+    border: 1px solid var(--cor-font);
+    border-radius: 10px;
     cursor: pointer;
+    transition: all .2s ease-out;
+    opacity: .9;
     display: flex;
-    justify-content: center;
     align-items: center;
+    justify-content: center;
 }
 
 #login-content .login-box .login-form .btn-primary:hover {
     opacity: 1;
+    border-color: var(--cor-titulo);
+    color: var(--cor-titulo);
 }

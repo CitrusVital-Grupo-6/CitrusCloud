@@ -231,7 +231,7 @@ main.aside-open {
 
 main .cards-group {
     display: grid;
-    grid-template-columns: auto auto auto auto;
+    grid-template-columns: auto auto auto auto auto;
     gap: 2rem;
     justify-content: space-between;
 }
