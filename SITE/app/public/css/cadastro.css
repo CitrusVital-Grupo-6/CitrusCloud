@@ -65,11 +65,12 @@ html, body {
 }
 
 .main-title {
-    font-size: 3rem;
+    font-size: 42px;
     font-weight: 400;
     text-align: center;
     position: relative;
     bottom: 50px;
+
 
 }
 
@@ -81,7 +82,7 @@ html, body {
     overflow-y: auto; /* Habilita a rolagem interna */
     padding-right: 1rem; /* Para evitar que a barra de rolagem sobreponha o conteúdo */
     position: relative;
-    bottom: 50px;
+    bottom: 10px;
 }
 
 .scrollable-content::-webkit-scrollbar {
@@ -128,6 +129,9 @@ html, body {
 #esqueci-senha{
     font-weight: 5px;
     margin-left: 165px;
+    bottom: 10px;
+    position: relative;
+    font-size: 16px;
 }
 
 /* .btn-primary {
@@ -163,7 +167,9 @@ button {
     overflow: hidden;
     transition: all 0.2s;
     cursor: pointer;
-    margin-left: 140px;
+    margin-left: 130px;
+    width: 220px;
+    justify-content: center;
   }
   
   button span {
