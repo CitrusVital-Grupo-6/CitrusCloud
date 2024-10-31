@@ -120,6 +120,12 @@ html, body {
     outline: none;
 }
 
+.alert{
+    display: none;
+    font-family: 'Poppins';
+    color: #2A4C09;
+}
+
 .link {
     color: var(--cor-secundaria);
     text-align: right;

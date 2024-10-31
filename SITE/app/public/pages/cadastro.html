@@ -21,12 +21,12 @@
                 <form action="#" class="login-form">
                     <div class="login-form-field">
                         <label for="nome">Nome</label>
-                        <input type="text" id="nome" name="nome">
+                        <input type="text" id="nome_empresa" name="nome">
                     </div>
 
                     <div class="login-form-field">
                         <label for="cnpj">CNPJ</label>
-                        <input type="text" id="email" name="cnpj">
+                        <input type="text" id="email_empresa" name="cnpj">
                     </div>
 
                     <div class="login-form-field">
@@ -36,7 +36,7 @@
 
                     <div class="login-form-field">
                         <label for="Complemento">Complemento</label>
-                        <input type="text" id="Complemento" name="Complemento">
+                        <input type="text" id="complemento" name="Complemento">
                     </div>
 
                     <div class="login-form-field">
@@ -46,7 +46,7 @@
 
                     <div class="login-form-field">
                         <label for="Telefone">Telefone</label>
-                        <input type="number" id="Telefone" name="Telefone">
+                        <input type="number" id="telefone" name="Telefone">
                     </div>
 
 
@@ -87,7 +87,7 @@
 
                     <div class="login-form-field">
                         <label for="cpf">CPF</label>
-                        <input type="text" id="email" name="cpf">
+                        <input type="text" id="cpf" name="cpf">
                     </div>
 
                     <div class="login-form-field">
@@ -98,18 +98,20 @@
                     <div class="login-form-field">
                         <label for="senha">Senha</label>
                         <input type="password" id="senha" name="senha">
+                        <small id="alert_senha"></small>
                     </div>
 
                     <div class="login-form-field">
                         <label for="confirmar-senha">Confirmar senha</label>
-                        <input type="password" id="confirmar-senha" name="confirmar-senha">
+                        <small id="alert_confirm"></small>
+                        <input type="password" id="confirmar-senha" onkeyup="showConfirm()" name="confirmar-senha">
                     </div>
 
                     <a href="#"  id="esqueci-senha" class="link">Esqueci minha senha</a>
 
                     <!-- <div class="btn-primary" onclick="entrar()">Cadastrar</div> -->
                   
-                    <button>
+                    <button onclick="confirmarCadastro()">
                       <div class="svg-wrapper-1">
                         <div class="svg-wrapper">
                           <svg
@@ -143,4 +145,94 @@
         document.getElementById('primeiro-cadastro').style.display = 'none'
         document.getElementById('segundo-cadastro').style.display = 'block'
     }
+    function showConfirm(){
+      const senha = document.getElementById("senha").value;
+    const confirm = document.getElementById("confirmar-senha").value;
+    const alert_confirm = document.getElementById("alert_confirm");
+
+    if(senha != confirm){
+        alert_confirm.style.display = 'block'
+        alert_confirm.innerHTML = 'As senhas são diferentes!'
+    }else{
+        alert_confirm.style.display = 'none'
+    }
+}
+
+    function confirmarCadastro(){
+      const nome = document.getElementById("nome").value;
+    const cpf = document.getElementById("cpf").value;
+    const email = document.getElementById("email").value;
+    const senhaVar = document.getElementById("senha").value;
+    const confirmarSenha = document.getElementById("confirmar-senha").value;
+    const nomeEmpresa = document.getElementById("nome_empresa").value;
+    const emailEmpresa = document.getElementById("email_empresa").value;
+    const cep = document.getElementById("cep").value;
+    const complemento = document.getElementById("complemento").value;
+    const numero = document.getElementById("numero").value;
+    const telefone = document.getElementById("telefone").value;
+
+    const alert_senha = document.getElementById("alert_senha");
+
+      let temMaiscula = false;
+    let temMinuscula = false;
+    let temNum = false;
+    let temEspecial = false;
+    let senhaValida = false;
+
+    //CRIANDO ARRAY PARA VALORES ESPECIAIS
+    let especiais = ['!', '@', '#', '$', '%', '^', '&', '*', '(', ')', '_', '+', '-', '=', '[', ']', '{', '}', '|', ';', ':', ',', '.', '<', '>', '?'];
+
+    //LIMPANDO CAMPO DE ALERT DA SENHA
+    alert_senha.innerHTML = '';
+
+    //FOR PARA VALIDAÇÃO
+    for (let posicaoChar = 0; posicaoChar < senhaVar.length; posicaoChar++) {
+        let letra = senhaVar[posicaoChar];
+
+        if (letra >= 'A' && letra <= 'Z') {
+            temMaiscula = true;
+        }
+
+        if (letra >= 'a' && letra <= 'z') {
+            temMinuscula = true;
+        }
+
+        if (letra >= '0' && letra <= '9') {
+            temNum = true;
+        }
+
+        if (especiais.indexOf(letra) !== -1) {
+            temEspecial = true;
+        }
+    }
+
+    if (!temMaiscula) {
+        alert_senha.style.display = 'block';
+        alert_senha.innerHTML = 'A senha deve conter pelo menos uma letra maiúscula';
+    }
+
+    if (!temMinuscula) {
+        alert_senha.style.display = 'block';
+        alert_senha.innerHTML = 'A senha deve conter pelo menos uma letra minúscula';
+    }
+
+    if (!temNum) {
+        alert_senha.style.display = 'block';
+        alert_senha.innerHTML = 'A senha deve conter pelo menos um número';
+    }
+
+    if (!temEspecial) {
+        alert_senha.style.display = 'block';
+        alert_senha.innerHTML = 'A senha deve conter pelo menos 1 caractere especial';
+    }
+
+    if (temMaiscula && temMinuscula && temNum && temEspecial && (senhaVar == confirmarSenha)) {
+        alert_senha.innerHTML = '';
+        senhaValida = true
+    }
+
+    if (senhaValida) {}
+
+    }
+
 </script>
