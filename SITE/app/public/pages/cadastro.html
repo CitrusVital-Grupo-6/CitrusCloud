@@ -18,7 +18,7 @@
             <h1 class="main-title">Cadastre sua empresa
             </h1>
             <div class="scrollable-content" >
-                <form action="#" class="login-form">
+                <form action="#" class="login-form" onsubmit="desbugarForm(event)">
                     <div class="login-form-field">
                         <label for="nome">Nome</label>
                         <input type="text" id="nome_empresa" name="nome">
@@ -52,7 +52,7 @@
 
                     <!-- <div class="btn-primary" onclick="entrar()">Cadastrar</div> -->
                   
-                    <button onclick="mudar()">
+                    <button onclick="mudar(event)">
                       <div class="svg-wrapper-1">
                         <div class="svg-wrapper">
                           <svg
@@ -140,6 +140,10 @@
 </html>
 
 <script>
+
+    function desbugarForm(event) {
+        event.preventDefault()
+    }
 
     function mudar() {
         document.getElementById('primeiro-cadastro').style.display = 'none'
