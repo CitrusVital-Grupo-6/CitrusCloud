@@ -27,7 +27,7 @@ build_docker() {
     local container_name=$2
 
     echo "Entrando na pasta $directory..."
-    cd "../$directory" || { echo "Pasta $directory não encontrada!"; exit 1; }
+    cd "./$directory" || { echo "Pasta $directory não encontrada!"; exit 1; }
 
     echo "Construindo Dockerfile na pasta $directory..."
     sudo docker build -t "${directory,,}-image" .
