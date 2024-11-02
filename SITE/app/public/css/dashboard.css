@@ -251,7 +251,7 @@ main.aside-open {
 
 main .cards-group {
     display: grid;
-    grid-template-columns: auto auto auto auto;
+    grid-template-columns: auto auto auto auto auto;
     gap: 2rem;
     justify-content: space-between;
 }
@@ -298,3 +298,313 @@ main .cards-group .card:hover {
     transform: scale(1.05);
     border-color: var(--cor-titulo);
 }
+
+#modal_fazenda{
+
+    width: 570px;
+    height: 393px;
+    background-color: rgb(217, 217, 217);
+    border-radius: 10px;
+    border: none;
+    font-family: 'Inter';
+   box-shadow: 1px 10px 1 10px rgb(180, 176, 176);
+   position: absolute; /* Mudei para absolute para centralizar */
+   top: 50%; /* Para centralizar verticalmente */
+   left: 50%; /* Para centralizar horizontalmente */
+   transform: translate(-50%, -50%); /* Ajusta a posição para o centro */
+  
+}
+
+#modal_fazenda::backdrop{
+    
+    background-color: #0000009f;
+
+}
+
+.container-modal-fazenda {
+
+    width: 90%;
+    height: 300px;
+    margin-top: 20px;
+    margin-left: 47px;
+    display: flex;
+    flex-direction: column;
+    margin-top: 7%;
+}
+
+.box-titulo {
+
+    display: flex;
+    gap: 143px;
+
+}
+
+.box-input {
+
+    margin-top: 5%;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+
+}
+
+.titulo-modal{
+
+    font-size: 30px;
+    font-weight: bold;
+}
+
+
+.botao-fechar-modal {
+
+    border: none;
+    background-color: rgb(217, 217, 217);
+    font-size: 30px;
+    cursor: pointer;
+}
+
+.dados-fazenda {
+
+    display: flex;
+    flex-direction: column;
+    width: 48%;
+    font-size: 20px ;
+
+}
+
+.input-dados-fazenda {
+
+    width: 47rem;
+    height: 4.8rem;
+    background-color: var(--cor-primaria);
+    outline: none;
+    border: 1px solid var(--cor-font);
+    border-radius: 10px;
+    padding-left: 1rem;
+    font-size: 2rem;
+    caret-color: var(--cor-secundaria);
+
+}
+
+
+.botao-adicionar-fazenda {
+
+    width: 118px;
+    height: 45px;
+    margin-top: 6%;
+    font-size: 2rem;
+    background-color: orange;
+    border: none;
+    color: white;
+    font-weight: bold;
+    padding: .8rem 1.2rem;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: all .2s ease-out;
+    opacity: .8; margin-left: 69%;
+    
+
+}
+
+.botao-adicionar-fazenda:hover {
+    background-color: rgb(182, 122, 11) ;
+    border: 2px solid #fff;
+}
+
+#modal_pulverizacao {
+
+    width: 637px;
+    height: 420px;
+    background-color: rgb(217, 217, 217);
+    border-radius: 10px;
+    border: none;
+    font-family: 'Inter';
+   box-shadow: 1px 10px 1 10px rgb(180, 176, 176);
+   position: absolute; /* Mudei para absolute para centralizar */
+   top: 50%; /* Para centralizar verticalmente */
+   left: 50%; /* Para centralizar horizontalmente */
+   transform: translate(-50%, -50%); /* Ajusta a posição para o centro */
+}
+
+
+#modal_pulverizacao::backdrop{
+    
+    background-color: #0000009f;
+
+}
+
+.container-modal-pulverizacao {
+
+    width: 86%;
+    height: 360px;
+    margin-top: 20px;
+    margin-left: 45px;
+    display: flex;
+    flex-direction: column;
+    margin-top: 7%;
+}
+
+.box-titulo-pulverizacao {
+
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 6%;
+}
+
+.botao-fechar-modal-pulverizacao {
+
+    border: none;
+    background-color: rgb(217, 217, 217);
+    font-size: 24px;
+    cursor: pointer;
+}
+
+.titulo-modal-pulverizacao {
+
+    font-weight: bold;
+    font-size: 24px;
+}
+
+.container-pragas {
+
+    display: flex;
+    flex-direction: column;
+  
+}
+
+.pragas{
+
+    
+    display: flex;
+    flex-direction: column;
+    width: 48%;    
+
+}
+
+.box-adicionar-praga {
+
+    margin-top: 15px;
+    background-color: rgba(174, 174, 174, 1);
+    height: 30px;
+    border-radius: 6px;
+
+}
+
+.adicionar-praga{
+
+    display: flex;
+    justify-content: center;
+    font-weight:bold;
+    margin-top: 3px;
+    font-size: 20px;
+    align-items: center;
+    width: 101%;    
+    cursor: pointer;
+}
+
+.adicionar-margintop {
+
+    margin-top: 20px;
+}
+
+
+.data-desejada {
+
+    margin-top: 30px;
+    display: flex;
+    flex-direction: column;
+    font-size: 15px;
+}
+
+#escolher-praga{
+    width: 27rem;
+    height: 3.8rem;
+    background-color: var(--cor-primaria);
+    outline: none;
+    border: 1px solid var(--cor-font);
+    border-radius: 10px;
+    padding-left: 1rem;
+    font-size: 1.5rem;
+    caret-color: var(--cor-secundaria);
+}
+
+.data-inicio {
+
+    width: 100%;
+    height: 30px;
+    border-radius: 5px;
+    height: 3.2rem; 
+    border: 1px solid var(--cor-font);
+    background-color: var(--cor-primaria);
+    caret-color: var(--cor-secundaria);
+}
+
+#pragas {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.box-pragas {
+    display: flex;
+    font-size: 15px;
+}
+
+.hectares {
+
+    display: flex;
+    flex-direction: column;
+    width: 48%;
+    margin-left: 20px;
+}
+
+#input_hectares_afetado {
+    
+    width: 27rem;
+    height: 3.8rem;
+    background-color: var(--cor-primaria);
+    outline: none;
+    border: 1px solid var(--cor-font);
+    border-radius: 10px;
+    padding-left: 1rem;
+    font-size: 1.5rem;
+    caret-color: var(--cor-secundaria);
+
+
+}
+
+.botao-recomendacoes {
+
+    width: 160px;
+    height: 40px;
+    border: none;
+    margin-top: 10%;
+    border-radius: 10px;
+    background-color: orange;
+    color: white;
+    font-weight: bold;
+    font-size: 16px;
+    margin-left: 70%;
+    font-family: 'Inter'; 
+    transition: all .4s ease-in-out;
+    cursor: pointer;
+}
+
+.botao-recomendacoes:hover {
+    
+    background-color: rgb(222, 153, 25) ;
+    border: 2px solid #fff;
+}
+
+select{
+
+    font-family: 'Inter';
+    font-size: 12px;    
+    color:rgb(101, 99, 99);
+    padding-left: 6px;  
+}
+
+
+
+
+

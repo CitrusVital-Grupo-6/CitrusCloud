@@ -12,17 +12,20 @@
     <main>
         <section id="login-image" style="overflow: hidden;">
             <img src="../assets/img/login-image.png">
-            <h1>Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum</h1>
+            <h1>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam et est hendrerit, congue lorem ac, auctor lorem.</h1>
         </section>
         <section id="login-content">
             <div class="login-box">
-                <h1 class="main-title">Bem vindo(a)!</h1>
-                <div class="create-account">
-                    <label for="criar-conta">Não tem uma conta ? </label>
-                    <a href="#" class="link orange-link">Criar conta</a>
-                    <label for="criar-conta">Leva apenas alguns minutos.</label>
+                <div class="title">
+                    <h1 class="main-title">Bem vindo(a)!</h1>
+                    <div class="create-account">
+                        <label for="criar-conta">Não tem uma conta? </label>
+                        <a href="./cadastro.html" class="link">Criar conta</a>
+                        <label for="criar-conta">Leva apenas alguns minutos.</label>
+                    </div>
                 </div>
                 <form action="#" class="login-form">
+                    <span id="error-span"></span>
                     <div class="login-form-field">
                         <label for="email">Email</label>
                         <input type="email" name="email" id="login_email">
@@ -34,7 +37,7 @@
                     </div>
 
                     <a href="#" class="link">Esqueci minha senha</a>
-                    <div class="btn-primary" onclick="entrar()">Entrar</div>
+                    <div class="btn-primary" onclick="validacao()">Entrar</div>
 
                 </form>
             </div>
@@ -45,16 +48,10 @@
 </html>
 
 <script>
-    function entrar() {
-        let emailVar = login_email.value;
-        let senhaVar = login_password.value;
-
-        console.log(emailVar, senhaVar);
-
-        // if (emailVar == "" || senhaVar == "") {
-        //     alert("Por favor, insira seus dados.");
-        //     return false;
-        // }
+    function entrar(emailVar, senhaVar) {
+        let email_input = document.getElementById('login_email');
+        let password_input = document.getElementById('login_password');
+        let error_span = document.getElementById('error-span');
 
         console.log("FORM LOGIN: ", emailVar);
         console.log("FORM SENHA: ", senhaVar);
@@ -87,9 +84,11 @@
                     }, 1000); // apenas para exibir o loading
 
                 });
-
             } else {
-
+                email_input.style.borderColor = "#9D2828";
+                password_input.style.borderColor = "#9D2828";
+                error_span.innerHTML = "Usuário não encontrado";
+                error_span.style.display = "block";
                 console.log("Houve um erro ao tentar realizar o login!");
             }
 
@@ -98,5 +97,36 @@
         })
 
         return false;
+    }
+
+    function validacao() {
+        let email_input = document.getElementById('login_email');
+        let password_input = document.getElementById('login_password');
+        let error_span = document.getElementById('error-span');
+
+        resetValidacao();
+
+        if (email_input.value.trim().length == 0 || password_input.value.trim().length == 0) {
+            error_span.innerHTML = "Preencha todos os campos";
+            email_input.style.borderColor = "#9D2828";
+            password_input.style.borderColor = "#9D2828";
+            error_span.style.display = "block";
+        } else if (email_input.value.indexOf("@") < 0) {
+            error_span.innerHTML = "Email inválido";
+            email_input.style.borderColor = "#9D2828";
+            error_span.style.display = "block";
+        } else {
+            entrar(email_input.value, password_input.value);
+        }
+    }
+
+    function resetValidacao() {
+        let email_input = document.getElementById('login_email');
+        let password_input = document.getElementById('login_password');
+        let error_span = document.getElementById('error-span');
+
+        email_input.style.borderColor = "#28262680";
+        password_input.style.borderColor = "#28262680";
+        error_span.style.display = "none";
     }
 </script>
