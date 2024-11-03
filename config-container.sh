@@ -47,6 +47,8 @@ build_docker "SITE" "site-container"
 
 echo "Entrando na pasta JAVA..."
 cd "./JAVA"
+echo "Construindo Dockerfile na pasta JAVA..."
+sudo docker build -t java-image .
 echo "Rodando container JAVA na rede 'minha-rede-interna'..."
 sudo docker run -it --name java-container --network minha-rede-interna --env-file .env java-image /bin/bash
 
