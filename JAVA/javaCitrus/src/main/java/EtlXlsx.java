@@ -21,6 +21,8 @@ public class EtlXlsx {
     public String textoAmarelo = "\u001B[33mPROCESSANDO:\u001B[0m";
     public String textoVerde = "\u001B[32mSUCESSO:\u001B[0m";
     public String textoVermelho = "\u001B[31mERRO:\u001B[0m";
+    private Boolean primeiraConex = true;
+
 
     public void executarEtlComS3(String caminho) {
         String accessKeyId = System.getenv("AWS_ACCESS_KEY_ID");
@@ -38,7 +40,7 @@ public class EtlXlsx {
             List<Agrotoxico> agrotoxicos = extrairAgrotoxicos(caminho, s3InputStream);
 
             for (Agrotoxico agrotoxico : agrotoxicos) {
-                jogandoNoBanco(agrotoxico);
+                jogandoNoBanco(agrotoxico, primeiraConex);
             }
             System.out.println(textoVerde + "ETL Concluída com sucesso");
 
@@ -69,6 +71,7 @@ public class EtlXlsx {
                 }
 
                 Agrotoxico agrot = new Agrotoxico();
+                agrot.setIdAgrotoxico((int) linha.getCell(0).getNumericCellValue());
                 agrot.setNome(linha.getCell(1).getStringCellValue());
                 agrot.setTipo(linha.getCell(2).getStringCellValue());
                 agrot.setMinTemperatura((int) linha.getCell(3).getNumericCellValue());
@@ -88,12 +91,31 @@ public class EtlXlsx {
         }
     }
 
-    private void jogandoNoBanco(Agrotoxico agrot) {
+    private void jogandoNoBanco(Agrotoxico agrot, Boolean primeiraConex) {
         Conexao conexao = new Conexao();
         JdbcTemplate con = conexao.getConexaoDoBanco();
 
+        if (primeiraConex) {
+            System.out.println(textoAmarelo + "Desabilitando restrição de chave estrangeira...");
+            String disableForeignKeys = "SET FOREIGN_KEY_CHECKS = 0;";
+            con.execute(disableForeignKeys);
+            System.out.println(textoVerde + "Restrições de chave estrangeira desabilitadas");
+
+            System.out.println(textoAmarelo + "Limpando os dados da tabela Agrotoxico...");
+            String truncateSql = "TRUNCATE TABLE Agrotoxico;";
+            con.execute(truncateSql);
+            System.out.println(textoVerde + "Limpeza feita na tabela Agrotoxico");
+
+            System.out.println(textoAmarelo + "Habilitando restrição de chave estrangeira...");
+            String enableForeignKeys = "SET FOREIGN_KEY_CHECKS = 1;";
+            con.execute(enableForeignKeys);
+            System.out.println(textoVerde + "Restrições de chave estrangeira habilitadas");
+
+            primeiraConex = false;
+        }
+
         System.out.println(textoAmarelo+"Inserindo dados no banco de dados...");
-        String sql = "INSERT INTO Agrotoxico(nome, tipo, minTemperatura, maxTemperatura, minSemChuva, maxSemChuva) VALUES (?, ?, ?, ?, ?, ?)";
+        String sql = "INSERT INTO Agrotoxico(idAgrotoxico, nome, tipo, minTemperatura, maxTemperatura, minSemChuva, maxSemChuva) VALUES (?, ?, ?, ?, ?, ?, ?)";
 
         con.update(sql, agrot.getNome(), agrot.getTipo(), agrot.getMinTemperatura(), agrot.getMaxTemperatura(), agrot.getMinSemChuva(), agrot.getMaxSemChuva());
 

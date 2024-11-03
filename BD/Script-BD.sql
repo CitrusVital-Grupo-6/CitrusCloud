@@ -85,7 +85,6 @@ CREATE TABLE Pulverizacao (
     FOREIGN KEY (fkAgrotoxico) REFERENCES Agrotoxico(idAgrotoxico)
 );
 
-
 -- Tabela Pragas
 CREATE TABLE Pragas (
     idPragas INT PRIMARY KEY,
@@ -94,14 +93,3 @@ CREATE TABLE Pragas (
     controle VARCHAR(45),
     condicoesFavoraveis VARCHAR(45)
 );
-
-
-
-
-
-
-
-
-
-
-
