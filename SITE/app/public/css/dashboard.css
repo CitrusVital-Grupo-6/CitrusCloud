@@ -302,7 +302,7 @@ main .cards-group .card:hover {
 #modal_fazenda{
 
     width: 570px;
-    height: 450px;
+    height: 395px;
     background-color: rgb(217, 217, 217);
     border-radius: 10px;
     border: none;
@@ -324,7 +324,7 @@ main .cards-group .card:hover {
 .container-modal-fazenda {
 
     width: 90%;
-    height: 400px;
+    height: 300px;
     margin-top: 20px;
     margin-left: 47px;
     display: flex;
@@ -417,67 +417,6 @@ main .cards-group .card:hover {
     cursor: pointer;
 }
 
-.hide {
-
-    display: none !important;
-}
-
-#wheater-data {
-
-    border-top: 1px solid black;
-    margin-top: 1.5rem;
-    padding-top: 1.5rem;
-    text-align: center;
-    display: flex;
-    justify-content: center;
-    flex-direction: column;
-    margin-left: 20%;
-
-}
-
-#weather-data h2 {
-
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin-bottom: 0.6rem;
-}
-
-#weather-data h2 i{
-
-    font-size: 1rem;
-}
-
-#weather-data span {
-
-    margin: 0.6rem;
-}
-
-#country {
-
-    height: 15px;
-}
-
-#details-container {
-
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
-#details-container #humidity {
-
-    border-right: 1px solid black;
-    margin: 0.6rem;
-    padding: 0.6rem;
-}
-
-.container-wheater {
-
-    display: flex;
-    
-}
-
 
 .botao-adicionar-fazenda {
 
@@ -494,6 +433,7 @@ main .cards-group .card:hover {
     cursor: pointer;
     transition: all .2s ease-out;
     opacity: .8; 
+    margin-left: 69%;
     
 
 }
