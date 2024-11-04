@@ -18,12 +18,6 @@ body {
     background-color: #e2e1dc;
 }
 
-.right-content{
-    display: flex;
-    flex-direction: column;
-    gap: 20px;
-}
-
 .main-agendar{
     display: flex;
     flex-direction: column;
@@ -36,13 +30,6 @@ body {
 }
 
 /* ------------------------------------------------------ */
-
-.left-content{
-    display: flex;
-    flex-direction: column;
-    gap: 20px;
-    width: 100%;
-}
 
 .kpi-container{
     display: flex;
@@ -302,68 +289,4 @@ body {
     border: none;
     border-left: 1px solid var(--primary-clr);
     border-radius: 0;
-}
-
-/* -------------------------------------------------------- */
-
-.graph-box{
-    h1{
-        text-transform: uppercase;
-        font-weight: 300;
-        font-size: 2.3rem;
-    }
-}
-
-.graph-box div {
-    height: 300px;
-    border: 1px solid black;
-    background-color: white;
-    border-radius: 0;
-    width: 650px;
-    padding-inline: 10px;
-}
-
-.defen-item-wrapper h1{
-    text-transform: uppercase;
-    font-weight: 300;
-    font-size: 2.3rem;
-}
-
-.defen-item-container{
-    background-color: white;
-    border: 1px solid black;
-    border-radius: 0;
-}
-
-.defen-item{
-    display: flex;
-    flex-direction: row;
-    padding: 5px 15px;
-    border-bottom: 1px solid rgba(0, 0, 0, 0.2);
-
-    input{
-        margin-left: auto;
-        width: 20px;
-    }
-}
-
-label:hover{
-    cursor: pointer;
-    background-color: rgba(128, 128, 128, 0.2);  
-}
-
-.defen-icon{
-    font-size: 3rem;
-    margin-right: 15px;
-    padding-right: 10px;
-    border-right: 1px solid black;
-}
-
-.defen-info{
-    h3{
-        font-size: 2rem;
-    }
-    div span{
-        font-size: 1rem;
-    }
 }
