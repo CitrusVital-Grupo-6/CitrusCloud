@@ -1,26 +1,74 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link rel="stylesheet" href="../../css/dashboard.css">
     
     <title>Fazendas</title>
 </head>
+
 <body id="fazendas">
     <aside id="aside-menu">
     </aside>
 
-    <main id="main-content"> 
+    <main id="main-content">
         <div class="title">
             <h1 class="main-title">Fazendas</h1>
             <div class="buttons">
-                <div class="main-button">Adicionar</div>
+                <button class="main-button" onclick="modal_fazenda.showModal()">Adicionar</button>
+                <dialog id="modal_fazenda">
+                    <div class="container-modal-fazenda">
+                        <div class="box-titulo">
+                            <span class="titulo-modal">ADICIONAR FAZENDA</span>
+                            <button class="botao-fechar-modal" onclick="modal_fazenda.close()"><img width="24"
+                                    height="24" src="https://img.icons8.com/material-outlined/24/delete-sign.png"
+                                    alt="delete-sign" /></button>
+                        </div>
+                        <div class="box-input">
+                            <div class="dados-fazenda">
+                                <span>NOME</span>
+                                <input class="input-dados-fazenda" type="text" name="" id="input-nome-fazenda">
+                            </div>
+                            <div class="dados-fazenda">
+                                <span>CIDADE</span>
+                                <div class="form-input-dados-fazenda">
+                                    <input class="input-cidade-fazenda" type="text" name="" id="city-input">
+                                    <button id="search">
+                                        <i class="fa-solid fa-magnifying-glass"></i>
+                                    </button>
+                                </div>
+                            </div>
+                            <div class="container-wheater">
+                                <button class="botao-adicionar-fazenda">Adicionar</button>
+                                <div id="wheater-data" class="hide">
+                                    <h2>
+                                        <i class="fa-solid fa-location-dot"></i>
+                                        <span id="city"></span>
+                                        <img id="country" src="">
+                                    </h2>
+                                    <p id="temperature"><span></span>&deg;C</p>
+                                    <div id="details-container">
+                                        <p id="humidity">
+                                            <i class="fa-solid fa-droplet"></i>
+                                            <span></span>
+                                        </p>
+                                        <p id="wind">
+                                            <i class="fa-solid fa-wind"></i>
+                                            <span></span>
+                                        </p>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </dialog>
             </div>
         </div>
-        
+
         <div class="cards-group">
             <a href="./fazenda-selec.html">
                 <div class="card">
@@ -28,7 +76,9 @@
                     <div class="card-content">
                         <h3 class="card-subtitle">Limoeiros, São Paulo</h3>
                         <h2 class="card-title">Fazenda Citrus</h2>
-                        <h3 class="card-desc">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse bibendum neque consectetur libero malesuada tempor. Fusce dignissim non est accumsan ultrices.</h3>
+                        <h3 class="card-desc">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse
+                            bibendum neque consectetur libero malesuada tempor. Fusce dignissim non est accumsan
+                            ultrices.</h3>
                     </div>
                 </div>
             </a>
@@ -39,7 +89,9 @@
                     <div class="card-content">
                         <h3 class="card-subtitle">Limoeiros, São Paulo</h3>
                         <h2 class="card-title">Fazenda Citrus</h2>
-                        <h3 class="card-desc">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse bibendum neque consectetur libero malesuada tempor. Fusce dignissim non est accumsan ultrices.</h3>
+                        <h3 class="card-desc">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse
+                            bibendum neque consectetur libero malesuada tempor. Fusce dignissim non est accumsan
+                            ultrices.</h3>
                     </div>
                 </div>
             </a>
@@ -50,7 +102,9 @@
                     <div class="card-content">
                         <h3 class="card-subtitle">Limoeiros, São Paulo</h3>
                         <h2 class="card-title">Fazenda Citrus</h2>
-                        <h3 class="card-desc">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse bibendum neque consectetur libero malesuada tempor. Fusce dignissim non est accumsan ultrices.</h3>
+                        <h3 class="card-desc">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse
+                            bibendum neque consectetur libero malesuada tempor. Fusce dignissim non est accumsan
+                            ultrices.</h3>
                     </div>
                 </div>
             </a>
@@ -61,7 +115,9 @@
                     <div class="card-content">
                         <h3 class="card-subtitle">Limoeiros, São Paulo</h3>
                         <h2 class="card-title">Fazenda Citrus</h2>
-                        <h3 class="card-desc">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse bibendum neque consectetur libero malesuada tempor. Fusce dignissim non est accumsan ultrices.</h3>
+                        <h3 class="card-desc">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse
+                            bibendum neque consectetur libero malesuada tempor. Fusce dignissim non est accumsan
+                            ultrices.</h3>
                     </div>
                 </div>
             </a>
@@ -72,7 +128,9 @@
                     <div class="card-content">
                         <h3 class="card-subtitle">Limoeiros, São Paulo</h3>
                         <h2 class="card-title">Fazenda Citrus</h2>
-                        <h3 class="card-desc">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse bibendum neque consectetur libero malesuada tempor. Fusce dignissim non est accumsan ultrices.</h3>
+                        <h3 class="card-desc">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse
+                            bibendum neque consectetur libero malesuada tempor. Fusce dignissim non est accumsan
+                            ultrices.</h3>
                     </div>
                 </div>
             </a>
@@ -83,7 +141,9 @@
                     <div class="card-content">
                         <h3 class="card-subtitle">Limoeiros, São Paulo</h3>
                         <h2 class="card-title">Fazenda Citrus</h2>
-                        <h3 class="card-desc">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse bibendum neque consectetur libero malesuada tempor. Fusce dignissim non est accumsan ultrices.</h3>
+                        <h3 class="card-desc">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse
+                            bibendum neque consectetur libero malesuada tempor. Fusce dignissim non est accumsan
+                            ultrices.</h3>
                     </div>
                 </div>
             </a>
@@ -94,7 +154,9 @@
                     <div class="card-content">
                         <h3 class="card-subtitle">Limoeiros, São Paulo</h3>
                         <h2 class="card-title">Fazenda Citrus</h2>
-                        <h3 class="card-desc">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse bibendum neque consectetur libero malesuada tempor. Fusce dignissim non est accumsan ultrices.</h3>
+                        <h3 class="card-desc">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse
+                            bibendum neque consectetur libero malesuada tempor. Fusce dignissim non est accumsan
+                            ultrices.</h3>
                     </div>
                 </div>
             </a>
@@ -103,5 +165,7 @@
     </main>
 
     <script src="../../middlewares/aside-menu.js"></script>
+    <script src="../../middlewares/open-wheater.js" defer></script>
 </body>
+
 </html>
