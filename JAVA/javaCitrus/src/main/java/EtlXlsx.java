@@ -21,7 +21,8 @@ public class EtlXlsx {
     public String textoAmarelo = "\u001B[33mPROCESSANDO:\u001B[0m";
     public String textoVerde = "\u001B[32mSUCESSO:\u001B[0m";
     public String textoVermelho = "\u001B[31mERRO:\u001B[0m";
-    private Boolean primeiraConex = true;
+    private Boolean primeiraConexDefen = true;
+    private Boolean primeiraConexPraga = true;
 
 
     public void executarEtlComS3(String nomeArquivoDefen, String nomeArquivoPraga) {
@@ -45,13 +46,13 @@ public class EtlXlsx {
                 List<Agrotoxico> agrotoxicos = extrairAgrotoxicos(nomeArquivoDefen, arquivoDefen);
 
                 for (Agrotoxico agrotoxico : agrotoxicos) {
-                    inserirAgrotoxico(agrotoxico, primeiraConex);
+                    inserirAgrotoxico(agrotoxico);
                 }
             } else {
                 List<Praga> pragas = extrairPragas(nomeArquivoPraga, arquivoPraga);
 
                 for (Praga praga : pragas) {
-                    inserirPraga(praga, primeiraConex);
+                    inserirPraga(praga);
                 }
             }
 
@@ -139,11 +140,11 @@ public class EtlXlsx {
         }
     }
 
-    private void inserirAgrotoxico(Agrotoxico agrot, Boolean primeiraConex) {
+    private void inserirAgrotoxico(Agrotoxico agrot) {
         Conexao conexao = new Conexao();
         JdbcTemplate con = conexao.getConexaoDoBanco();
 
-        if (primeiraConex) {
+        if (primeiraConexDefen) {
             System.out.println(textoAmarelo + "Desabilitando restrição de chave estrangeira...");
             String disableForeignKeys = "SET FOREIGN_KEY_CHECKS = 0;";
             con.execute(disableForeignKeys);
@@ -159,7 +160,7 @@ public class EtlXlsx {
             con.execute(enableForeignKeys);
             System.out.println(textoVerde + "Restrições de chave estrangeira habilitadas");
 
-            primeiraConex = false;
+            primeiraConexDefen = false;
         }
 
         System.out.println(textoAmarelo+"Inserindo dados no banco de dados...");
@@ -170,18 +171,18 @@ public class EtlXlsx {
         System.out.println(textoVerde+"Dados inseridos com sucesso: "+ agrot);
     }
 
-    private void inserirPraga(Praga praga, Boolean primeiraConex) {
+    private void inserirPraga(Praga praga) {
         Conexao conexao = new Conexao();
         JdbcTemplate con = conexao.getConexaoDoBanco();
 
-        if (primeiraConex) {
+        if (primeiraConexPraga) {
             System.out.println(textoAmarelo + "Desabilitando restrição de chave estrangeira...");
             String disableForeignKeys = "SET FOREIGN_KEY_CHECKS = 0;";
             con.execute(disableForeignKeys);
             System.out.println(textoVerde + "Restrições de chave estrangeira desabilitadas");
 
             System.out.println(textoAmarelo + "Limpando os dados da tabela Agrotoxico...");
-            String truncateSql = "TRUNCATE TABLE Agrotoxico;";
+            String truncateSql = "TRUNCATE TABLE Praga;";
             con.execute(truncateSql);
             System.out.println(textoVerde + "Limpeza feita na tabela Agrotoxico");
 
@@ -190,7 +191,7 @@ public class EtlXlsx {
             con.execute(enableForeignKeys);
             System.out.println(textoVerde + "Restrições de chave estrangeira habilitadas");
 
-            primeiraConex = false;
+            primeiraConexPraga = false;
         }
 
         System.out.println(textoAmarelo+"Inserindo dados no banco de dados...");
