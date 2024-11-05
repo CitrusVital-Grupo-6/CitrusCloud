@@ -24,7 +24,7 @@ public class EtlXlsx {
     private Boolean primeiraConex = true;
 
 
-    public void executarEtlComS3(String caminho) {
+    public void executarEtlComS3(String nomeArquivo) {
         String accessKeyId = System.getenv("AWS_ACCESS_KEY_ID");
         String secretAccessKey = System.getenv("AWS_SECRET_ACCESS_KEY");
         String sessionToken = System.getenv("AWS_SESSION_TOKEN");
@@ -32,15 +32,20 @@ public class EtlXlsx {
         S3Client s3 = new S3Provider(accessKeyId, secretAccessKey, sessionToken).getS3Client();
 
         String nomeBucket = "base-dados-citrus";
-        try (InputStream s3InputStream = s3.getObject(GetObjectRequest.builder()
+        try (InputStream arquivo = s3.getObject(GetObjectRequest.builder()
                 .bucket(nomeBucket)
-                .key(caminho)
+                .key(nomeArquivo)
                 .build())) {
 
-            List<Agrotoxico> agrotoxicos = extrairAgrotoxicos(caminho, s3InputStream);
+            List<Agrotoxico> agrotoxicos = extrairAgrotoxicos(nomeArquivo, arquivo);
+            List<Praga> pragas = extrairPragas(nomeArquivo, arquivo);
 
             for (Agrotoxico agrotoxico : agrotoxicos) {
-                jogandoNoBanco(agrotoxico, primeiraConex);
+                inserirAgrotoxico(agrotoxico, primeiraConex);
+            }
+
+            for (Praga praga : pragas){
+                inserirPraga(praga, primeiraConex);
             }
             System.out.println(textoVerde + "ETL Concluída com sucesso");
 
@@ -48,6 +53,41 @@ public class EtlXlsx {
             System.err.println(textoVermelho + e.awsErrorDetails().errorMessage());
         } catch (Exception e) {
             e.printStackTrace();
+        }
+    }
+
+    public List<Praga> extrairPragas(String nomeArquivo, InputStream arquivo){
+        try {
+            System.out.println(textoAmarelo+"Iniciando leitura do arquivo: "+nomeArquivo);
+            Workbook arquivoExcel;
+            if (nomeArquivo.endsWith(".xlsx")) {
+                arquivoExcel = new XSSFWorkbook(arquivo);
+            } else {
+                arquivoExcel = new HSSFWorkbook(arquivo);
+            }
+
+            Sheet base = arquivoExcel.getSheetAt(0);
+            List<Praga> objetosExtraidos = new ArrayList<>();
+
+            System.out.println(textoAmarelo + "Iniciando transformação das linhas em objetos");
+            for (Row linha : base) {
+                if (linha.getRowNum() == 0) {
+                    continue;
+                }
+
+                Praga praga = new Praga();
+                praga.setIdPragas((int) linha.getCell(0).getNumericCellValue());
+                praga.setNome(linha.getCell(1).getStringCellValue());
+
+                objetosExtraidos.add(praga);
+            }
+
+            arquivoExcel.close();
+            System.out.println(textoVerde + "Linhas transformadas em objetos");
+            System.out.println(textoVerde + "Arquivo lido com sucesso");
+            return objetosExtraidos;
+        } catch (IOException e) {
+            throw new RuntimeException(e);
         }
     }
 
@@ -91,7 +131,7 @@ public class EtlXlsx {
         }
     }
 
-    private void jogandoNoBanco(Agrotoxico agrot, Boolean primeiraConex) {
+    private void inserirAgrotoxico(Agrotoxico agrot, Boolean primeiraConex) {
         Conexao conexao = new Conexao();
         JdbcTemplate con = conexao.getConexaoDoBanco();
 
@@ -117,8 +157,39 @@ public class EtlXlsx {
         System.out.println(textoAmarelo+"Inserindo dados no banco de dados...");
         String sql = "INSERT INTO Agrotoxico(idAgrotoxico, nome, tipo, minTemperatura, maxTemperatura, minSemChuva, maxSemChuva) VALUES (?, ?, ?, ?, ?, ?, ?)";
 
-        con.update(sql, agrot.getNome(), agrot.getTipo(), agrot.getMinTemperatura(), agrot.getMaxTemperatura(), agrot.getMinSemChuva(), agrot.getMaxSemChuva());
+        con.update(sql, agrot.getIdAgrotoxico(),agrot.getNome(), agrot.getTipo(), agrot.getMinTemperatura(), agrot.getMaxTemperatura(), agrot.getMinSemChuva(), agrot.getMaxSemChuva());
 
         System.out.println(textoVerde+"Dados inseridos com sucesso: "+ agrot);
+    }
+
+    private void inserirPraga(Praga praga, Boolean primeiraConex) {
+        Conexao conexao = new Conexao();
+        JdbcTemplate con = conexao.getConexaoDoBanco();
+
+        if (primeiraConex) {
+            System.out.println(textoAmarelo + "Desabilitando restrição de chave estrangeira...");
+            String disableForeignKeys = "SET FOREIGN_KEY_CHECKS = 0;";
+            con.execute(disableForeignKeys);
+            System.out.println(textoVerde + "Restrições de chave estrangeira desabilitadas");
+
+            System.out.println(textoAmarelo + "Limpando os dados da tabela Agrotoxico...");
+            String truncateSql = "TRUNCATE TABLE Agrotoxico;";
+            con.execute(truncateSql);
+            System.out.println(textoVerde + "Limpeza feita na tabela Agrotoxico");
+
+            System.out.println(textoAmarelo + "Habilitando restrição de chave estrangeira...");
+            String enableForeignKeys = "SET FOREIGN_KEY_CHECKS = 1;";
+            con.execute(enableForeignKeys);
+            System.out.println(textoVerde + "Restrições de chave estrangeira habilitadas");
+
+            primeiraConex = false;
+        }
+
+        System.out.println(textoAmarelo+"Inserindo dados no banco de dados...");
+        String sql = "INSERT INTO Praga(idPraga, nome) VALUES (?, ?)";
+
+        con.update(sql, praga.getIdPraga(), praga.getNomePraga());
+
+        System.out.println(textoVerde+"Dados inseridos com sucesso: "+ praga);
     }
 }

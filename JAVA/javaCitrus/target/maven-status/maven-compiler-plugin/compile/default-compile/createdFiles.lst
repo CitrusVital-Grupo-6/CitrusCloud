@@ -1,7 +1,6 @@
-Config.class
 EtlXlsx.class
 MainClass.class
 Conexao.class
-Praga.class
 Agrotoxico.class
 S3Provider.class
+Praga.class

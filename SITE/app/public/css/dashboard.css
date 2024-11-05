@@ -46,6 +46,7 @@ aside {
     position: fixed;
     transition: all .4s ease-out; 
     z-index: 100;
+    background-color: var(--cor-primaria);
 }
 
 
