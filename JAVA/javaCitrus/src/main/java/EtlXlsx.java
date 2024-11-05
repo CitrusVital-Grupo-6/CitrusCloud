@@ -35,12 +35,24 @@ public class EtlXlsx {
         try (InputStream arquivoDefen = s3.getObject(GetObjectRequest.builder()
                 .bucket(nomeBucket)
                 .key(nomeArquivoDefen)
-                .build())) {
+                .build());
+             InputStream arquivoPraga = s3.getObject(GetObjectRequest.builder()
+                     .bucket(nomeBucket)
+                     .key(nomeArquivoPraga)
+                     .build())) {
 
-            List<Agrotoxico> agrotoxicos = extrairAgrotoxicos(nomeArquivoDefen, arquivoDefen);
+            if (nomeArquivoDefen.equals("base_defen.xlsx")) {
+                List<Agrotoxico> agrotoxicos = extrairAgrotoxicos(nomeArquivoDefen, arquivoDefen);
 
-            for (Agrotoxico agrotoxico : agrotoxicos) {
-                inserirAgrotoxico(agrotoxico, primeiraConex);
+                for (Agrotoxico agrotoxico : agrotoxicos) {
+                    inserirAgrotoxico(agrotoxico, primeiraConex);
+                }
+            } else {
+                List<Praga> pragas = extrairPragas(nomeArquivoPraga, arquivoPraga);
+
+                for (Praga praga : pragas) {
+                    inserirPraga(praga, primeiraConex);
+                }
             }
 
             System.out.println(textoVerde + "ETL Concluída com sucesso");
@@ -49,22 +61,6 @@ public class EtlXlsx {
             System.err.println(textoVermelho + e.awsErrorDetails().errorMessage());
         } catch (Exception e) {
             e.printStackTrace();
-        }
-
-        try (InputStream arquivoPraga = s3.getObject(GetObjectRequest.builder()
-                .bucket(nomeBucket)
-                .key(nomeArquivoPraga)
-                .build())) {
-
-            List<Praga> pragas = extrairPragas(nomeArquivoPraga, arquivoPraga);
-
-            for (Praga praga : pragas){
-                inserirPraga(praga, primeiraConex);
-            }
-            System.out.println(textoVerde + "ETL Concluída com sucesso");
-
-        } catch (IOException e) {
-            throw new RuntimeException(e);
         }
     }
 
