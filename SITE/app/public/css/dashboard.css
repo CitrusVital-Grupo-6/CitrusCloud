@@ -380,7 +380,7 @@ main .cards-group .card:hover {
 
 .box-titulo {
     display: flex;
-    gap: 143px;
+    gap: 145px;
 }
 
 .box-input {
@@ -391,7 +391,8 @@ main .cards-group .card:hover {
 }
 
 .titulo-modal{
-    font-size: 30px;
+
+    font-size: 30px !important;
     font-weight: bold;
 }
 
@@ -405,7 +406,6 @@ main .cards-group .card:hover {
 .dados-fazenda {
     display: flex;
     flex-direction: column;
-    width: 48%;
     font-size: 20px;
 }
 
@@ -456,16 +456,16 @@ main .cards-group .card:hover {
 
 
 .botao-adicionar-fazenda {
-    width: 118px;
+    width: 120px;
     height: 45px;
     margin-top: 2%;
-    font-size: 2rem;
-    background-color: orange;
+    font-size: 1.8rem;
+    background-color: var(--cor-secundaria);
     border: none;
     color: white;
     font-weight: bold;
     padding: .8rem 1.2rem;
-    border-radius: 10px;
+    border-radius: 8px;
     cursor: pointer;
     transition: all .2s ease-out;
     opacity: .8; 
@@ -475,8 +475,8 @@ main .cards-group .card:hover {
 }
 
 .botao-adicionar-fazenda:hover {
-    background-color: rgb(182, 122, 11) ;
-    border: 2px solid #fff;
+    background-color:rgb(230, 152, 7) ;
+    border: 1px solid #fff;
 }
 
 #modal_pulverizacao {
@@ -504,7 +504,7 @@ main .cards-group .card:hover {
     margin-left: 45px;
     display: flex;
     flex-direction: column;
-    margin-top: 7%;
+    margin-top: 5%;
 }
 
 .box-titulo-pulverizacao {
@@ -522,7 +522,7 @@ main .cards-group .card:hover {
 
 .titulo-modal-pulverizacao {
     font-weight: bold;
-    font-size: 24px;
+    font-size: 24px !important; 
 }
 
 .container-pragas {
@@ -644,6 +644,111 @@ select{
     color:rgb(101, 99, 99);
     padding-left: 6px;  
 }
+
+#modal_talhao {
+
+    width: 637px;
+    height: 490px;
+    background-color: rgb(217, 217, 217);
+    border-radius: 10px;
+    border: none;
+    font-family: 'Inter';
+    box-shadow: 1px 10px 1 5px rgb(180, 176, 176);
+    position: absolute; /* Mudei para absolute para centralizar */
+    top: 50%; /* Para centralizar verticalmente */
+    left: 50%; /* Para centralizar horizontalmente */
+    transform: translate(-50%, -50%); /* Ajusta a posição para o centro */
+}
+
+
+#modal_talhao::backdrop{
+    background-color: #0000009f;
+}
+
+.container-modal-talhao {
+
+    width: 80%;
+    height: 400px;
+    margin-left: 65px;
+    display: flex;
+    flex-direction: column;
+    margin-top: 6.5%;
+}
+
+.box-titulo-talhao {
+
+    display: flex;
+    gap:170px ;
+
+}
+
+.titulo-modal-talhao{
+
+    font-size: 32px !important;
+    font-weight: bold;
+}
+
+
+.botao-fechar-modal-talhao {
+
+    border: none;
+    background-color: rgb(217, 217, 217);
+    font-size: 32px;
+    cursor: pointer;
+}
+
+.box-talhao {
+
+    margin-top: 6%;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+
+.input-hectar {
+
+    width: 500px;
+    height:4.0rem;
+    background-color: var(--cor-primaria);
+    outline: none;
+    border: 1px solid var(--cor-font);
+    border-radius: 10px;
+    padding-left: 1rem;
+    font-size: 1.5rem;
+    caret-color: var(--cor-secundaria);
+}
+
+
+.botao-adicionar-fazenda {
+
+    width: 120px;
+    height: 45px;
+    border: none;
+    margin-top: 8%;
+    border-radius: 10px;
+    background-color: orange;
+    color: white;
+    font-weight: bold;
+    font-size: 16px;
+    margin-left: 74.5%;
+    font-family: 'Inter'; 
+    transition: all .4s ease-in-out;
+    cursor: pointer;
+}
+
+.botao-adicionar-fazenda:hover {
+    
+    background-color: rgb(222, 153, 25) ;
+    border: 2px solid #fff;
+}
+
+.box-childrem-talhao {
+
+    display: flex;
+    flex-direction: column;
+}
+
 
 /* ---------------------------------------------------------- */
 
