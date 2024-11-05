@@ -37,7 +37,7 @@
                     </div>
 
                     <a href="#" class="link">Esqueci minha senha</a>
-                    <div class="btn-primary" onclick="validacao()">Entrar</div>
+                    <div class="btn-primary" onclick="redimensionar()">Entrar</div>
 
                 </form>
             </div>
@@ -48,6 +48,10 @@
 </html>
 
 <script>
+    function redimensionar() {
+        window.location = '../dashboard/agron/homeAgron.html'
+    }
+
     function entrar(emailVar, senhaVar) {
         let email_input = document.getElementById('login_email');
         let password_input = document.getElementById('login_password');
@@ -77,11 +81,10 @@
                     sessionStorage.EMAIL_USUARIO = json.email;
                     sessionStorage.NOME_USUARIO = json.nomeCompleto;
                     sessionStorage.ID_USUARIO = json.idUsuario;
-                    // sessionStorage.ID_EMPRESA = json.idEmpresa;
 
                     setTimeout(function () {
-                        window.location = "../dashboard/agron/fazendas.html";
-                    }, 1000); // apenas para exibir o loading
+                        window.location = "../dashboard/fazendas.html";
+                    }, 1000);
 
                 });
             } else {
