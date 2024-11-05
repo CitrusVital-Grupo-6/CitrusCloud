@@ -7,9 +7,11 @@
     <link rel="stylesheet" href="../../css/dashboard.css">
 
     <link href='https://fonts.googleapis.com/css?family=Inter' rel='stylesheet'>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-    
-    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
+        integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+
     <title>CitrusVital | Talhões</title>
 </head>
 
@@ -27,26 +29,26 @@
                         <div class="box-titulo-talhao">
                             <span class="titulo-modal-talhao">ADICIONAR TALHÃO</span>
                             <button class="botao-fechar-modal-talhao" onclick="modal_talhao.close()"><img width="24"
-                                height="24" src="https://img.icons8.com/material-outlined/24/delete-sign.png"
-                                alt="delete-sign" /></button>
+                                    height="24" src="https://img.icons8.com/material-outlined/24/delete-sign.png"
+                                    alt="delete-sign" /></button>
                         </div>
                         <div class="box-talhao">
-                        <div class="box-childrem-talhao">
-                            <span>NOME</span>
-                            <input class="input-hectar" type="text" name="" id="input_nome_hactar">
+                            <div class="box-childrem-talhao">
+                                <span>NOME</span>
+                                <input class="input-hectar" type="text" name="" id="input_nome_hactar">
+                            </div>
+                            <div class="box-childrem-talhao">
+                                <span>HECTARES</span>
+                                <input class="input-hectar" type="text" name="" id="input_qtd_hactar">
+                            </div>
+                            <div class="box-childrem-talhao">
+                                <span>TIPO DE LARANJA</span>
+                                <select class="input-hectar" id="tipo_laranja">
+                                    <option value=""></option>
+                                </select>
+                            </div>
                         </div>
-                        <div class="box-childrem-talhao">
-                            <span>HECTARES</span>
-                            <input class="input-hectar" type="text" name="" id="input_qtd_hactar">
-                        </div>
-                        <div class="box-childrem-talhao">
-                            <span>TIPO DE LARANJA</span>
-                            <select class="input-hectar" id="tipo_laranja">
-                                <option value=""></option>
-                            </select>
-                        </div>
-                    </div>
-                        <button class="botao-adicionar-fazenda">ADICIONAR</button>
+                        <button onclick="adicionarTalhao()" class="botao-adicionar-talhao">ADICIONAR</button>
                     </div>
                 </dialog>
                 <button class="main-button" onclick="modal_pulverizacao.showModal()">Pulverizar</button>
@@ -56,10 +58,10 @@
                             <span class="titulo-modal-pulverizacao">
                                 AGENDAR PULVERIZAÇÃO
                             </span>
-                            <button class="botao-fechar-modal-pulverizacao"
-                                onclick="modal_pulverizacao.close()"><img width="24"
-                                height="24" src="https://img.icons8.com/material-outlined/24/delete-sign.png"
-                                alt="delete-sign" /></button>
+                            <button class="botao-fechar-modal-pulverizacao" onclick="modal_pulverizacao.close()"><img
+                                    width="24" height="24"
+                                    src="https://img.icons8.com/material-outlined/24/delete-sign.png"
+                                    alt="delete-sign" /></button>
                         </div>
                         <div id="pragas" class="container-pragas">
                             <div class="box-pragas">
@@ -83,7 +85,7 @@
                             DATA DESEJADA
                             <input class="data-inicio" type="date">
                         </div>
-                        <button class="botao-recomendacoes">Recomendações</button>
+                        <button onclick="recomendacoes()" class="botao-recomendacoes">Recomendações</button>
                     </div>
                 </dialog>
 
@@ -126,6 +128,20 @@
         </div>`
 
         }
+
+
+        function adicionarTalhao() {
+
+            modal_talhao.close()
+
+        }
+
+        function recomendacoes() {
+
+            modal_pulverizacao.close()
+
+        }
+
     </script>
 </body>
 

@@ -157,6 +157,7 @@
 
         var nomeFazenda = input_nome_fazenda.value;
         var cidade = city_input.value;
+        modal_fazenda.close();
 
         fetch("/fazendas/cadastrarFazenda", {
                 method: "POST",
