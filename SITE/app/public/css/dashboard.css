@@ -46,11 +46,13 @@ aside {
     position: fixed;
     transition: all .4s ease-out; 
     z-index: 100;
+    background-color: var(--cor-primaria);
 }
 
 
 aside .logo {
     margin-bottom: 3.2rem;
+    cursor: pointer;
 }
 
 aside .logo img {

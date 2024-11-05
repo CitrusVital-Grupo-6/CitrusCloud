@@ -19,40 +19,43 @@
             </h1>
             <div class="scrollable-content" >
                 <form action="#" class="login-form" onsubmit="desbugarForm(event)">
-                    <div class="login-form-field">
-                        <label for="nome">Nome</label>
-                        <input type="text" id="nome_empresa" name="nome">
+                    <div class="login-form-fields">
+                        <div class="login-form-column">
+                            <div class="login-form-field">
+                                <label for="nome">Nome</label>
+                                <input type="text" id="nome_empresa" name="nome">
+                            </div>
+    
+                            <div class="login-form-field">
+                                <label for="cnpj">CNPJ</label>
+                                <input type="text" id="cnpj_empresa" name="cnpj">
+                            </div>
+
+                            <div class="login-form-field">
+                                <label for="Telefone">Telefone</label>
+                                <input type="number" id="telefone_empresa" name="Telefone">
+                            </div>
+                        </div>
+    
+                        <div class="login-form-column">
+                            <div class="login-form-field">
+                                <label for="cep">CEP</label>
+                                <input type="text" id="cep_empresa" name="cep">
+                            </div>
+                            
+                            <div class="login-form-field">
+                                <label for="numero">Número</label>
+                                <input type="number" id="numero_empresa" name="numero">
+                            </div>
+                           
+                            <div class="login-form-field">
+                                <label for="Complemento">Complemento</label>
+                                <input type="text" id="complemento_empresa" name="Complemento">
+                            </div>
+                        </div>
                     </div>
-
-                    <div class="login-form-field">
-                        <label for="cnpj">CNPJ</label>
-                        <input type="text" id="email_empresa" name="cnpj">
-                    </div>
-
-                    <div class="login-form-field">
-                        <label for="cep">CEP</label>
-                        <input type="text" id="cep" name="cep" onblur="buscarCEP()">
-                    </div>
-
-                    <div class="login-form-field">
-                        <label for="Complemento">Complemento</label>
-                        <input type="text" id="complemento" name="Complemento">
-                    </div>
-
-                    <div class="login-form-field">
-                        <label for="numero">Número</label>
-                        <input type="number" id="numero" name="numero">
-                    </div>
-
-                    <div class="login-form-field">
-                        <label for="Telefone">Telefone</label>
-                        <input type="number" id="telefone" name="Telefone">
-                    </div>
-
-
-                    <!-- <div class="btn-primary" onclick="entrar()">Cadastrar</div> -->
                   
-                    <button onclick="mudar(event)">
+                    <div class="button" onclick="mudar()">
                       <div class="svg-wrapper-1">
                         <div class="svg-wrapper">
                           <svg
@@ -70,7 +73,7 @@
                         </div>
                       </div>
                       <span>Próxima etapa</span>
-                    </button>
+                    </div>
                     
                 </form>
             </div>
@@ -80,38 +83,48 @@
             </h1>
             <div class="scrollable-content" >
                 <form action="#" class="login-form">
-                    <div class="login-form-field">
-                        <label for="nome">Nome</label>
-                        <input type="text" id="nome" name="nome">
-                    </div>
-
-                    <div class="login-form-field">
-                        <label for="cpf">CPF</label>
-                        <input type="text" id="cpf" name="cpf">
-                    </div>
-
-                    <div class="login-form-field">
-                        <label for="email">Email</label>
-                        <input type="text" id="email" name="email">
-                    </div>
-
-                    <div class="login-form-field">
-                        <label for="senha">Senha</label>
-                        <input type="password" id="senha" name="senha">
-                        <small id="alert_senha"></small>
-                    </div>
-
-                    <div class="login-form-field">
-                        <label for="confirmar-senha">Confirmar senha</label>
-                        <small id="alert_confirm"></small>
-                        <input type="password" id="confirmar-senha" onkeyup="showConfirm()" name="confirmar-senha">
+                    <div class="login-form-fields">
+                        <div class="login-form-column">
+                            <div class="login-form-field">
+                                <label for="nome">Nome</label>
+                                <input type="text" id="nome_func" name="nome">
+                            </div>
+        
+                            <div class="login-form-field">
+                                <label for="funcao">Função</label>
+                                <input type="text" id="funcao_func" name="funcao">
+                            </div>
+        
+                            <div class="login-form-field">
+                                <label for="cpf">CPF</label>
+                                <input type="text" id="cpf_func" name="cpf">
+                            </div>
+                        </div>
+    
+                        <div class="login-form-column">
+                            <div class="login-form-field">
+                                <label for="email">Email</label>
+                                <input type="text" id="email_func" name="email">
+                            </div>
+        
+                            <div class="login-form-field">
+                                <label for="senha">Senha</label>
+                                <input type="password" id="senha_func" name="senha">
+                            </div>
+        
+                            <div class="login-form-field">
+                                <label for="confirmar-senha">Confirmar senha</label>
+                                <input type="password" id="confirmar-senha" name="confirmar-senha">
+                            </div>
+                        </div>
                     </div>
 
                     <a href="#"  id="esqueci-senha" class="link">Esqueci minha senha</a>
+                    <a class="link" onclick="mudar()">Voltar</a>
 
                     <!-- <div class="btn-primary" onclick="entrar()">Cadastrar</div> -->
                   
-                    <button onclick="confirmarCadastro()">
+                    <div class="button" onclick="redimensionar()">
                       <div class="svg-wrapper-1">
                         <div class="svg-wrapper">
                           <svg
@@ -129,7 +142,7 @@
                         </div>
                       </div>
                       <span>Cadastrar</span>
-                    </button>
+                    </div>
                     
                 </form>
             </div>
@@ -140,103 +153,161 @@
 </html>
 
 <script>
+    function cadastrar() {
+        let nomeEmpresaVar = document.getElementById('nome_empresa').value;
+        let cnpjEmpresaVar = document.getElementById('cnpj_empresa').value;
+        let telefoneEmpresaVar = document.getElementById('telefone_empresa').value;
+        let cepEmpresaVar = document.getElementById('cep_empresa').value;
+        let numEmpresaVar = document.getElementById('numero_empresa').value;
+        let complementoEmpresaVar = document.getElementById('complemento_empresa').value;
+
+        let nomeFuncVar = document.getElementById('nome_func').value;
+        let funcaoFuncVar = document.getElementById('funcao_func').value;
+        let cpfFuncVar = document.getElementById('cpf_func').value;
+        let senhaFuncVar = document.getElementById('senha_func').value;
+
+        fetch("/usuarios/cadastrar", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+                nomeEmpresaServer: nomeEmpresaVar,
+                cnpjEmpresaServer: cnpjEmpresaVar,
+                telefoneEmpresaServer: telefoneEmpresaVar,
+                cepEmpresaServer: cepEmpresaVar,
+                numEmpresaServer: numEmpresaVar,
+                complementoEmpresaServer: complementoEmpresaVar,
+                nomeFuncServer: nomeFuncVar,
+                funcaoFuncServer: funcaoFuncVar,
+                cpfFuncServer: cpfFuncVar,
+                senhaFuncServer: senhaFuncVar
+            }),
+        })
+        .then(function (resposta) {
+            console.log("resposta: ", resposta);
+
+            if (resposta.ok) {
+                console.log("Cadastro realizado com sucesso! Redirecionando para tela de Login...");
+
+                setTimeout(() => {
+                    window.location = "./cadastro.html";
+                }, "2000");
+            } else {
+                throw "Houve um erro ao tentar realizar o cadastro!";
+            }
+        })
+        .catch(function (resposta) {
+            console.log(`#ERRO: ${resposta}`);
+        });
+    }
 
     function desbugarForm(event) {
         event.preventDefault()
     }
 
     function mudar() {
-        document.getElementById('primeiro-cadastro').style.display = 'none'
-        document.getElementById('segundo-cadastro').style.display = 'block'
-    }
-    function showConfirm(){
-      const senha = document.getElementById("senha").value;
-    const confirm = document.getElementById("confirmar-senha").value;
-    const alert_confirm = document.getElementById("alert_confirm");
-
-    if(senha != confirm){
-        alert_confirm.style.display = 'block'
-        alert_confirm.innerHTML = 'As senhas são diferentes!'
-    }else{
-        alert_confirm.style.display = 'none'
+    if (document.getElementById('primeiro-cadastro').style.display === 'block') {
+        document.getElementById('primeiro-cadastro').style.display = 'none';
+        document.getElementById('segundo-cadastro').style.display = 'block';
+    } else {
+        document.getElementById('primeiro-cadastro').style.display = 'block';
+        document.getElementById('segundo-cadastro').style.display = 'none';
     }
 }
 
-    function confirmarCadastro(){
-      const nome = document.getElementById("nome").value;
-    const cpf = document.getElementById("cpf").value;
-    const email = document.getElementById("email").value;
-    const senhaVar = document.getElementById("senha").value;
-    const confirmarSenha = document.getElementById("confirmar-senha").value;
-    const nomeEmpresa = document.getElementById("nome_empresa").value;
-    const emailEmpresa = document.getElementById("email_empresa").value;
-    const cep = document.getElementById("cep").value;
-    const complemento = document.getElementById("complemento").value;
-    const numero = document.getElementById("numero").value;
-    const telefone = document.getElementById("telefone").value;
+function redimensionar() {
+    window.location = './login.html'
+}
 
-    const alert_senha = document.getElementById("alert_senha");
+//     function showConfirm(){
+//       const senha = document.getElementById("senha").value;
+//     const confirm = document.getElementById("confirmar-senha").value;
+//     const alert_confirm = document.getElementById("alert_confirm");
 
-      let temMaiscula = false;
-    let temMinuscula = false;
-    let temNum = false;
-    let temEspecial = false;
-    let senhaValida = false;
+//     if(senha != confirm){
+//         alert_confirm.style.display = 'block'
+//         alert_confirm.innerHTML = 'As senhas são diferentes!'
+//     } else{
+//         alert_confirm.style.display = 'none'
+//     }
+// }
 
-    //CRIANDO ARRAY PARA VALORES ESPECIAIS
-    let especiais = ['!', '@', '#', '$', '%', '^', '&', '*', '(', ')', '_', '+', '-', '=', '[', ']', '{', '}', '|', ';', ':', ',', '.', '<', '>', '?'];
+    // function confirmarCadastro(){
+    //     const nome = document.getElementById("nome").value;
+    //     const cpf = document.getElementById("cpf").value;
+    //     const email = document.getElementById("email").value;
+    //     const senhaVar = document.getElementById("senha").value;
+    //     const confirmarSenha = document.getElementById("confirmar-senha").value;
+    //     const nomeEmpresa = document.getElementById("nome_empresa").value;
+    //     const emailEmpresa = document.getElementById("email_empresa").value;
+    //     const cep = document.getElementById("cep").value;
+    //     const complemento = document.getElementById("complemento").value;
+    //     const numero = document.getElementById("numero").value;
+    //     const telefone = document.getElementById("telefone").value;
 
-    //LIMPANDO CAMPO DE ALERT DA SENHA
-    alert_senha.innerHTML = '';
+    //     const alert_senha = document.getElementById("alert_senha");
 
-    //FOR PARA VALIDAÇÃO
-    for (let posicaoChar = 0; posicaoChar < senhaVar.length; posicaoChar++) {
-        let letra = senhaVar[posicaoChar];
+    //     let temMaiscula = false;
+    //     let temMinuscula = false;
+    //     let temNum = false;
+    //     let temEspecial = false;
+    //     let senhaValida = false;
 
-        if (letra >= 'A' && letra <= 'Z') {
-            temMaiscula = true;
-        }
+    //     //CRIANDO ARRAY PARA VALORES ESPECIAIS
+    //     let especiais = ['!', '@', '#', '$', '%', '^', '&', '*', '(', ')', '_', '+', '-', '=', '[', ']', '{', '}', '|', ';', ':', ',', '.', '<', '>', '?'];
 
-        if (letra >= 'a' && letra <= 'z') {
-            temMinuscula = true;
-        }
+    //     //LIMPANDO CAMPO DE ALERT DA SENHA
+    //     alert_senha.innerHTML = '';
 
-        if (letra >= '0' && letra <= '9') {
-            temNum = true;
-        }
+    //     //FOR PARA VALIDAÇÃO
+    //     for (let posicaoChar = 0; posicaoChar < senhaVar.length; posicaoChar++) {
+    //         let letra = senhaVar[posicaoChar];
 
-        if (especiais.indexOf(letra) !== -1) {
-            temEspecial = true;
-        }
-    }
+    //         if (letra >= 'A' && letra <= 'Z') {
+    //             temMaiscula = true;
+    //         }
 
-    if (!temMaiscula) {
-        alert_senha.style.display = 'block';
-        alert_senha.innerHTML = 'A senha deve conter pelo menos uma letra maiúscula';
-    }
+    //         if (letra >= 'a' && letra <= 'z') {
+    //             temMinuscula = true;
+    //         }
 
-    if (!temMinuscula) {
-        alert_senha.style.display = 'block';
-        alert_senha.innerHTML = 'A senha deve conter pelo menos uma letra minúscula';
-    }
+    //         if (letra >= '0' && letra <= '9') {
+    //             temNum = true;
+    //         }
 
-    if (!temNum) {
-        alert_senha.style.display = 'block';
-        alert_senha.innerHTML = 'A senha deve conter pelo menos um número';
-    }
+    //         if (especiais.indexOf(letra) !== -1) {
+    //             temEspecial = true;
+    //         }
+    //     }
 
-    if (!temEspecial) {
-        alert_senha.style.display = 'block';
-        alert_senha.innerHTML = 'A senha deve conter pelo menos 1 caractere especial';
-    }
+    //     if (!temMaiscula) {
+    //         alert_senha.style.display = 'block';
+    //         alert_senha.innerHTML = 'A senha deve conter pelo menos uma letra maiúscula';
+    //     }
 
-    if (temMaiscula && temMinuscula && temNum && temEspecial && (senhaVar == confirmarSenha)) {
-        alert_senha.innerHTML = '';
-        senhaValida = true
-    }
+    //     if (!temMinuscula) {
+    //         alert_senha.style.display = 'block';
+    //         alert_senha.innerHTML = 'A senha deve conter pelo menos uma letra minúscula';
+    //     }
 
-    if (senhaValida) {}
+    //     if (!temNum) {
+    //         alert_senha.style.display = 'block';
+    //         alert_senha.innerHTML = 'A senha deve conter pelo menos um número';
+    //     }
 
-    }
+    //     if (!temEspecial) {
+    //         alert_senha.style.display = 'block';
+    //         alert_senha.innerHTML = 'A senha deve conter pelo menos 1 caractere especial';
+    //     }
+
+    //     if (temMaiscula && temMinuscula && temNum && temEspecial && (senhaVar == confirmarSenha)) {
+    //         alert_senha.innerHTML = '';
+    //         senhaValida = true
+    //     }
+
+    //     if (senhaValida) {}
+
+    // }
 
 </script>

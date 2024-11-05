@@ -1,6 +1,19 @@
+var path = window.location.pathname;
+var folder = path.split("/").slice(-2, -1)[0];  
+
+if(folder == "financ"){
+    function mudarDash() {
+        window.location = '../agron/homeAgron.html';
+    }
+} else if(folder == "agron"){
+    function mudarDash() {
+        window.location = '../financ/homeFinanc.html';
+    }
+}
+
 ( () => {
     document.getElementById("aside-menu").innerHTML = `
-        <div class="logo">
+        <div class="logo" onclick="mudarDash()">
             <img src="../../assets/img/logo.png" alt="Logo da Empresa">
         </div>
 
@@ -25,6 +38,10 @@
     var folder = path.split("/").slice(-2, -1)[0];  
 
     if(folder == "financ"){
+        function mudarDash() {
+            window.location = '../agron/homeAgron.html';
+        }
+
         document.getElementById("nav-items-wrapper").innerHTML = `
             <li class="nav-item">
                 <a href="./homeFinanc.html">
@@ -62,6 +79,9 @@
             </li>
         `
     } else if(folder == "agron"){
+        function mudarDash() {
+            window.location = '../financ/homeFinanc.html';
+        }
             document.getElementById("nav-items-wrapper").innerHTML = `
             <li class="nav-item">
                 <a href="./homeAgron.html">
