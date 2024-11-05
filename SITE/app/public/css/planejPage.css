@@ -1,0 +1,107 @@
+.main-planej{
+    margin: 0;
+    padding: 3.2rem 2rem 3.2rem 12rem;
+    height: 100vh;
+}
+
+.main-planej .main-content-wrapper{
+    height: 88%;
+}
+
+.main-planej .main-content-wrapper .left-content{
+    width: 60%;
+}
+
+.main-planej .calendar-container{
+    margin-top: auto;
+}
+
+.main-planej .day{
+    height: 90px !important;
+}
+
+.main-content-wrapper{
+    gap: 0;
+}
+
+/* -------------------------------------------------------------------- */
+
+.right-content{
+    padding-top: 19px;
+}
+
+.events-wrapper{
+    background-color: white;
+    border: 1px solid black;
+}
+
+.right-content .today-date {
+    width: 100%;
+    height: 60px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 40px;
+    text-transform: capitalize;
+    border-bottom: 1px solid black;
+}
+.right-content .today-date .event-day {
+    font-size: 2rem;
+    font-weight: 500;
+}
+.right-content .today-date .event-date {
+    font-size: 1.5rem;
+    font-weight: 400;
+    color: #878895;
+}
+
+.events {
+    width: 100%;
+    height: 100%;
+    max-height: 600px;
+    overflow-x: hidden;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+
+    .event{
+        position: relative;
+        min-height: 70px;
+        display: flex;
+        justify-content: space-between;
+        flex-direction: row;
+        align-items: center;
+        padding: 0 40px;
+        color: #fff;
+        cursor: pointer;
+        transition: background 0.2s ease-in-out;
+    }
+    .event:not(:last-child){
+        border-bottom: 1px solid rgba(0, 0, 0, 0.5);
+    }
+    .event:nth-child(even) {
+        background: transparent;
+    }
+    .event:hover {
+        background: var(--primary-clr-50);
+    }
+}
+.events .event div {
+    display: flex;
+    flex-direction: row;
+}
+
+.events .event .event-title {
+    font-size: 1.5rem;
+    color: black;
+    font-weight: 400;
+}
+.events .event .event-time {
+    font-size: 1.5rem;
+    font-weight: 400;
+    color: #878895;
+    margin-left: 15px;
+    pointer-events: none;
+}

@@ -27,15 +27,15 @@
     if(folder == "financ"){
         document.getElementById("nav-items-wrapper").innerHTML = `
             <li class="nav-item">
-                <a href="./dashboardFinanceiro.html">
+                <a href="./homeFinanc.html">
                     <i class="fa-solid fa-house"></i>
-                    <span>Início</span>
+                    <span>Overview</span>
                 </a>
             </li>
             <li class="nav-item">
-                <a href="#">
+                <a href="./planejamento.html">
                     <i class="fa-regular fa-calendar-days"></i>
-                    <span>Calendário</span>
+                    <span>Planejamento</span>
                 </a>
             </li>
             <li class="nav-item">

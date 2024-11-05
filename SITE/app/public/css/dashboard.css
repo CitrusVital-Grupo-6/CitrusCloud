@@ -10,7 +10,7 @@
 
 :root {
     --cor-primaria: #EEEBE4;
-    --cor-secundaria: #D4721C;
+    --cor-secundaria: #FEA301;
     --cor-secundaria-light: #FF7B0026;
     --cor-titulo: #282626;
     --cor-font: #636363;
@@ -277,8 +277,6 @@ main .title .main-button {
 
 main .title .main-button:hover {
     opacity: 1;
-    /* border-color: var(--cor-titulo);
-    color: var(--cor-titulo); */
     transform: scale(1.02);
 }
 
@@ -344,14 +342,14 @@ main .cards-group .card:hover {
     display: flex;
     flex-direction: column;
     gap: 20px;
-    width: 60%;
+    width: 50%;
 }
 
 .right-content{
     display: flex;
     flex-direction: column;
     gap: 20px;
-    width: 40%;
+    width: 50%;
 }
 
 /* ---------------------------------------------------------- */
@@ -722,7 +720,7 @@ select{
 
 .graph-box div {
     width: 100%;
-    height: 260px;
+    height: 90.55%;
     border: 1px solid black;
     background-color: white;
     border-radius: 0;
