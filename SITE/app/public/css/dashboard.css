@@ -239,8 +239,8 @@ main .subtitle {
     font-weight: 400;
     font-size: 2.4rem;
     letter-spacing: 0.05em;
-    margin-bottom: 3.2rem;
     color: var(--cor-font);
+    text-transform: uppercase;
 }
 
 main .title {
@@ -276,9 +276,8 @@ main .title .main-button:hover {
     transform: scale(1.02);
 }
 
-
 main.aside-open { 
-    margin-left: 20rem; 
+    margin-left: 9rem !important; 
     width: calc(100% - 20rem);
 }
 
@@ -767,6 +766,10 @@ select{
     background-color: white;
     border-radius: 0;
     padding: 10px 10px 0 0;
+}
+
+.main-finc .graph-box div {
+    height: 89.3%;
 }
 
 /* ---------------------------------------------------------- */

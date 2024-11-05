@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CitrusVital | Planejamento</title>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="../../css/dashboard.css">
+    <link rel="stylesheet" href="../../css/calendar.css">
+    <link rel="stylesheet" href="../../css/planejPage.css">
+</head>
+<body>
+    <aside id="aside-menu">
+    </aside>
+
+    <main class="main-planej">
+        <div class="title">
+            <div>
+                <h1 class="main-title">planejamento de pulverização</h1>
+            </div>
+        </div>
+
+        <div class="events events-fazenda">
+            <table>
+                <tr>
+                    <th>Nome da Fazenda</th>
+                    <th>Quantidade Total do Mês (mL)</th>
+                    <th>Data da Próxima Pulverização</th>
+                </tr>
+                <tr class="event" onclick="goToPlanejTalhao()">
+                    <td class="event-title">Fazenda Citrus</td>
+                    <td class="event-title">500 mL</td>
+                    <td class="event-title">20/11/2024</td>
+                    <td><i class="fa-solid fa-clipboard-list"></i></td>
+                </tr>
+                <tr class="event" onclick="goToPlanejTalhao()">
+                    <td class="event-title">Fazenda Citrus</td>
+                    <td class="event-title">500 mL</td>
+                    <td class="event-title">20/11/2024</td>
+                    <td><i class="fa-solid fa-clipboard-list"></i></td>
+                </tr>
+                <tr class="event" onclick="goToPlanejTalhao()">
+                    <td class="event-title">Fazenda Citrus</td>
+                    <td class="event-title">500 mL</td>
+                    <td class="event-title">20/11/2024</td>
+                    <td><i class="fa-solid fa-clipboard-list"></i></td>
+                </tr>
+                <tr class="event" onclick="goToPlanejTalhao()">
+                    <td class="event-title">Fazenda Citrus</td>
+                    <td class="event-title">500 mL</td>
+                    <td class="event-title">20/11/2024</td>
+                    <td><i class="fa-solid fa-clipboard-list"></i></td>
+                </tr>
+            </table>
+        </div>
+
+    </main>
+
+    <script src="../../middlewares/aside-menu.js"></script>
+    <script>
+        function goToPlanejTalhao(){
+            window.location.href='./planejTalhao.html'
+        }
+    </script>
+</body>
+</html>

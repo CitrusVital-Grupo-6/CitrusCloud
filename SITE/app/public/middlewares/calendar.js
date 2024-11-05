@@ -47,7 +47,7 @@ function gerarBagulhoAi(){
   if(fileName != "agendar.html"){
     eventsArr = [
       {
-        day: 6,
+        day: 5,
         month: 11,
         year: 2024,
         events: [

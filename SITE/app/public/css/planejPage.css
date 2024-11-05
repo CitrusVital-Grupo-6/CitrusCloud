@@ -61,31 +61,70 @@
 
     .event{
         position: relative;
-        min-height: 70px;
-        display: flex;
-        justify-content: space-between;
-        flex-direction: row;
-        align-items: center;
-        padding: 0 40px;
-        color: #fff;
+        height: 45px;
+        color: black;
         cursor: pointer;
         transition: background 0.2s ease-in-out;
-    }
-    .event:not(:last-child){
-        border-bottom: 1px solid rgba(0, 0, 0, 0.5);
-    }
-    .event:nth-child(even) {
-        background: transparent;
-    }
-    .event:hover {
         background-image: linear-gradient(to left, var(--primary-clr), white);
-        /* background: var(--primary-clr-50); */
+    }
+    i{
+        font-size: 2rem;
     }
 }
+
+.event:nth-child(odd) {
+    background: transparent;
+}
+
+.events-fazenda .event:nth-child(even){
+    background: white;
+}
+
+.events-fazenda .event:hover {
+    background-image: linear-gradient(to left, var(--primary-clr), white);
+
+    i{
+        color: white;
+    }
+}
+
+
+.events-fazenda table{
+    border: 1px solid black;
+}
+
+table{
+    background-color: white;
+}
+
+table, th, td {
+    text-align: start;
+    border-collapse: collapse;
+    padding-left:10px;
+}
+
+tr:not(:last-child){
+    border-bottom: 1px solid black;
+}
+
+.events-fazenda td:last-child{
+    padding: 0;
+    text-align: center;
+    border-left: 0 !important;
+}
+
+th{
+    font-size: 1.2rem;
+}
+
+td:not(:first-child){
+    border-left: 1px solid black;
+}
+
 .events .event {
-    font-size: 1.8rem;
+    font-size: 1.5rem;
     font-weight: 400;
-    
+
     div {
         display: flex;
         flex-direction: row;

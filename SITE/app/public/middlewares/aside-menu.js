@@ -33,7 +33,7 @@
                 </a>
             </li>
             <li class="nav-item">
-                <a href="./planejamento.html">
+                <a href="./planejFazenda.html">
                     <i class="fa-regular fa-calendar-days"></i>
                     <span>Planejamento</span>
                 </a>
@@ -64,7 +64,7 @@
     } else if(folder == "agron"){
             document.getElementById("nav-items-wrapper").innerHTML = `
             <li class="nav-item">
-                <a href="#">
+                <a href="./homeAgron.html">
                     <i class="fa-solid fa-house"></i>
                     <span>Início</span>
                 </a>
