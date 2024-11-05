@@ -147,6 +147,19 @@ aside nav .nav-items svg {
     position: absolute;
     left: 1.4rem;
 }
+aside nav .nav-items i {
+    position: absolute;
+    left: 1.65rem;
+    font-size: 3.2rem;
+}
+
+aside nav .nav-items .fa-house{
+    left: 1.3rem;
+}
+
+aside nav .nav-items .fa-headset{
+    left: 1.4rem;
+}
 
 aside a:hover svg {
     fill: var(--cor-secundaria);
@@ -197,6 +210,32 @@ main .title {
 main .title .buttons {
     display: flex;
     gap: 1rem;
+}
+
+.main-finc .title div {
+    display: flex;
+    align-items: center;
+    gap: .5rem;
+}
+
+main .title div {
+    h1{
+        margin-top: 1rem;
+    }
+    span{
+        font-size: 2rem;
+    }
+
+    select {
+        font-family: "Manrope", sans-serif;
+        padding: .5rem .8rem;
+        border-radius: 1rem;
+        font-size: 1.6rem;
+    }
+    
+    option {
+        font-size: 1.6rem;
+    }
 }
 
 main .subtitle {
@@ -299,30 +338,43 @@ main .cards-group .card:hover {
     border-color: var(--cor-titulo);
 }
 
-#modal_fazenda{
+/* ---------------------------------------------------------- */
 
+.left-content{
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    width: 60%;
+}
+
+.right-content{
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    width: 40%;
+}
+
+/* ---------------------------------------------------------- */
+
+#modal_fazenda{
     width: 570px;
     height: 395px;
     background-color: rgb(217, 217, 217);
     border-radius: 10px;
     border: none;
     font-family: 'Inter';
-   box-shadow: 1px 10px 1 10px rgb(180, 176, 176);
-   position: absolute; /* Mudei para absolute para centralizar */
-   top: 50%; /* Para centralizar verticalmente */
-   left: 50%; /* Para centralizar horizontalmente */
-   transform: translate(-50%, -50%); /* Ajusta a posição para o centro */
-  
+    box-shadow: 1px 10px 1 10px rgb(180, 176, 176);
+    position: absolute; /* Mudei para absolute para centralizar */
+    top: 50%; /* Para centralizar verticalmente */
+    left: 50%; /* Para centralizar horizontalmente */
+    transform: translate(-50%, -50%); /* Ajusta a posição para o centro */
 }
 
 #modal_fazenda::backdrop{
-    
     background-color: #0000009f;
-
 }
 
 .container-modal-fazenda {
-
     width: 90%;
     height: 300px;
     margin-top: 20px;
@@ -333,30 +385,23 @@ main .cards-group .card:hover {
 }
 
 .box-titulo {
-
     display: flex;
     gap: 143px;
-
 }
 
 .box-input {
-
     margin-top: 5%;
     display: flex;
     flex-direction: column;
     gap: 20px;
-
 }
 
 .titulo-modal{
-
     font-size: 30px;
     font-weight: bold;
 }
 
-
 .botao-fechar-modal {
-
     border: none;
     background-color: rgb(217, 217, 217);
     font-size: 30px;
@@ -364,11 +409,10 @@ main .cards-group .card:hover {
 }
 
 .dados-fazenda {
-
     display: flex;
     flex-direction: column;
-    font-size: 20px ;
-
+    width: 48%;
+    font-size: 20px;
 }
 
 .form-input-dados-fazenda {
@@ -378,7 +422,6 @@ main .cards-group .card:hover {
     width: 92%;
 }
 .input-dados-fazenda {
-
     width: 47rem;
     height: 4.8rem;
     background-color: var(--cor-primaria);
@@ -419,7 +462,6 @@ main .cards-group .card:hover {
 
 
 .botao-adicionar-fazenda {
-
     width: 118px;
     height: 45px;
     margin-top: 2%;
@@ -444,29 +486,24 @@ main .cards-group .card:hover {
 }
 
 #modal_pulverizacao {
-
     width: 637px;
     height: 420px;
     background-color: rgb(217, 217, 217);
     border-radius: 10px;
     border: none;
     font-family: 'Inter';
-   box-shadow: 1px 10px 1 10px rgb(180, 176, 176);
-   position: absolute; /* Mudei para absolute para centralizar */
-   top: 50%; /* Para centralizar verticalmente */
-   left: 50%; /* Para centralizar horizontalmente */
-   transform: translate(-50%, -50%); /* Ajusta a posição para o centro */
+    box-shadow: 1px 10px 1 10px rgb(180, 176, 176);
+    position: absolute; /* Mudei para absolute para centralizar */
+    top: 50%; /* Para centralizar verticalmente */
+    left: 50%; /* Para centralizar horizontalmente */
+    transform: translate(-50%, -50%); /* Ajusta a posição para o centro */
 }
 
-
 #modal_pulverizacao::backdrop{
-    
     background-color: #0000009f;
-
 }
 
 .container-modal-pulverizacao {
-
     width: 86%;
     height: 360px;
     margin-top: 20px;
@@ -477,14 +514,12 @@ main .cards-group .card:hover {
 }
 
 .box-titulo-pulverizacao {
-
     display: flex;
     justify-content: space-between;
     margin-bottom: 6%;
 }
 
 .botao-fechar-modal-pulverizacao {
-
     border: none;
     background-color: rgb(217, 217, 217);
     font-size: 24px;
@@ -492,38 +527,29 @@ main .cards-group .card:hover {
 }
 
 .titulo-modal-pulverizacao {
-
     font-weight: bold;
     font-size: 24px;
 }
 
 .container-pragas {
-
     display: flex;
     flex-direction: column;
-  
 }
 
 .pragas{
-
-    
     display: flex;
     flex-direction: column;
     width: 48%;    
-
 }
 
 .box-adicionar-praga {
-
     margin-top: 15px;
     background-color: rgba(174, 174, 174, 1);
     height: 30px;
     border-radius: 6px;
-
 }
 
 .adicionar-praga{
-
     display: flex;
     justify-content: center;
     font-weight:bold;
@@ -535,13 +561,10 @@ main .cards-group .card:hover {
 }
 
 .adicionar-margintop {
-
     margin-top: 20px;
 }
 
-
 .data-desejada {
-
     margin-top: 30px;
     display: flex;
     flex-direction: column;
@@ -561,7 +584,6 @@ main .cards-group .card:hover {
 }
 
 .data-inicio {
-
     width: 100%;
     height: 30px;
     border-radius: 5px;
@@ -583,7 +605,6 @@ main .cards-group .card:hover {
 }
 
 .hectares {
-
     display: flex;
     flex-direction: column;
     width: 48%;
@@ -591,7 +612,6 @@ main .cards-group .card:hover {
 }
 
 #input_hectares_afetado {
-    
     width: 27rem;
     height: 3.8rem;
     background-color: var(--cor-primaria);
@@ -601,12 +621,9 @@ main .cards-group .card:hover {
     padding-left: 1rem;
     font-size: 1.5rem;
     caret-color: var(--cor-secundaria);
-
-
 }
 
 .botao-recomendacoes {
-
     width: 160px;
     height: 40px;
     border: none;
@@ -623,20 +640,44 @@ main .cards-group .card:hover {
 }
 
 .botao-recomendacoes:hover {
-    
     background-color: rgb(222, 153, 25) ;
     border: 2px solid #fff;
 }
 
 select{
-
     font-family: 'Inter';
     font-size: 12px;    
     color:rgb(101, 99, 99);
     padding-left: 6px;  
 }
 
+/* ---------------------------------------------------------- */
 
+.graph-box{
+    h1{
+        text-transform: uppercase;
+        font-weight: 300;
+        font-size: 2.3rem;
+    }
+}
 
+.graph-box div {
+    width: 100%;
+    height: 260px;
+    border: 1px solid black;
+    background-color: white;
+    border-radius: 0;
+    padding: 10px 10px 0 0;
+}
 
+/* ---------------------------------------------------------- */
 
+#pie_graph div{
+    height: 90.9%;
+    width: 100%;
+    
+    canvas{
+        margin-inline: 6rem;
+        /* margin-block: 1rem; */
+    }
+}
