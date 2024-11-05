@@ -21,35 +21,35 @@
         <div class="title">
             <h1 class="main-title">Fazenda Citrus</h1>
             <div class="buttons">
-                <button class="main-button" onclick="modal_fazenda.showModal()">Adicionar</button>
-                <dialog id="modal_fazenda">
-                    <div class="container-modal-fazenda">
-                        <div class="box-titulo">
-                            <span class="titulo-modal">ADICIONAR FAZENDA</span>
-                            <button class="botao-fechar-modal" onclick="modal_fazenda.close()"><img width="24"
-                                    height="24" src="https://img.icons8.com/material-outlined/24/delete-sign.png"
-                                    alt="delete-sign" /></button>
+                <button class="main-button" onclick="modal_talhao.showModal()">Adicionar</button>
+                <dialog id="modal_talhao">
+                    <div class="container-modal-talhao">
+                        <div class="box-titulo-talhao">
+                            <span class="titulo-modal-talhao">ADICIONAR TALHÃO</span>
+                            <button class="botao-fechar-modal-talhao" onclick="modal_talhao.close()"><img width="24"
+                                height="24" src="https://img.icons8.com/material-outlined/24/delete-sign.png"
+                                alt="delete-sign" /></button>
                         </div>
-                        <div class="box-input">
-                            <div class="dados-fazenda">
-                                <span>NOME</span>
-                                <input class="input-dados-fazenda" type="text" name="" id="input-nome-fazenda">
-                            </div>
-                            <div class="dados-fazenda">
-                                <span>CIDADE</span>
-                                <div class="form-input-dados-fazenda">
-                                    <input class="input-cidade-fazenda" type="text" name="" id="city_input">
-                                    <button id="search">
-                                        <i class="fa-solid fa-magnifying-glass"></i>
-                                    </button>
-                                </div>
-                            </div>
-                            <div class="container-wheater">
-                                <button onclick="adicionarFazenda()" class="botao-adicionar-fazenda">Adicionar</button>
-                            </div>
+                        <div class="box-talhao">
+                        <div class="box-childrem-talhao">
+                            <span>NOME</span>
+                            <input class="input-hectar" type="text" name="" id="input_nome_hactar">
+                        </div>
+                        <div class="box-childrem-talhao">
+                            <span>HECTARES</span>
+                            <input class="input-hectar" type="text" name="" id="input_qtd_hactar">
+                        </div>
+                        <div class="box-childrem-talhao">
+                            <span>TIPO DE LARANJA</span>
+                            <select class="input-hectar" id="tipo_laranja">
+                                <option value=""></option>
+                            </select>
                         </div>
                     </div>
-                </dialog>     <button class="main-button" onclick="modal_pulverizacao.showModal()">Pulverizar</button>
+                        <button class="botao-adicionar-fazenda">ADICIONAR</button>
+                    </div>
+                </dialog>
+                <button class="main-button" onclick="modal_pulverizacao.showModal()">Pulverizar</button>
                 <dialog id="modal_pulverizacao">
                     <div class="container-modal-pulverizacao">
                         <div class="box-titulo-pulverizacao">
