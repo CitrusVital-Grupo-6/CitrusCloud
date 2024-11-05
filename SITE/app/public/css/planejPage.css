@@ -12,23 +12,15 @@
     width: 60%;
 }
 
-.main-planej .calendar-container{
-    margin-top: auto;
-}
-
 .main-planej .day{
     height: 90px !important;
 }
 
 .main-content-wrapper{
-    gap: 0;
+    gap: 25px;
 }
 
 /* -------------------------------------------------------------------- */
-
-.right-content{
-    padding-top: 19px;
-}
 
 .events-wrapper{
     background-color: white;
@@ -50,6 +42,7 @@
 .right-content .today-date .event-day {
     font-size: 2rem;
     font-weight: 500;
+    text-transform: uppercase;
 }
 .right-content .today-date .event-date {
     font-size: 1.5rem;
@@ -85,23 +78,33 @@
         background: transparent;
     }
     .event:hover {
-        background: var(--primary-clr-50);
+        background-image: linear-gradient(to left, var(--primary-clr), white);
+        /* background: var(--primary-clr-50); */
     }
 }
-.events .event div {
-    display: flex;
-    flex-direction: row;
+.events .event {
+    font-size: 1.8rem;
+    font-weight: 400;
+    
+    div {
+        display: flex;
+        flex-direction: row;
+    }
+
+    .event-title {
+        font-size: 1.8rem;
+        font-weight: 400;
+        color: black;
+    }
+
+    .event-time {
+        color: grey;
+        margin-left: 15px;
+    }
 }
 
-.events .event .event-title {
-    font-size: 1.5rem;
+.events .event .event-icon{
+    font-size: 2.5rem;
     color: black;
-    font-weight: 400;
-}
-.events .event .event-time {
-    font-size: 1.5rem;
-    font-weight: 400;
-    color: #878895;
-    margin-left: 15px;
-    pointer-events: none;
+    transition: color 0.2s ease-in-out;
 }
