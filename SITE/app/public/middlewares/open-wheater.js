@@ -1,16 +1,16 @@
 const apikey = "127c6e0558e970ff57acd2ace95a5298";
-const apicountryURL = "https://flagsapi.com/flat/64.png";
+//const apicountryURL = "https://flagsapi.com/flat/64.png";
 
-const cityInput = document.querySelector("#city-input");
+const cityInput = document.querySelector("#city_input");
 const searchBtn = document.querySelector("#search");
 
-const cityElement = document.querySelector("#city");
-const tempElement = document.querySelector("#temperature span");
-const wheaterIconElement = document.querySelector("#wheater-icon");
-const countryElement = document.querySelector("#country");
-const humidityElement = document.querySelector("#humidity span");
-const windElement = document.querySelector("#wind span");
-const wheaterContainer = document.querySelector("#wheater-data");
+//const cityElement = document.querySelector("#city");
+//const tempElement = document.querySelector("#temperature span");
+//const wheaterIconElement = document.querySelector("#wheater-icon");
+//const countryElement = document.querySelector("#country");
+//const humidityElement = document.querySelector("#humidity span");
+//const windElement = document.querySelector("#wind span");
+//const wheaterContainer = document.querySelector("#wheater-data");
 
 const getWeatherData = async (city) => {
 
@@ -26,12 +26,12 @@ const getWeatherData = async (city) => {
 const showWeatherData = async (city) => {
     const data = await getWeatherData(city);
 
-    cityElement.innerText = data.name;
-    tempElement.innerText = parseInt(data.main.temp);
-    countryElement.setAttribute("src", apicountryURL + data.sys.country);
-    humidityElement.innerText = `${data.main.humidity}%`;
-    windElement.innerText = `${data.wind.speed}km/h `;
-    wheaterContainer.classList.remove("hide");
+//    cityElement.innerText = data.name;
+  //  tempElement.innerText = parseInt(data.main.temp);
+    //countryElement.setAttribute("src", apicountryURL + data.sys.country);
+    //humidityElement.innerText = `${data.main.humidity}%`;
+    //windElement.innerText = `${data.wind.speed}km/h `;
+    //wheaterContainer.classList.remove("hide");
     
 
 }

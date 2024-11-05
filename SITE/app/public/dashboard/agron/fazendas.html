@@ -30,38 +30,19 @@
                         <div class="box-input">
                             <div class="dados-fazenda">
                                 <span>NOME</span>
-                                <input class="input-dados-fazenda" type="text" name="" id="input-nome-fazenda">
+                                <input class="input-dados-fazenda" type="text" name="" id="input_nome_fazenda">
                             </div>
                             <div class="dados-fazenda">
                                 <span>CIDADE</span>
                                 <div class="form-input-dados-fazenda">
-                                    <input class="input-cidade-fazenda" type="text" name="" id="city-input">
+                                    <input class="input-cidade-fazenda" type="text" name="" id="city_input">
                                     <button id="search">
                                         <i class="fa-solid fa-magnifying-glass"></i>
                                     </button>
                                 </div>
                             </div>
                             <div class="container-wheater">
-                                <button class="botao-adicionar-fazenda">Adicionar</button>
-                                <div id="wheater-data" class="hide">
-                                    <h2>
-                                        <i class="fa-solid fa-location-dot"></i>
-                                        <span id="city"></span>
-                                        <img id="country" src="">
-                                    </h2>
-                                    <p id="temperature"><span></span>&deg;C</p>
-                                    <div id="details-container">
-                                        <p id="humidity">
-                                            <i class="fa-solid fa-droplet"></i>
-                                            <span></span>
-                                        </p>
-                                        <p id="wind">
-                                            <i class="fa-solid fa-wind"></i>
-                                            <span></span>
-                                        </p>
-                                    </div>
-                                </div>
-
+                                <button onclick="adicionarFazenda()" class="botao-adicionar-fazenda">Adicionar</button>
                             </div>
                         </div>
                     </div>
@@ -169,3 +150,40 @@
 </body>
 
 </html>
+
+<script>
+
+    function adicionarFazenda() {
+
+        var nomeFazenda = input_nome_fazenda.value;
+        var cidade = city_input.value;
+
+        fetch("/fazendas/cadastrarFazenda", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify({
+                    // crie um atributo que recebe o valor recuperado aqui
+                    // Agora vá para o arquivo routes/usuario.js
+                    nomeServer: nomeFazenda,
+                    cidadeServer: cidade
+                }),
+            })
+                .then(function (resposta) {
+                    console.log("resposta: ", resposta);
+
+                    if (resposta.ok) {
+
+                        console.log("cadastro feito")
+
+                    } else {
+                        throw "Houve um erro ao tentar realizar o cadastro!";
+                    }
+                })
+                .catch(function (resposta) {
+                    console.log(`#ERRO: ${resposta}`);
+                    // finalizarAguardar();
+                });
+    }
+</script>
