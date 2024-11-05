@@ -24,7 +24,7 @@ public class EtlXlsx {
     private Boolean primeiraConex = true;
 
 
-    public void executarEtlComS3(String nomeArquivo) {
+    public void executarEtlComS3(String nomeArquivoDefen, String nomeArquivoPraga) {
         String accessKeyId = System.getenv("AWS_ACCESS_KEY_ID");
         String secretAccessKey = System.getenv("AWS_SECRET_ACCESS_KEY");
         String sessionToken = System.getenv("AWS_SESSION_TOKEN");
@@ -32,27 +32,39 @@ public class EtlXlsx {
         S3Client s3 = new S3Provider(accessKeyId, secretAccessKey, sessionToken).getS3Client();
 
         String nomeBucket = "base-dados-citrus";
-        try (InputStream arquivo = s3.getObject(GetObjectRequest.builder()
+        try (InputStream arquivoDefen = s3.getObject(GetObjectRequest.builder()
                 .bucket(nomeBucket)
-                .key(nomeArquivo)
+                .key(nomeArquivoDefen)
                 .build())) {
 
-            List<Agrotoxico> agrotoxicos = extrairAgrotoxicos(nomeArquivo, arquivo);
-            List<Praga> pragas = extrairPragas(nomeArquivo, arquivo);
+            List<Agrotoxico> agrotoxicos = extrairAgrotoxicos(nomeArquivoDefen, arquivoDefen);
 
             for (Agrotoxico agrotoxico : agrotoxicos) {
                 inserirAgrotoxico(agrotoxico, primeiraConex);
             }
 
-            for (Praga praga : pragas){
-                inserirPraga(praga, primeiraConex);
-            }
             System.out.println(textoVerde + "ETL Concluída com sucesso");
 
         } catch (S3Exception e) {
             System.err.println(textoVermelho + e.awsErrorDetails().errorMessage());
         } catch (Exception e) {
             e.printStackTrace();
+        }
+
+        try (InputStream arquivoPraga = s3.getObject(GetObjectRequest.builder()
+                .bucket(nomeBucket)
+                .key(nomeArquivoPraga)
+                .build())) {
+
+            List<Praga> pragas = extrairPragas(nomeArquivoPraga, arquivoPraga);
+
+            for (Praga praga : pragas){
+                inserirPraga(praga, primeiraConex);
+            }
+            System.out.println(textoVerde + "ETL Concluída com sucesso");
+
+        } catch (IOException e) {
+            throw new RuntimeException(e);
         }
     }
 
