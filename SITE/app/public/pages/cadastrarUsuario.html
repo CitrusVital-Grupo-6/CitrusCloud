@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../css/cadastroUsuario.css">
+    <title>Cadastro Usuario</title>
+    <link rel="shortcut icon" href="../assets/icon/logo.ico" type="image/x-icon">
+
+</head>
+
+<body>
+    <img src="../assets/img/logo.png" id="logo" alt="">
+    <div class="background-image"></div>
+
+
+    <main class="login-container">
+        <div id="primeiro-cadastro" class="login-box" style="display: block;">
+            <h1 class="main-title">Cadastre um novo funcionário
+            </h1>
+            <div class="scrollable-content">
+                <form action="#" class="login-form" onsubmit="desbugarForm(event)">
+                    <div class="login-form-fields">
+                        <div class="login-form-column">
+                            <div class="login-form-field">
+                                <label for="nome">Nome</label>
+                                <input type="text" id="nome_func" name="nome">
+                            </div>
+
+                            <div class="login-form-field">
+                                <label for="funcao">Função</label>
+                                <input type="text" id="funcao_func" name="funcao">
+                            </div>
+
+                            <div class="login-form-field">
+                                <label for="cpf">CPF</label>
+                                <input type="number" id="cpf_func" name="cpf">
+                            </div>
+                        </div>
+
+                        <div class="login-form-column">
+                            <div class="login-form-field">
+                                <label for="email">Email</label>
+                                <input type="text" id="email_func" name="email">
+                            </div>
+
+                            <div class="login-form-field">
+                                <label for="senha">Senha</label>
+                                <input type="number" id="senha_func" name="senha">
+                            </div>
+
+                            <div class="login-form-field">
+                                <label for="confirmar_senha">Confirmar senha</label>
+                                <input type="text" id="confirmar_senha" name="confirmar_senha">
+                            </div>
+                        </div>
+                    </div>
+                    <a class="link" onclick="voltar()">Voltar</a>
+                    <div class="button" onclick="cadastrar()">
+                        <div class="svg-wrapper-1">
+                            <div class="svg-wrapper">
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24">
+                                    <path fill="none" d="M0 0h24v24H0z"></path>
+                                    <path fill="currentColor"
+                                        d="M1.946 9.315c-.522-.174-.527-.455.01-.634l19.087-6.362c.529-.176.832.12.684.638l-5.454 19.086c-.15.529-.455.547-.679.045L12 14l6-8-8 6-8.054-2.685z">
+                                    </path>
+                                </svg>
+                            </div>
+                        </div>
+                        <span>Cadastrar</span>
+                    </div>
+
+                </form>
+            </div>
+        </div>
+
+    </main>
+</body>
+
+</html>
+
+<script>
+
+    function voltar(){
+        window.location = '../dashboard/agron/homeAgron.html'
+    }
+
+    function cadastrar(){
+        window.location = '../dashboard/agron/homeAgron.html'
+
+    }
+</script>
