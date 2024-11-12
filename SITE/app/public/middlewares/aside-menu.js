@@ -1,5 +1,5 @@
 var path = window.location.pathname;
-var folder = path.split("/").slice(-2, -1)[0];  
+var folder = path.split("/").slice(-2, -1)[0];
 
 if(folder == "financ"){
     function mudarDash() {
