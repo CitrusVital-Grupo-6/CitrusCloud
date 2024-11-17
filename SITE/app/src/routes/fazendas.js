@@ -8,5 +8,11 @@ router.post("/cadastrarFazenda", function (req, res) {
     fazendaController.adicionarFazenda(req, res);
 })
 
+router.post("/", function (req, res) {
+    fazendaController.adicionarFazenda(req, res);
+})
+
+
+
 
 module.exports = router;

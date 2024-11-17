@@ -1,11 +1,11 @@
 var database = require("../database/config")
 
 
-function consultarEndereco(cidade) {
-    console.log("ACESSEI O USUARIO MODEL \n \n\t\t >> Se aqui der erro de 'Error: connect ECONNREFUSED',\n \t\t >> verifique suas credenciais de acesso ao banco\n \t\t >> e se o servidor de seu BD está rodando corretamente. \n\n function adicionarFazenda():", cidade);
+function consultarEndereco() {
+    console.log("ACESSEI O USUARIO MODEL \n \n\t\t >> Se aqui der erro de 'Error: connect ECONNREFUSED',\n \t\t >> verifique suas credenciais de acesso ao banco\n \t\t >> e se o servidor de seu BD está rodando corretamente. \n\n function adicionarFazenda():",);
 
     var instrucaoSql = `
-        SELECT idEndereco FROM endereco WHERE cidade = '${cidade}'`;
+        SELECT idEndereco FROM endereco`;
 
     console.log("Executando a instrução SQL: \n" + instrucaoSql);
     return database.executar(instrucaoSql);
@@ -24,17 +24,29 @@ function adicionarFazenda(nome, idEndereco) {
 }
 
 
-function inserirCidade(cidade) {
+function adicionarEndereco(cep, numero, complemento, descricao) {
 
-    console.log("ACESSEI O USUARIO MODEL \n \n\t\t >> Se aqui der erro de 'Error: connect ECONNREFUSED',\n \t\t >> verifique suas credenciais de acesso ao banco\n \t\t >> e se o servidor de seu BD está rodando corretamente. \n\n function adicionarFazenda():", cidade);
+    console.log("ACESSEI O USUARIO MODEL \n \n\t\t >> Se aqui der erro de 'Error: connect ECONNREFUSED',\n \t\t >> verifique suas credenciais de acesso ao banco\n \t\t >> e se o servidor de seu BD está rodando corretamente. \n\n function adicionarFazenda():", cep, numero, complemento, descricao);
 
     var instrucaoSql = `
-        INSERT INTO endereco (cidade) VALUES ('${cidade}')`;
+        INSERT INTO endereco (cep, numero, complemento, descricao) VALUES ('${cep}', '${numero}', '${complemento}', '${descricao}')`;
 
     console.log("Executando a instrução SQL: \n" + instrucaoSql);
     return database.executar(instrucaoSql);
 
 }
+
+//function consultarFazenda(idFazenda) {
+
+  //  console.log("ACESSEI O USUARIO MODEL \n \n\t\t >> Se aqui der erro de 'Error: connect ECONNREFUSED',\n \t\t >> verifique suas credenciais de acesso ao banco\n \t\t >> e se o servidor de seu BD está rodando corretamente. \n\n function adicionarFazenda():", idFazenda);
+
+    //var instrucaoSql = `
+      //  SELECT idFazenda, nome, cidade FROM Fazenda WHERE idFazenda = '${idFazenda}'`;
+
+    //console.log("Executando a instrução SQL: \n" + instrucaoSql);
+    //return database.executar(instrucaoSql);
+
+//} 
 // function mandarMensagem(nomeCompleto, email, telefone, mensagem) {
 //     console.log("ACESSEI O USUARIO MODEL \n \n\t\t >> Se aqui der erro de 'Error: connect ECONNREFUSED',\n \t\t >> verifique suas credenciais de acesso ao banco\n \t\t >> e se o servidor de seu BD está rodando corretamente. \n\n function mandarMensagem():", nomeCompleto, email, telefone, mensagem);
 //     var instrucaoSql = `
@@ -47,6 +59,7 @@ function inserirCidade(cidade) {
 module.exports = {
     consultarEndereco,
     adicionarFazenda,
-    inserirCidade
+    adicionarEndereco,
+    //consultarFazenda
     // mandarMensagem
 };

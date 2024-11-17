@@ -352,9 +352,9 @@ main .cards-group .card:hover {
 /* ---------------------------------------------------------- */
 
 #modal_fazenda{
-    width: 570px;
-    height: 395px;
-    background-color: rgb(217, 217, 217);
+    width: 900px;
+    height: 600px;
+    background-color: var(--cor-primaria);
     border-radius: 10px;
     border: none;
     font-family: 'Inter';
@@ -371,17 +371,24 @@ main .cards-group .card:hover {
 
 .container-modal-fazenda {
     width: 90%;
-    height: 300px;
+    height: 530px;
     margin-top: 20px;
-    margin-left: 47px;
+    margin-left: 60px;
     display: flex;
     flex-direction: column;
-    margin-top: 7%;
+    margin-top: 6%;
+}
+
+.box-container {
+
+    display: flex;
+    gap: 5.0rem;
 }
 
 .box-titulo {
     display: flex;
-    gap: 145px;
+    gap: 200px;
+    margin-left: 30%;
 }
 
 .box-input {
@@ -391,6 +398,7 @@ main .cards-group .card:hover {
     gap: 20px;
 }
 
+
 .titulo-modal{
 
     font-size: 30px !important;
@@ -399,7 +407,7 @@ main .cards-group .card:hover {
 
 .botao-fechar-modal {
     border: none;
-    background-color: rgb(217, 217, 217);
+    background-color: var(--cor-primaria);
     font-size: 30px;
     cursor: pointer;
 }
@@ -408,16 +416,11 @@ main .cards-group .card:hover {
     display: flex;
     flex-direction: column;
     font-size: 20px;
+    gap: 1.0rem;
 }
 
-.form-input-dados-fazenda {
-
-    display: flex;
-    justify-content: space-between;
-    width: 92%;
-}
 .input-dados-fazenda {
-    width: 47rem;
+    width: 36rem;
     height: 4.8rem;
     background-color: var(--cor-primaria);
     outline: none;
@@ -429,9 +432,15 @@ main .cards-group .card:hover {
 
 }
 
-.input-cidade-fazenda {
 
-    width: 47rem;
+.input-dados-fazenda:hover {
+    opacity: 1;
+    border-color: var(--cor-titulo);
+    color: var(--cor-titulo);
+}
+
+.input-cidade-fazenda {
+    width: 36rem;
     height: 4.8rem;
     background-color: var(--cor-primaria);
     outline: none;
@@ -439,7 +448,7 @@ main .cards-group .card:hover {
     border-radius: 10px;
     padding-left: 1rem;
     font-size: 2rem;
-    caret-color: var(--cor-secundaria)
+    caret-color: var(--cor-secundaria);
 }
 
 
@@ -457,33 +466,30 @@ main .cards-group .card:hover {
 
 
 .botao-adicionar-fazenda {
-    width: 120px;
-    height: 45px;
-    margin-top: 2%;
-    font-size: 1.8rem;
-    background-color: var(--cor-secundaria);
-    border: none;
-    color: white;
-    font-weight: bold;
+    width: 36rem;
+    font-size: 2rem;
+    color: var(--cor-font);
     padding: .8rem 1.2rem;
-    border-radius: 8px;
+    border: 1px solid var(--cor-font);
+    border-radius: 10px;
     cursor: pointer;
     transition: all .2s ease-out;
-    opacity: .8; 
-    margin-left: 69%;
-    
+    opacity: .9;
+    margin-left: 27%;
+    margin-top: 10%;
 
 }
 
 .botao-adicionar-fazenda:hover {
-    background-color:rgb(230, 152, 7) ;
-    border: 1px solid #fff;
+    opacity: 1;
+    border-color: var(--cor-titulo);
+    color: var(--cor-titulo);
 }
 
 #modal_pulverizacao {
     width: 637px;
-    height: 420px;
-    background-color: rgb(217, 217, 217);
+    height: 440px;
+    background-color: var(--cor-primaria);
     border-radius: 10px;
     border: none;
     font-family: 'Inter';
@@ -500,12 +506,12 @@ main .cards-group .card:hover {
 
 .container-modal-pulverizacao {
     width: 86%;
-    height: 360px;
+    height: 390px;
     margin-top: 20px;
     margin-left: 45px;
     display: flex;
     flex-direction: column;
-    margin-top: 5%;
+    margin-top: 6%;
 }
 
 .box-titulo-pulverizacao {
@@ -516,7 +522,7 @@ main .cards-group .card:hover {
 
 .botao-fechar-modal-pulverizacao {
     border: none;
-    background-color: rgb(217, 217, 217);
+    background-color: var(--cor-primaria);
     font-size: 24px;
     cursor: pointer;
 }
@@ -534,12 +540,13 @@ main .cards-group .card:hover {
 .pragas{
     display: flex;
     flex-direction: column;
-    width: 48%;    
+    width: 48%;  
+    gap: 1.0rem;  
 }
 
 .box-adicionar-praga {
     margin-top: 15px;
-    background-color: rgba(174, 174, 174, 1);
+    background-color: var(--cor-primaria);
     height: 30px;
     border-radius: 6px;
 }
@@ -564,6 +571,7 @@ main .cards-group .card:hover {
     display: flex;
     flex-direction: column;
     font-size: 15px;
+    gap: 1.0rem;
 }
 
 #escolher-praga{
@@ -604,6 +612,7 @@ main .cards-group .card:hover {
     flex-direction: column;
     width: 48%;
     margin-left: 20px;
+    gap: 1.0rem;
 }
 
 #input_hectares_afetado {
@@ -649,8 +658,8 @@ select{
 #modal_talhao {
 
     width: 637px;
-    height: 490px;
-    background-color: rgb(217, 217, 217);
+    height: 540px;
+    background-color: var(--cor-primaria);
     border-radius: 10px;
     border: none;
     font-family: 'Inter';
@@ -669,7 +678,7 @@ select{
 .container-modal-talhao {
 
     width: 80%;
-    height: 400px;
+    height: 467px;
     margin-left: 65px;
     display: flex;
     flex-direction: column;
@@ -693,7 +702,7 @@ select{
 .botao-fechar-modal-talhao {
 
     border: none;
-    background-color: rgb(217, 217, 217);
+    background-color: var(--cor-primaria)   ;
     font-size: 32px;
     cursor: pointer;
 }
@@ -710,15 +719,16 @@ select{
 .input-hectar {
 
     width: 500px;
-    height:4.0rem;
+    height: 4.8rem;
     background-color: var(--cor-primaria);
     outline: none;
     border: 1px solid var(--cor-font);
     border-radius: 10px;
     padding-left: 1rem;
-    font-size: 1.5rem;
+    font-size: 2rem;
     caret-color: var(--cor-secundaria);
 }
+
 
 
 .botao-adicionar-talhao {
@@ -748,6 +758,7 @@ select{
 
     display: flex;
     flex-direction: column;
+    gap: 1.0rem;
 }
 
 

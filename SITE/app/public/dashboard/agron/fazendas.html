@@ -4,9 +4,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
+        integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link rel="stylesheet" href="../../css/dashboard.css">
-    
+
     <title>CitrusVital | Fazendas</title>
 </head>
 
@@ -27,27 +29,48 @@
                                     height="24" src="https://img.icons8.com/material-outlined/24/delete-sign.png"
                                     alt="delete-sign" /></button>
                         </div>
-                        <div class="box-input">
-                            <div class="dados-fazenda">
-                                <span>NOME</span>
-                                <input class="input-dados-fazenda" type="text" name="" id="input_nome_fazenda">
-                            </div>
-                            <div class="dados-fazenda">
-                                <span>CIDADE</span>
-                                <div class="form-input-dados-fazenda">
-                                    <input class="input-cidade-fazenda" type="text" name="" id="city_input">
-                                    <button id="search">
-                                        <i class="fa-solid fa-magnifying-glass"></i>
-                                    </button>
+                        <div class="box-container">
+                            <div class="box-input">
+                                <div class="dados-fazenda">
+                                    <span>NOME</span>
+                                    <input class="input-dados-fazenda" type="text" name="" id="input_nome_fazenda">
+                                </div>
+                                <div class="dados-fazenda">
+                                    <span>CEP</span>
+                                    <input class="input-dados-fazenda" type="number" name="" id="input_cep_fazenda">
+                                </div>
+                                <!--<div class="dados-fazenda">
+                                    <span>CIDADE</span>
+                                    <div class="form-input-dados-fazenda">
+                                        <input class="input-cidade-fazenda" type="text" name="" id="city_input">
+                                        <button id="search">
+                                            <i class="fa-solid fa-magnifying-glass"></i>
+                                        </button>
+                                    </div>
+                                </div>!-->
+
+                                <div class="dados-fazenda">
+                                    <span>DESCRICAO</span>
+                                    <textarea class="input-dados-fazenda" id="input_descricao" name="w3review" rows="4" cols="50" ></textarea>
                                 </div>
                             </div>
-                            <div class="container-wheater">
-                                <button onclick="adicionarFazenda()" class="botao-adicionar-fazenda">ADICIONAR</button>
+                            <div class="box-input">
+                                <div class="dados-fazenda">
+                                    <span>NUMERO</span>
+                                    <input class="input-dados-fazenda" type="number" name="" id="input_numero_fazenda">
+                                </div>
+                                <div class="dados-fazenda">
+                                    <span>COMPLEMENTO</span>
+                                    <input class="input-dados-fazenda" type="text" name=""
+                                        id="input_complemento_fazenda">
+                                </div>
                             </div>
                         </div>
+                            <button onclick="adicionarFazenda()" class="botao-adicionar-fazenda">ADICIONAR</button>
                     </div>
-                </dialog>
             </div>
+            </dialog>
+        </div>
         </div>
 
         <div class="cards-group">
@@ -156,35 +179,44 @@
     function adicionarFazenda() {
 
         var nomeFazenda = input_nome_fazenda.value;
-        var cidade = city_input.value;
+      //  var cidade = city_input.value;
+        var cep = input_cep_fazenda.value;
+        var descricao = input_descricao.value;
+        var numero = input_numero_fazenda.value;
+        var complemento = input_complemento_fazenda.value;
+
         modal_fazenda.close();
 
         fetch("/fazendas/cadastrarFazenda", {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json",
-                },
-                body: JSON.stringify({
-                    // crie um atributo que recebe o valor recuperado aqui
-                    // Agora vá para o arquivo routes/usuario.js
-                    nomeServer: nomeFazenda,
-                    cidadeServer: cidade
-                }),
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+                // crie um atributo que recebe o valor recuperado aqui
+                // Agora vá para o arquivo routes/usuario.js
+                nomeServer: nomeFazenda,
+              //  cidadeServer: cidade,
+                cepServer : cep,
+                descricaoServer : descricao,
+                numeroServer : numero,
+                complementoServer : complemento
+            }),
+        })
+            .then(function (resposta) {
+                console.log("resposta: ", resposta);
+
+                if (resposta.ok) {
+
+                    console.log("cadastro feito")
+
+                } else {
+                    throw "Houve um erro ao tentar realizar o cadastro!";
+                }
             })
-                .then(function (resposta) {
-                    console.log("resposta: ", resposta);
-
-                    if (resposta.ok) {
-
-                        console.log("cadastro feito")
-
-                    } else {
-                        throw "Houve um erro ao tentar realizar o cadastro!";
-                    }
-                })
-                .catch(function (resposta) {
-                    console.log(`#ERRO: ${resposta}`);
-                    // finalizarAguardar();
-                });
+            .catch(function (resposta) {
+                console.log(`#ERRO: ${resposta}`);
+                // finalizarAguardar();
+            });
     }
 </script>
