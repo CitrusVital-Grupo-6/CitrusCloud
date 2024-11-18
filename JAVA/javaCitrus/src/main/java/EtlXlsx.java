@@ -24,7 +24,6 @@ public class EtlXlsx {
     private Boolean primeiraConexDefen = true;
     private Boolean primeiraConexPraga = true;
 
-
     public void executarEtlComS3(String nomeArquivoDefen, String nomeArquivoPraga) {
         String accessKeyId = System.getenv("AWS_ACCESS_KEY_ID");
         String secretAccessKey = System.getenv("AWS_SECRET_ACCESS_KEY");

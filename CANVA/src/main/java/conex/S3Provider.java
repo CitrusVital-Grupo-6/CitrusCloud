@@ -1,10 +1,11 @@
+package conex;
+
 import software.amazon.awssdk.auth.credentials.AwsSessionCredentials;
 import software.amazon.awssdk.auth.credentials.StaticCredentialsProvider;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.s3.S3Client;
 
 public class S3Provider {
-
     private final AwsSessionCredentials credentials;
 
     public S3Provider(String accessKeyId, String secretAccessKey, String sessionToken) {
@@ -21,5 +22,4 @@ public class S3Provider {
                 .credentialsProvider(StaticCredentialsProvider.create(credentials))
                 .build();
     }
-
 }
