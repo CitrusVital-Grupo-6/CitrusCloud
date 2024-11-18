@@ -51,7 +51,8 @@
 
                                 <div class="dados-fazenda">
                                     <span>DESCRICAO</span>
-                                    <textarea class="input-dados-fazenda" id="input_descricao" name="w3review" rows="4" cols="50" ></textarea>
+                                    <textarea class="input-dados-fazenda" id="input_descricao" name="w3review" rows="4"
+                                        cols="50"></textarea>
                                 </div>
                             </div>
                             <div class="box-input">
@@ -66,106 +67,14 @@
                                 </div>
                             </div>
                         </div>
-                            <button onclick="adicionarFazenda()" class="botao-adicionar-fazenda">ADICIONAR</button>
+                        <button onclick="adicionarFazenda()" class="botao-adicionar-fazenda">ADICIONAR</button>
                     </div>
             </div>
             </dialog>
         </div>
         </div>
 
-        <div class="cards-group">
-            <a href="./talhao.html">
-                <div class="card">
-                    <img src="../../assets/img/farm.jpg" alt="Fazenda" class="card-image">
-                    <div class="card-content">
-                        <h3 class="card-subtitle">Limoeiros, São Paulo</h3>
-                        <h2 class="card-title">Fazenda Citrus</h2>
-                        <h3 class="card-desc">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse
-                            bibendum neque consectetur libero malesuada tempor. Fusce dignissim non est accumsan
-                            ultrices.</h3>
-                    </div>
-                </div>
-            </a>
-
-            <a href="./talhao.html">
-                <div class="card">
-                    <img src="../../assets/img/farm.jpg" alt="Fazenda" class="card-image">
-                    <div class="card-content">
-                        <h3 class="card-subtitle">Limoeiros, São Paulo</h3>
-                        <h2 class="card-title">Fazenda Citrus</h2>
-                        <h3 class="card-desc">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse
-                            bibendum neque consectetur libero malesuada tempor. Fusce dignissim non est accumsan
-                            ultrices.</h3>
-                    </div>
-                </div>
-            </a>
-
-            <a href="./talhao.html">
-                <div class="card">
-                    <img src="../../assets/img/farm.jpg" alt="Fazenda" class="card-image">
-                    <div class="card-content">
-                        <h3 class="card-subtitle">Limoeiros, São Paulo</h3>
-                        <h2 class="card-title">Fazenda Citrus</h2>
-                        <h3 class="card-desc">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse
-                            bibendum neque consectetur libero malesuada tempor. Fusce dignissim non est accumsan
-                            ultrices.</h3>
-                    </div>
-                </div>
-            </a>
-
-            <a href="./talhao.html">
-                <div class="card">
-                    <img src="../../assets/img/farm.jpg" alt="Fazenda" class="card-image">
-                    <div class="card-content">
-                        <h3 class="card-subtitle">Limoeiros, São Paulo</h3>
-                        <h2 class="card-title">Fazenda Citrus</h2>
-                        <h3 class="card-desc">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse
-                            bibendum neque consectetur libero malesuada tempor. Fusce dignissim non est accumsan
-                            ultrices.</h3>
-                    </div>
-                </div>
-            </a>
-
-            <a href="./talhao.html">
-                <div class="card">
-                    <img src="../../assets/img/farm.jpg" alt="Fazenda" class="card-image">
-                    <div class="card-content">
-                        <h3 class="card-subtitle">Limoeiros, São Paulo</h3>
-                        <h2 class="card-title">Fazenda Citrus</h2>
-                        <h3 class="card-desc">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse
-                            bibendum neque consectetur libero malesuada tempor. Fusce dignissim non est accumsan
-                            ultrices.</h3>
-                    </div>
-                </div>
-            </a>
-
-            <a href="./talhao.html">
-                <div class="card">
-                    <img src="../../assets/img/farm.jpg" alt="Fazenda" class="card-image">
-                    <div class="card-content">
-                        <h3 class="card-subtitle">Limoeiros, São Paulo</h3>
-                        <h2 class="card-title">Fazenda Citrus</h2>
-                        <h3 class="card-desc">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse
-                            bibendum neque consectetur libero malesuada tempor. Fusce dignissim non est accumsan
-                            ultrices.</h3>
-                    </div>
-                </div>
-            </a>
-
-            <a href="./talhao.html">
-                <div class="card">
-                    <img src="../../assets/img/farm.jpg" alt="Fazenda" class="card-image">
-                    <div class="card-content">
-                        <h3 class="card-subtitle">Limoeiros, São Paulo</h3>
-                        <h2 class="card-title">Fazenda Citrus</h2>
-                        <h3 class="card-desc">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse
-                            bibendum neque consectetur libero malesuada tempor. Fusce dignissim non est accumsan
-                            ultrices.</h3>
-                    </div>
-                </div>
-            </a>
-
-        </div>
+        <div id="card1" class="cards-group"> </div>
     </main>
 
     <script src="../../middlewares/aside-menu.js"></script>
@@ -179,7 +88,7 @@
     function adicionarFazenda() {
 
         var nomeFazenda = input_nome_fazenda.value;
-      //  var cidade = city_input.value;
+        //  var cidade = city_input.value;
         var cep = input_cep_fazenda.value;
         var descricao = input_descricao.value;
         var numero = input_numero_fazenda.value;
@@ -196,11 +105,11 @@
                 // crie um atributo que recebe o valor recuperado aqui
                 // Agora vá para o arquivo routes/usuario.js
                 nomeServer: nomeFazenda,
-              //  cidadeServer: cidade,
-                cepServer : cep,
-                descricaoServer : descricao,
-                numeroServer : numero,
-                complementoServer : complemento
+                //  cidadeServer: cidade,
+                cepServer: cep,
+                descricaoServer: descricao,
+                numeroServer: numero,
+                complementoServer: complemento
             }),
         })
             .then(function (resposta) {
@@ -208,7 +117,27 @@
 
                 if (resposta.ok) {
 
-                    console.log("cadastro feito")
+                    fetch(`/fazendas/exibirFazenda`).then(res => {
+                        res.json().then(res => {
+
+                            for (posicao = 0; posicao < res.length; posicao++) {
+
+                                card1.innerHTML += `
+                                    <a href="./talhao.html">
+                                        <div class="card">
+                                            <img src="../../assets/img/farm.jpg" alt="Fazenda" class="card-image">
+                                            <div class="card-content">
+                                                <h3 class="card-subtitle">Limoeiros, São Paulo</h3>
+                                                <h2 class="card-title">${res[posicao].nome}</h2>
+                                                <h3 class="card-desc">${res[posicao].descricao}.</h3>
+                                            </div>
+                                        </div>
+                                    </a>`
+                            }
+                            console.log(res);
+                        })
+                    })
+
 
                 } else {
                     throw "Houve um erro ao tentar realizar o cadastro!";
@@ -218,5 +147,28 @@
                 console.log(`#ERRO: ${resposta}`);
                 // finalizarAguardar();
             });
+
+
     }
+
+    fetch(`/fazendas/exibirFazenda`).then(res => {
+        res.json().then(res => {
+
+            for (posicao = 0; posicao < res.length; posicao++) {
+
+                card1.innerHTML += `
+                    <a href="./talhao.html">
+                        <div class="card">
+                            <img src="../../assets/img/farm.jpg" alt="Fazenda" class="card-image">
+                            <div class="card-content">
+                                <h3 class="card-subtitle">Limoeiros, São Paulo</h3>
+                                <h2 class="card-title">${res[posicao].nome}</h2>
+                                <h3 class="card-desc">${res[posicao].descricao}.</h3>
+                            </div>
+                        </div>
+                    </a>`
+            }
+            console.log(res);
+        })
+    })
 </script>
