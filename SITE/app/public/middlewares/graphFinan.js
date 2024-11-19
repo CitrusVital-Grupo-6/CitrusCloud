@@ -7,11 +7,11 @@ const graficoTotalMl = new Chart(divTotalMl, {
         datasets: [
             {
                 label: 'Agrotóxico A',
-                data: [120, 140, 160, 180, 200, 220, 240, 260, 280, 300, 320, 340],
+                data: [240, 160, 180, 120, 320, 220, 200, 140, 260, 280, 340, 300],
                 borderColor: '#FEA301',
                 backgroundColor: '#FEA30150',
                 fill: true,
-                tension: 0.3,
+                tension: 0,
             }
         ]
     },

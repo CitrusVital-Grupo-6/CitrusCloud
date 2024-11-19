@@ -20,75 +20,40 @@
             <div>
                 <h1 class="main-title">overview</h1>
             </div>
-            <div>
-                <span>PERÍODO: </span>
-                <select name="" id="">
-                    <option value="">MENSAL</option>
-                    <option value="">DIÁRIA</option>
-                </select>
+
+            <div style="display: flex; flex-direction: row; gap: 20px;">
+                <div>
+                    <span>PERÍODO: </span>
+                    <select name="" id="">
+                        <option value="">MENSAL</option>
+                        <option value="">ANUAL</option>
+                    </select>
+                </div>
+                <div>
+                    <span>FAZENDA: </span>
+                    <select name="" id="">
+                        <option value="">Todas as Fazendas</option>
+                        <option value="">Fazenda Citrus</option>
+                    </select>
+                </div>
             </div>
         </div>
         
         <div class="main-content-wrapper">
             <div class="left-content">
                 <div class="graph-box">
-                    <h1>Uso geral de defensivos(mL)</h1>
+                    <h1>Uso total de defensivos(mL)</h1>
                     <div>
                         <canvas id="total_ml_mensal"></canvas>
-                    </div>
-                </div>
-                
-                <div class="graph-box">
-                    <h1>defensivos mais utilizados(mL)</h1>
-                    <div>
-                        <canvas id="chart_amount_month"></canvas>
                     </div>
                 </div>
             </div>
 
             <div class="right-content">
-                <div class="defen-item-wrapper">
-                    <h1>DEFENSIVOS mais UTILIZADOS</h1>
-                    <div class="defen-item-container">
-                        <div class="defen-item">
-                            <div class="defen-icon">
-                                <i class="fa-solid fa-vial"></i>
-                            </div>
-                            <div class="defen-info less-info">
-                                <h3>Nome Defensivo Agrícola</h3>
-                            </div>
-                        </div>
-                        <div class="defen-item">
-                            <div class="defen-icon">
-                                <i class="fa-solid fa-vial"></i>
-                            </div>
-                            <div class="defen-info less-info">
-                                <h3>Nome Defensivo Agrícola</h3>
-                            </div>
-                        </div>
-                        <div class="defen-item">
-                            <div class="defen-icon">
-                                <i class="fa-solid fa-vial"></i>
-                            </div>
-                            <div class="defen-info less-info">
-                                <h3>Nome Defensivo Agrícola</h3>
-                            </div>
-                        </div>
-                        <div class="defen-item">
-                            <div class="defen-icon">
-                                <i class="fa-solid fa-vial"></i>
-                            </div>
-                            <div class="defen-info less-info">
-                                <h3>Nome Defensivo Agrícola</h3>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="graph-box" id="pie_graph">
-                    <h1>quantidade por defensivo(mL)</h1>
+                <div class="graph-box">
+                    <h1>defensivos mais utilizados(mL)</h1>
                     <div>
-                        <canvas id="graficoPizza"></canvas>
+                        <canvas id="chart_amount_month"></canvas>
                     </div>
                 </div>
             </div>
