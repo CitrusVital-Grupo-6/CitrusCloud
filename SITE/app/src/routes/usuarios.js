@@ -12,8 +12,23 @@ router.post("/autenticar", function (req, res) {
     usuarioController.autenticar(req, res);
 });
 
-router.post("/mandarMensagem", function (req, res) {
-    usuarioController.mandarMensagem(req, res);
+router.get("/listarPorEmpresa/:idEmpresa", function (req, res) {
+    usuarioController.listarPorEmpresa(req, res);
 });
+
+router.get("/listarPorUsuario/:idUsuario", function (req, res) {
+    usuarioController.listarPorUsuario(req, res);
+});
+
+router.put("/editarUsuario/:idUsuario", function (req, res) {
+    usuarioController.editarUsuario(req, res);
+});
+
+
+router.delete("/deletarUsuario/:idUsuario", function (req, res) {
+    usuarioController.deletarUsuario(req, res);
+});
+
+
 
 module.exports = router;

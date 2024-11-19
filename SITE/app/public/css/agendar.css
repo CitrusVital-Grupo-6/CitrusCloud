@@ -2,6 +2,8 @@
 
 :root {
     --primary-clr: #FEA301;
+    --cor-titulo: #282626;
+    --cor-font: #28262680;
 }
 
 * {
@@ -42,25 +44,20 @@ body {
     flex-direction: row;
     gap: 1rem;
     align-items: center;
-    border: 1px solid black;
+    border: 1px solid var(--cor-font);
     border-radius: 0;
     padding: 1rem 1.5rem;
     width: 33%;
     background-color: white;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.5);
-}
-
-.kpi-icon{
-    align-items: center;
-    justify-content: center;
-    font-size: 3.5rem;
 }
 
 .kpi-text{
     h1{
-        font-weight: 200;
-        font-size: 1.5rem;
+        font-weight: 400;
+        font-size: 1.6rem;
+        color: var(--cor-titulo);
     }
+
     span{
         font-weight: 600;
         font-size: 2rem;

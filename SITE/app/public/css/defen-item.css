@@ -1,3 +1,8 @@
+:root {
+    --cor-titulo: #282626;
+    --cor-font: #28262680;
+}
+
 .defen-item-wrapper h1{
     text-transform: uppercase;
     font-weight: 300;
@@ -28,7 +33,6 @@ label:hover{
 }
 
 .defen-icon{
-    font-size: 3rem;
     margin-right: 15px;
     padding-right: 10px;
     border-right: 1px solid black;
@@ -37,9 +41,11 @@ label:hover{
 .defen-info{
     h3{
         font-size: 2rem;
+        color: var(--cor-titulo);
     }
     div span{
-        font-size: 1rem;
+        font-size: 1.4rem;
+        color: var(--cor-font);
     }
 }
 
