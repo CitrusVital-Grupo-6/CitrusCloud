@@ -62,7 +62,7 @@ body{
 }
 
 .login-box {
-    width: 90rem;
+    padding-inline: 4.8rem;
     background-color: var(--cor-primaria);
     border-radius: 10px;
     display: flex;
@@ -163,7 +163,7 @@ body{
     color: var(--cor-secundaria);
     opacity: 0.7;
     transition: all .2s ease-out;
-    margin-bottom: 1rem;
+    margin-top: 1rem;
     cursor: pointer;
 }
 
@@ -171,25 +171,6 @@ body{
     opacity: 1;
 }
 
-/* .btn-primary {
-    height: 4rem;
-    background-color: var(--cor-secundaria);
-    color: var(--cor-primaria);
-    border: none;
-    border-radius: 1rem;
-    font-size: 1.8rem;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    cursor: pointer;
-    transition: opacity 0.2s;
-}
-
-.btn-primary:hover {
-    opacity: 0.8;
-} */
-
-/* From Uiverse.io by adamgiebl */
 .button {
     font-size: 2rem;
     background: var(--cor-primaria);
