@@ -66,7 +66,6 @@
     </main>
 
     <script src="../../middlewares/aside-menu.js"></script>
-    <script src="../../middlewares/open-wheater.js" defer></script>
 </body>
 
 </html>
@@ -90,7 +89,6 @@
             },
             body: JSON.stringify({
                 nomeServer: nomeFazenda,
-                //  cidadeServer: cidade,
                 cepServer: cep,
                 descricaoServer: descricao,
                 numeroServer: numero,
@@ -110,7 +108,6 @@
             })
             .catch(function (resposta) {
                 console.log(`#ERRO: ${resposta}`);
-                // finalizarAguardar();
             });
 
 
@@ -120,10 +117,11 @@
         res.json().then(res => {
             for (let posicao = 0; posicao < res.length; posicao++) {
                 buscarCEP(res[posicao].cep)
+
                 .then((cepResult) => {
                     card1.innerHTML += `
-                        <a href="./talhao.html">
-                            <div class="card">
+                        <a class="card" data-json='{"idFazenda": ${res[posicao].idFazenda}, "name": "${res[posicao].nome}", "cep": "${res[posicao].cep}"}'>
+                            <div>
                                 <img src="../../assets/img/farm.jpg" alt="Fazenda" class="card-image">
                                 <div class="card-content">
                                     <h3 class="card-subtitle">${cepResult}</h3>
@@ -136,6 +134,21 @@
                         </a>`;
                         
                     console.log(res);
+                }).finally(() => {
+                    document.querySelectorAll(".card").forEach((card) => {
+                        card.addEventListener("click", (event) => {
+                            event.preventDefault();
+                            
+                            // Obtém os dados do JSON no atributo data-json
+                            const data = JSON.parse(card.getAttribute("data-json"));
+                            
+                            // Salva os dados no Session Storage
+                            sessionStorage.setItem("TALHAO_DATA", JSON.stringify(data));
+                            
+                            // Redireciona para a página Talhao.html
+                            window.location.href = "Talhao.html";
+                        });
+                    })
                 })
             }
         })
