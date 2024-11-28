@@ -1,17 +1,14 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
-        integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg=="
-        crossorigin="anonymous" referrerpolicy="no-referrer" />
-    <link rel="stylesheet" href="../../css/dashboard.css">
-
+    
     <title>CitrusVital | Fazendas</title>
+   
+    <link rel="stylesheet" href="../../css/dashboard.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 </head>
-
 <body id="fazendas">
     <aside id="aside-menu">
     </aside>
@@ -27,7 +24,8 @@
                             <span class="titulo-modal">ADICIONAR FAZENDA</span>
                             <button class="botao-fechar-modal" onclick="modal_fazenda.close()"><img width="24"
                                     height="24" src="https://img.icons8.com/material-outlined/24/delete-sign.png"
-                                    alt="delete-sign" /></button>
+                                    alt="delete-sign"
+                            />
                         </div>
                         <div class="box-container">
                             <div class="box-input">
@@ -39,7 +37,7 @@
                                     <span>CEP</span>
                                     <input class="input-dados-fazenda" type="number" name="" id="input_cep_fazenda">
                                 </div>
-                                <!--<div class="dados-fazenda">
+                                <!-- <div class="dados-fazenda">
                                     <span>CIDADE</span>
                                     <div class="form-input-dados-fazenda">
                                         <input class="input-cidade-fazenda" type="text" name="" id="city_input">
@@ -47,7 +45,7 @@
                                             <i class="fa-solid fa-magnifying-glass"></i>
                                         </button>
                                     </div>
-                                </div>!-->
+                                </div>! -->
 
                                 <div class="dados-fazenda">
                                     <span>DESCRICAO</span>
@@ -69,9 +67,8 @@
                         </div>
                         <button onclick="adicionarFazenda()" class="botao-adicionar-fazenda">ADICIONAR</button>
                     </div>
+                </dialog> 
             </div>
-            </dialog>
-        </div>
         </div>
 
         <div id="card1" class="cards-group"> </div>

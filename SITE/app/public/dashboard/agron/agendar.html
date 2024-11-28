@@ -174,3 +174,18 @@
     </script>
 </body>
 </html>
+
+<script>
+    const apiKey = "75d39932958963bfb42f798f88b1e5ad"
+
+    async function buscarDadosClima(cidade){
+        const dados  = await fetch(`https://pro.openweathermap.org/data/2.5/forecast/hourly?q=${cidade}&appid=${apiKey}`).then( resposta => resposta.json() )
+        
+        
+    }
+
+    fetch(`/fazendas/exibirFazenda`).then(res => {
+        res.json().then(res => {
+        })
+    })
+</script>

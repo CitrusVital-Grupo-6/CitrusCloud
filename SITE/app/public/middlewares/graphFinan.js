@@ -1,38 +1,115 @@
-const divTotalMl = document.getElementById('total_ml_mensal').getContext('2d');
+function listNextBuyDefen(idEmpresa) {
+    fetch(`/financ/listNextBuyDefen/${idEmpresa}`).then(function (resposta) {
+        let listaUsuarios = document.getElementById("lista_usuarios");
+        if (resposta.ok) {
+            if (resposta.status == 204) {
+                alert.innerHTML = "Nenhum resultado encontrado."
+                throw "Nenhum resultado encontrado!!";
+            }
 
-const graficoTotalMl = new Chart(divTotalMl, {
-    type: 'line',
-    data: {
-        labels: ['Janeiro', 'Fevereiro', 'Março', 'Abril', 'Maio', 'Junho', 'Julho', 'Agosto', 'Setembro', 'Outubro', 'Novembro', 'Dezembro'],
-        datasets: [
-            {
-                label: 'Agrotóxico A',
-                data: [240, 160, 180, 120, 320, 220, 200, 140, 260, 280, 340, 300],
-                borderColor: '#FEA301',
-                backgroundColor: '#FEA30150',
-                fill: true,
-                tension: 0,
+            resposta.json().then(function (resposta) {
+                console.log("Dados recebidos: ", JSON.stringify(resposta));
+
+                for (let i = 0; i < resposta.length; i++) {
+                    listaUsuarios.innerHTML += `
+                    <tr>
+                        <td>${resposta[i].nomeCompleto}</td>
+                        <td>${resposta[i].email}</td>
+                        <td>${resposta[i].funcao}</td>
+                        <td>${resposta[i].nome}</td>
+                        <td><button onclick="deletarUsuario(${resposta[i].idUsuario})">Excluir</button> <button onclick="editarUsuario(${resposta[i].idUsuario})">Editar</button></td>
+                    </tr>`
+                }
+            });
+        } else {
+            throw ('Houve um erro na API!');
+        }
+    }).catch(function (resposta) {
+        console.error(resposta);
+    });
+}
+
+var labelTotalValue = []
+var valueTotalValue = []
+
+function getTotalValueMonth(idEmpresa) {
+    fetch(`/financ/getTotalValueMonth/${idEmpresa}`)
+        .then(function (resposta) {
+            if (resposta.ok) {
+                if (resposta.status == 204) {
+                    console.warn("Nenhum resultado encontrado.");
+                    labels = [];
+                    valores = [];
+                    return;
+                }
+
+                return resposta.json();
+            } else {
+                throw new Error("Houve um erro na API!");
             }
-        ]
-    },
-    options: {
-        maintainAspectRatio: false,
-        plugins: {
-            legend: {
-                display: false,
+        })
+        .then(function (resposta) {
+            if (resposta) {
+                labelTotalValue = resposta.map(dado => dado.mes);
+                valueTotalValue = resposta.map(dado => dado.total_ml);
+
+                console.log("Labels:", labelTotalValue);
+                console.log("Valores:", valueTotalValue);
+
+                atualizarGrafico();
             }
+        })
+        .catch(function (erro) {
+            console.error("Erro:", erro);
+        });
+    }
+
+getTotalValueMonth(1);
+
+function atualizarGrafico() {
+    const divTotalMl = document.getElementById('total_ml_mensal').getContext('2d');
+    new Chart(divTotalMl, {
+        type: 'line',
+        data: {
+            labels: labelTotalValue,
+            datasets: [
+                {
+                    label: "Total Gasto(Mensal)",
+                    data: valueTotalValue,
+                    borderColor: '#FEA301',
+                    backgroundColor: '#FEA30150',
+                    fill: true,
+                    tension: 0,
+                }
+            ]
         },
-        scales: {
-            y: {
-                beginAtZero: true,
-                title: {
-                    display: true,
-                    text: 'Quantidade (mL)',
+        options: {
+            maintainAspectRatio: false,
+            plugins: {
+                legend: {
+                    display: false,
+                },
+                tooltip: {
+                    callbacks: {
+                        label: function(context) {
+                            let value = context.raw;
+                            return `R$ ${value.toLocaleString('pt-BR', { minimumFractionDigits: 2 })}`;
+                        }
+                    }
+                }
+            },
+            scales: {
+                y: {
+                    beginAtZero: true,
+                    title: {
+                        display: true,
+                        text: 'Valor (BRL)',
+                    }
                 }
             }
         }
-    }
-});
+    });
+}
 
 // -------------------------------------------------------------------
 const divGraphDefen = document.getElementById('chart_amount_month').getContext('2d');
@@ -83,28 +160,3 @@ const graficoDefensivos = new Chart(divGraphDefen, {
 });
 
 // -------------------------------------------------------------------
-const divPizza = document.getElementById('graficoPizza').getContext('2d');
-
-const graficoPizza = new Chart(divPizza, {
-    type: 'pie',
-    data: {
-        labels: ['Defensivo A', 'Defensivo B', 'Defensivo C'],
-        datasets: [{
-            label: 'Consumo em mL',
-            data: [300, 200, 100],
-            backgroundColor: [
-                'rgba(75, 192, 192, 0.8)',
-                'rgba(54, 162, 235, 0.8)',
-                'rgba(255, 99, 132, 0.8)'
-            ]
-        }]
-    },
-    options: {
-        maintainAspectRatio: false,
-        plugins: {
-            legend: {
-                position: 'right' // Coloca a legenda à direita do gráfico
-            }
-        }
-    }
-});
