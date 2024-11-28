@@ -6,7 +6,6 @@ CREATE TABLE Endereco (
     idEndereco INT PRIMARY KEY,
     cep CHAR(9),
     numero VARCHAR(10),
-    logradouro VARCHAR(45),
     complemento VARCHAR(45)
 );
 
@@ -34,6 +33,7 @@ CREATE TABLE Usuario (
 -- Tabela Fazenda
 CREATE TABLE Fazenda (
     idFazenda INT PRIMARY KEY,
+    nome VARCHAR(45),
     responsavel VARCHAR(45),
     fkEndereco INT,
     fkEmpresa INT,

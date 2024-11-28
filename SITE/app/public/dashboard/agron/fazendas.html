@@ -72,7 +72,6 @@
 </html>
 
 <script>
-
     function adicionarFazenda() {
 
         var nomeFazenda = input_nome_fazenda.value;
@@ -90,8 +89,6 @@
                 "Content-Type": "application/json",
             },
             body: JSON.stringify({
-                // crie um atributo que recebe o valor recuperado aqui
-                // Agora vá para o arquivo routes/usuario.js
                 nomeServer: nomeFazenda,
                 //  cidadeServer: cidade,
                 cepServer: cep,
@@ -121,25 +118,28 @@
 
     fetch(`/fazendas/exibirFazenda`).then(res => {
         res.json().then(res => {
-
             for (let posicao = 0; posicao < res.length; posicao++) {
-    buscarCEP(res[posicao].cep)
-        .then((cepResult) => {
-            card1.innerHTML += `
-                <a href="./talhao.html">
-                    <div class="card">
-                        <img src="../../assets/img/farm.jpg" alt="Fazenda" class="card-image">
-                        <div class="card-content">
-                            <h3 class="card-subtitle">${cepResult}</h3>
-                            <h2 class="card-title">${res[posicao].nome}</h2>
-                        </div>
-                    </div>
-                </a>`;
-        })}
-console.log(res);
+                buscarCEP(res[posicao].cep)
+                .then((cepResult) => {
+                    card1.innerHTML += `
+                        <a href="./talhao.html">
+                            <div class="card">
+                                <img src="../../assets/img/farm.jpg" alt="Fazenda" class="card-image">
+                                <div class="card-content">
+                                    <h3 class="card-subtitle">${cepResult}</h3>
+                                    <h2 class="card-title">${res[posicao].nome}</h2>
+                                    <div>
+                                        <p>Editar Remover</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </a>`;
+                        
+                    console.log(res);
+                })
+            }
         })
     })
-
 
     // BUSCAR CEP
     async function buscarCEP(cep) {
@@ -204,5 +204,4 @@ console.log(res);
     }
 
     buscarPrevisaoTempo();
-
 </script>
