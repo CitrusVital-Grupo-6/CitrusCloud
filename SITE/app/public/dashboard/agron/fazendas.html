@@ -18,8 +18,8 @@
             <h1 class="main-title">Fazendas</h1>
             <div class="buttons">
                 <button class="main-button" onclick="modal_fazenda.showModal()">Adicionar</button>
-                <dialog id="modal_fazenda">
-                    <div class="container-modal-fazenda">
+                <dialog id="modal_fazenda" class="modal-layout">
+                    <div class="modal-form-wrapper">
                         <div class="box-titulo">
                             <span class="titulo-modal">ADICIONAR FAZENDA</span>
                             <button class="botao-fechar-modal" onclick="modal_fazenda.close()"><img width="24"
@@ -27,45 +27,36 @@
                                     alt="delete-sign"
                             />
                         </div>
-                        <div class="box-container">
-                            <div class="box-input">
-                                <div class="dados-fazenda">
-                                    <span>NOME</span>
-                                    <input class="input-dados-fazenda" type="text" name="" id="input_nome_fazenda">
-                                </div>
-                                <div class="dados-fazenda">
-                                    <span>CEP</span>
-                                    <input class="input-dados-fazenda" type="number" name="" id="input_cep_fazenda">
-                                </div>
-                                <!-- <div class="dados-fazenda">
-                                    <span>CIDADE</span>
-                                    <div class="form-input-dados-fazenda">
-                                        <input class="input-cidade-fazenda" type="text" name="" id="city_input">
-                                        <button id="search">
-                                            <i class="fa-solid fa-magnifying-glass"></i>
-                                        </button>
+                        <div>
+                            <div class="modal-box-wrapper">
+                                <div class="modal-box-container">
+                                    <div class="dados-fazenda">
+                                        <span>NOME</span>
+                                        <input class="input-modal" type="text" name="" id="input_nome_fazenda">
                                     </div>
-                                </div>! -->
-
-                                <div class="dados-fazenda">
-                                    <span>DESCRICAO</span>
-                                    <textarea class="input-dados-fazenda" id="input_descricao" name="w3review" rows="4"
-                                        cols="50"></textarea>
+                                    <div class="dados-fazenda">
+                                        <span>CEP</span>
+                                        <input class="input-modal" type="number" name="" id="input_cep_fazenda">
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="box-input">
-                                <div class="dados-fazenda">
-                                    <span>NUMERO</span>
-                                    <input class="input-dados-fazenda" type="number" name="" id="input_numero_fazenda">
-                                </div>
-                                <div class="dados-fazenda">
-                                    <span>COMPLEMENTO</span>
-                                    <input class="input-dados-fazenda" type="text" name=""
-                                        id="input_complemento_fazenda">
+                                <div class="modal-box-container">
+                                    <div class="dados-fazenda">
+                                        <span>NUMERO</span>
+                                        <input class="input-modal" type="number" name="" id="input_numero_fazenda">
+                                    </div>
+                                    <div class="dados-fazenda">
+                                        <span>COMPLEMENTO</span>
+                                        <input class="input-modal" type="text" name=""
+                                            id="input_complemento_fazenda">
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                        <button onclick="adicionarFazenda()" class="botao-adicionar-fazenda">ADICIONAR</button>
+                        <div class="dados-fazenda" style="margin-top: 2rem;">
+                            <span>DESCRICAO</span>
+                            <input class="input-modal" id="input_descricao" style="width: 100%;"/>
+                        </div>
+                        <button onclick="adicionarFazenda()" class="btn-add-modal">ADICIONAR</button>
                     </div>
                 </dialog> 
             </div>

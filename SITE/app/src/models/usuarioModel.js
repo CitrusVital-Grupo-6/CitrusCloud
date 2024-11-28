@@ -49,7 +49,7 @@ function listarPorUsuario(idUsuario) {
 function editarUsuario(novoNome, idUsuario, novaFuncao, novoCpf, novoEmail) {
     console.log("ACESSEI O AVISO MODEL \n \n\t\t >> Se aqui der erro de 'Error: connect ECONNREFUSED',\n \t\t >> verifique suas credenciais de acesso ao banco\n \t\t >> e se o servidor de seu BD está rodando corretamente. \n\n function editar(): ", novoNome, idUsuario, novaFuncao, novoCpf, novoEmail);
     var instrucaoSql = `
-        UPDATE Usuario SET nomeCompleto = '${novoNome}', cpf = '${novoCpf}', email = '${novoEmail}' WHERE idUsuario = ${idUsuario};
+        UPDATE Usuario SET nomeCompleto = '${novoNome}', cpf = '${novoCpf}', email = '${novoEmail}', funcao = '${novaFuncao}' WHERE idUsuario = ${idUsuario};
     `;
     console.log("Executando a instrução SQL: \n" + instrucaoSql);
     return database.executar(instrucaoSql);

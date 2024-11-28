@@ -118,8 +118,8 @@ function listarPorUsuario(req, res) {
 }
 
 function editarUsuario(req, res) {
-    let novoNome = req.body.nomeFunc;
     let idUsuario = req.params.idUsuario;
+    let novoNome = req.body.nomeFunc;
     let novaFuncao = req.body.funcaoFunc;
     let novoCpf = req.body.cpfFunc;
     let novoEmail = req.body.emailFunc;
