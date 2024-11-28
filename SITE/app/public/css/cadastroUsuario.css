@@ -136,6 +136,16 @@ body{
     
 }
 
+
+#error-span {
+    color: #9d2828;
+    background-color: #efb7b7;
+    width: 100%;
+    text-align: center;
+    padding-block: .4rem;
+    display: none;
+}
+
 .login-form-field input {
     width: 36rem;
     height: 4.8rem;

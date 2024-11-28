@@ -117,27 +117,7 @@
 
                 if (resposta.ok) {
 
-                    fetch(`/fazendas/exibirFazenda`).then(res => {
-                        res.json().then(res => {
-
-                            for (posicao = 0; posicao < res.length; posicao++) {
-
-                                card1.innerHTML += `
-                                    <a href="./talhao.html">
-                                        <div class="card">
-                                            <img src="../../assets/img/farm.jpg" alt="Fazenda" class="card-image">
-                                            <div class="card-content">
-                                                <h3 class="card-subtitle">Limoeiros, São Paulo</h3>
-                                                <h2 class="card-title">${res[posicao].nome}</h2>
-                                                <h3 class="card-desc">${res[posicao].descricao}.</h3>
-                                            </div>
-                                        </div>
-                                    </a>`
-                            }
-                            console.log(res);
-                        })
-                    })
-
+                    window.location = "./fazendas.html"
 
                 } else {
                     throw "Houve um erro ao tentar realizar o cadastro!";
@@ -154,21 +134,87 @@
     fetch(`/fazendas/exibirFazenda`).then(res => {
         res.json().then(res => {
 
-            for (posicao = 0; posicao < res.length; posicao++) {
-
-                card1.innerHTML += `
-                    <a href="./talhao.html">
-                        <div class="card">
-                            <img src="../../assets/img/farm.jpg" alt="Fazenda" class="card-image">
-                            <div class="card-content">
-                                <h3 class="card-subtitle">Limoeiros, São Paulo</h3>
-                                <h2 class="card-title">${res[posicao].nome}</h2>
-                                <h3 class="card-desc">${res[posicao].descricao}.</h3>
-                            </div>
+            for (let posicao = 0; posicao < res.length; posicao++) {
+    buscarCEP(res[posicao].cep)
+        .then((cepResult) => {
+            card1.innerHTML += `
+                <a href="./talhao.html">
+                    <div class="card">
+                        <img src="../../assets/img/farm.jpg" alt="Fazenda" class="card-image">
+                        <div class="card-content">
+                            <h3 class="card-subtitle">${cepResult}</h3>
+                            <h2 class="card-title">${res[posicao].nome}</h2>
                         </div>
-                    </a>`
-            }
-            console.log(res);
+                    </div>
+                </a>`;
+        })}
+console.log(res);
         })
     })
+
+
+    // BUSCAR CEP
+    async function buscarCEP(cep) {
+        const cepUrl = cep.replace(/\D/g, '');
+        const url = `https://viacep.com.br/ws/${cepUrl}/json/`;
+
+        try {
+            const response = await fetch(url);
+            const data = await response.json();
+
+            if (data.erro) {
+                alert('CEP não encontrado.');
+                return;
+            }
+
+            console.log(data);
+            return `${data.localidade}, ${data.estado}`;
+        } catch (error) {
+            console.error('Erro ao buscar CEP:', error);
+            alert('Ocorreu um erro ao buscar o CEP. Verifique a sua conexão com a internet.');
+        }
+    }
+
+    // TEMPERATURA
+    const OPENWEATHER_API_KEY = 'f4652d12e1e313414bdf86ce7dff0d93';
+
+    async function buscarPrevisaoTempo() {
+        const cep = '07142210'.replace(/\D/g, '');
+
+        try {
+            const responseViaCEP = await fetch(`https://viacep.com.br/ws/${cep}/json/`);
+            const dataViaCEP = await responseViaCEP.json();
+
+            if (dataViaCEP.erro) {
+                alert('CEP não encontrado.');
+                return;
+            }
+
+            let logradouro = dataViaCEP.logradouro;
+            let bairro = dataViaCEP.bairro;
+            let cidade = dataViaCEP.localidade;
+
+            const responseGeocoding = await fetch(`https://nominatim.openstreetmap.org/search?q=${logradouro} ${bairro} ${cidade}&format=json&addressdetails=1&limit=1`);
+            const dataGeocoding = await responseGeocoding.json();
+
+            if (dataGeocoding && dataGeocoding.length > 0) {
+                latitude = dataGeocoding[0].lat;
+                longitude = dataGeocoding[0].lon;
+            } else {
+                alert('Não foi possível obter as coordenadas geográficas do CEP.');
+                return;
+            }
+
+            const responseOpenWeather = await fetch(`https://api.openweathermap.org/data/2.5/weather?lat=${latitude}&lon=${longitude}&appid=${OPENWEATHER_API_KEY}&units=metric&lang=pt_br`);
+            const dataOpenWeather = await responseOpenWeather.json();
+
+            console.log(dataOpenWeather);
+        } catch (error) {
+            console.error('Erro ao buscar previsão do tempo:', error);
+            alert('Ocorreu um erro ao buscar a previsão do tempo.');
+        }
+    }
+
+    buscarPrevisaoTempo();
+
 </script>

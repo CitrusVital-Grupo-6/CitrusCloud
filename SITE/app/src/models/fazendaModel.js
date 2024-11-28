@@ -24,12 +24,12 @@ function adicionarFazenda(nome, idEndereco) {
 }
 
 
-function adicionarEndereco(cep, numero, complemento, descricao) {
+function adicionarEndereco(cep, numero, complemento) {
 
-    console.log("ACESSEI O USUARIO MODEL \n \n\t\t >> Se aqui der erro de 'Error: connect ECONNREFUSED',\n \t\t >> verifique suas credenciais de acesso ao banco\n \t\t >> e se o servidor de seu BD está rodando corretamente. \n\n function adicionarFazenda():", cep, numero, complemento, descricao);
+    console.log("ACESSEI O USUARIO MODEL \n \n\t\t >> Se aqui der erro de 'Error: connect ECONNREFUSED',\n \t\t >> verifique suas credenciais de acesso ao banco\n \t\t >> e se o servidor de seu BD está rodando corretamente. \n\n function adicionarFazenda():", cep, numero, complemento);
 
     var instrucaoSql = `
-        INSERT INTO endereco (cep, numero, complemento, descricao) VALUES ('${cep}', '${numero}', '${complemento}', '${descricao}')`;
+        INSERT INTO endereco (cep, numero, complemento) VALUES ('${cep}', '${numero}', '${complemento}')`;
 
     console.log("Executando a instrução SQL: \n" + instrucaoSql);
     return database.executar(instrucaoSql);
@@ -47,6 +47,9 @@ function consultarFazenda() {
     return database.executar(instrucaoSql);
 
 } 
+
+
+
 // function mandarMensagem(nomeCompleto, email, telefone, mensagem) {
 //     console.log("ACESSEI O USUARIO MODEL \n \n\t\t >> Se aqui der erro de 'Error: connect ECONNREFUSED',\n \t\t >> verifique suas credenciais de acesso ao banco\n \t\t >> e se o servidor de seu BD está rodando corretamente. \n\n function mandarMensagem():", nomeCompleto, email, telefone, mensagem);
 //     var instrucaoSql = `
