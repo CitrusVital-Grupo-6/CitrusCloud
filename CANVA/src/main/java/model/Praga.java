@@ -14,5 +14,5 @@ public class Praga {
     public String getNome() {return nome;}
 
     public void setNome(String nome) {this.nome = nome;}
-    public void setIdPragas(int idPragas) {this.id = id;}
+    public void setId(int idPragas) {this.id = id;}
 }

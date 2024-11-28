@@ -6,6 +6,7 @@
     box-sizing: border-box;
     font-family: "Manrope", sans-serif;
     text-decoration: none;
+    font-size: 1.6rem;
 }
 
 :root {
@@ -221,7 +222,7 @@ main .title .buttons {
 
 main .title div {
     span{
-        font-size: 2rem;
+        /* font-size: 2rem; */
     }
 
     select {
@@ -351,9 +352,7 @@ main .cards-group .card:hover {
 
 /* ---------------------------------------------------------- */
 
-#modal_fazenda{
-    width: 900px;
-    height: 600px;
+.modal-layout{
     background-color: var(--cor-primaria);
     border-radius: 10px;
     border: none;
@@ -365,21 +364,18 @@ main .cards-group .card:hover {
     transform: translate(-50%, -50%); /* Ajusta a posição para o centro */
 }
 
-#modal_fazenda::backdrop{
+.modal-layout::backdrop{
     background-color: #0000009f;
 }
 
-.container-modal-fazenda {
-    width: 90%;
-    height: 530px;
-    margin-top: 20px;
-    margin-left: 60px;
+.modal-form-wrapper {
+    margin-inline: 5rem;
+    margin-block: 5rem;
     display: flex;
     flex-direction: column;
-    margin-top: 6%;
 }
 
-.box-container {
+.modal-box-wrapper {
 
     display: flex;
     gap: 5.0rem;
@@ -387,11 +383,10 @@ main .cards-group .card:hover {
 
 .box-titulo {
     display: flex;
-    gap: 200px;
-    margin-left: 30%;
+    justify-content: space-between;
 }
 
-.box-input {
+.modal-box-container {
     margin-top: 5%;
     display: flex;
     flex-direction: column;
@@ -416,10 +411,9 @@ main .cards-group .card:hover {
     display: flex;
     flex-direction: column;
     font-size: 20px;
-    gap: 1.0rem;
 }
 
-.input-dados-fazenda {
+.input-modal {
     width: 36rem;
     height: 4.8rem;
     background-color: var(--cor-primaria);
@@ -427,13 +421,13 @@ main .cards-group .card:hover {
     border: 1px solid var(--cor-font);
     border-radius: 10px;
     padding-left: 1rem;
-    font-size: 2rem;
+    font-size: 1.5rem;
     caret-color: var(--cor-secundaria);
 
 }
 
 
-.input-dados-fazenda:hover {
+.input-modal:hover {
     opacity: 1;
     border-color: var(--cor-titulo);
     color: var(--cor-titulo);
@@ -465,7 +459,7 @@ main .cards-group .card:hover {
 }
 
 
-.botao-adicionar-fazenda {
+.btn-add-modal {
     width: 36rem;
     font-size: 2rem;
     color: var(--cor-font);
@@ -480,7 +474,7 @@ main .cards-group .card:hover {
 
 }
 
-.botao-adicionar-fazenda:hover {
+.btn-add-modal:hover {
     opacity: 1;
     border-color: var(--cor-titulo);
     color: var(--cor-titulo);
@@ -670,13 +664,11 @@ select{
     transform: translate(-50%, -50%); /* Ajusta a posição para o centro */
 }
 
-
 #modal_talhao::backdrop{
     background-color: #0000009f;
 }
 
 .container-modal-talhao {
-
     width: 80%;
     height: 467px;
     margin-left: 65px;
@@ -686,21 +678,16 @@ select{
 }
 
 .box-titulo-talhao {
-
     display: flex;
     gap:170px ;
-
 }
 
 .titulo-modal-talhao{
-
     font-size: 32px !important;
     font-weight: bold;
 }
 
-
 .botao-fechar-modal-talhao {
-
     border: none;
     background-color: var(--cor-primaria)   ;
     font-size: 32px;
@@ -708,7 +695,6 @@ select{
 }
 
 .box-talhao {
-
     margin-top: 6%;
     display: flex;
     flex-direction: column;
@@ -717,7 +703,6 @@ select{
 
 
 .input-hectar {
-
     width: 500px;
     height: 4.8rem;
     background-color: var(--cor-primaria);
@@ -730,9 +715,7 @@ select{
 }
 
 
-
 .botao-adicionar-talhao {
-
     width: 120px;
     height: 45px;
     border: none;
@@ -749,13 +732,11 @@ select{
 }
 
 .botao-adicionar-talhao:hover {
-    
     background-color: rgb(222, 153, 25) ;
     border: 2px solid #fff;
 }
 
 .box-childrem-talhao {
-
     display: flex;
     flex-direction: column;
     gap: 1.0rem;
@@ -795,4 +776,46 @@ select{
         margin-inline: 6rem;
         /* margin-block: 1rem; */
     }
+}
+
+.container-box-1{
+    padding-top: 3rem;
+    width: 100%;
+}
+
+.next-buy-title{
+    background-color: #2d2d2d;
+    color: white;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    padding-inline: 2rem;
+    padding-block: 1rem;
+    cursor: pointer;
+
+    div{
+        font-size: 1.75rem;
+        font-weight: 800;
+        display: flex;
+        align-items: center;
+    }
+}
+
+.next-buy-defen table{
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.next-buy-defen td{
+    width: 20%;
+    border: 1px solid #00000050;
+    text-align: left;
+    box-sizing: border-box;
+    font-size: 2rem;
+    padding-block: 0.5rem;
+    padding-left: 1rem;
+}
+
+.next-buy-defen td:first-child{
+    padding-left: 4rem
 }

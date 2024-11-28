@@ -52,14 +52,10 @@ function adicionarFazenda(req, res) {
 }
 
 function exibirFazenda(req, res) {
-
-
     fazendaModel.consultarFazenda().then(
-
         function (resultado7) {
             console.log(resultado7);
             res.status(200).json(resultado7);
-
         }
     ).catch(
         function (erro) {
@@ -67,31 +63,7 @@ function exibirFazenda(req, res) {
             console.log("\nHouve um erro ao realizar a consulta !Erro: ", erro.sqlMessage);
         }
     );
-
 }
-
-
-
-
-
-
-
-
-
-//fazendaModel.adicionarFazenda(nomeFazenda, resultado[0].idEndereco).then(
-
-//  function (resultado4) {
-//    console.log(resultado4);
-//  res.status(200).json(resultado4);
-
-//}
-//).catch(
-//  function (erro) {
-//    console.log(erro);
-//  console.log("\nHouve um erro ao realizar a consulta !Erro: ", erro.sqlMessage);
-//}
-// );
-
 
 module.exports = {
     adicionarFazenda,

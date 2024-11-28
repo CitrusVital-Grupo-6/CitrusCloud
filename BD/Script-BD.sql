@@ -72,7 +72,7 @@ CREATE TABLE Agrotoxico (
     maxTemperatura INT,
     minSemChuva INT,
     maxSemChuva INT,
-    qtdML DECIMAL
+    valorLitro decimal(5,2)
 );
 
 -- Tabela Cronograma (Relacionamento entre Agrotóxicos e Plantação)
@@ -80,6 +80,7 @@ CREATE TABLE Pulverizacao (
 	idPulverizacao INT PRIMARY KEY,
     fkTalhao INT,
     fkAgrotoxico INT,
+    qtdML INT,
     dataPulverizacao DATE,
     FOREIGN KEY (fkTalhao) REFERENCES Talhao(idTalhao),
     FOREIGN KEY (fkAgrotoxico) REFERENCES Agrotoxico(idAgrotoxico)
@@ -93,3 +94,56 @@ CREATE TABLE Pragas (
     controle VARCHAR(45),
     condicoesFavoraveis VARCHAR(45)
 );
+
+-- Limpando os dados das tabelas, se necessário
+
+select * from Endereco;
+
+-- Inserindo dados em Endereco
+INSERT INTO Endereco (idEndereco, cep, numero, logradouro, complemento) VALUES
+(1, '12345-678', '100', 'Rua Laranja', 'Apt 101'),
+(2, '98765-432', '200', 'Av. Citrus', NULL);
+
+-- Inserindo dados em Fazenda
+INSERT INTO Fazenda (idFazenda, responsavel, fkEndereco, fkEmpresa) VALUES
+(1, 'João Silva', 1, NULL),
+(2, 'Maria Oliveira', 2, NULL);
+
+-- Inserindo dados em Talhao
+INSERT INTO Talhao (idTalhao, tipoLaranja, tamanhoHec, fkFazenda) VALUES
+(1, 'Pera', '5.0', 1),
+(2, 'Valência', '3.5', 1),
+(3, 'Lima', '2.0', 2);
+
+-- Inserindo dados em Agrotoxico
+INSERT INTO Agrotoxico (idAgrotoxico, nome, descricao, tipo, minTemperatura, maxTemperatura, minSemChuva, maxSemChuva, valorLitro) VALUES
+(1, 'AgroX', 'Controle de fungos', 'Fungicida', 15, 30, 1, 3, 50.00),
+(2, 'InsectoKill', 'Controle de insetos', 'Inseticida', 18, 35, 2, 5, 70.00),
+(3, 'WeedAway', 'Controle de ervas daninhas', 'Herbicida', 20, 28, 0, 2, 45.00);
+
+-- Inserindo dados em Pulverizacao
+INSERT INTO Pulverizacao (idPulverizacao, fkTalhao, fkAgrotoxico, qtdML, dataPulverizacao) VALUES
+(1, 1, 1, 500, '2024-01-15'),
+(2, 1, 2, 300, '2024-02-20'),
+(3, 2, 1, 700, '2024-02-25'),
+(4, 3, 3, 450, '2024-03-10'),
+(5, 3, 2, 600, '2024-03-15'),
+(6, 2, 1, 400, '2024-04-05');
+
+SET lc_time_names = 'pt_BR';
+
+SELECT 
+    MONTHNAME(p.dataPulverizacao) AS mes,
+    IFNULL(SUM(p.qtdML), 0) AS total_ml
+FROM 
+    Pulverizacao p
+INNER JOIN 
+    Talhao t ON p.fkTalhao = t.idTalhao
+INNER JOIN 
+    Fazenda f ON t.fkFazenda = f.idFazenda
+WHERE 
+    f.idFazenda = 1 -- Substitua pelo ID da fazenda desejada
+GROUP BY 
+    p.fkAgrotoxico
+ORDER BY 
+    MONTH(p.dataPulverizacao);

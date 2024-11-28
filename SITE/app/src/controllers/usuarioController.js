@@ -20,7 +20,6 @@ function autenticar(req, res) {
                                         email: resultadoAutenticar[0].email,
                                         nomeCompleto: resultadoAutenticar[0].nomeCompleto,
                                         senha: resultadoAutenticar[0].senha,
-                                        // idEmpresa: resultadoAutenticar[0].idEmpresa,
                                     });
                     } else if (resultadoAutenticar.length == 0) {
                         res.status(403).send("Email e/ou senha inválido(s)");
@@ -40,77 +39,130 @@ function autenticar(req, res) {
 }
 
 function cadastrar(req, res) {
-    // Crie uma variável que vá recuperar os valores do arquivo cadastro.html
-    var empresa = req.body.empresaServer;
-    var representante = req.body.representanteServer;
-    var celular = req.body.celularServer;
-    var email = req.body.emailServer;
-    var senha = req.body.senhaServer;
+    var nomeEmpresa = req.body.nomeEmpresaServer;
+    var cnpjEmpresa = req.body.cnpjEmpresaServer;
+    var telefoneEmpresa = req.body.telefoneEmpresaServer;
+    var nomeFunc = req.body.nomeFuncServer;
+    var funcaoFunc = req.body.funcaoFuncServer;
+    var cpfFunc = req.body.cpfFuncServer;
+    var emailFunc = req.body.emailFuncServer;
+    var senhaFunc = req.body.senhaFuncServer;
 
-    // Faça as validações dos valores
-    if (empresa == undefined) {
-        res.status(400).send("Seu nome está undefined!");
-    } else if (representante == undefined){
-        res.status(400).send("Seu representante está undefined!");
-    } else if (celular == undefined){
-        res.status(400).send("Seu celular está undefined!");
-    } else if (email == undefined){
-        res.status(400).send("Seu email está undefined!");
-    } else if (senha == undefined){
-        res.status(400).send("Seu senha está undefined!");
-    } else {
-
-        // Passe os valores como parâmetro e vá para o arquivo usuarioModel.js
-        usuarioModel.cadastrar(empresa, representante, celular, email, senha)
-            .then(
-                function (resultado) {
-                    res.json(resultado);
-                }
-            ).catch(
-                function (erro) {
-                    console.log(erro);
-                    console.log(
-                        "\nHouve um erro ao realizar o cadastro! Erro: ",
-                        erro.sqlMessage
-                    );
-                    res.status(500).json(erro.sqlMessage);
-                }
-            );
-    }
+    usuarioModel.cadastrar(nomeEmpresa, cnpjEmpresa, telefoneEmpresa, nomeFunc, funcaoFunc, cpfFunc, emailFunc, senhaFunc)
+        .then(
+            function (resultado) {
+                res.json(resultado);
+            }
+        ).catch(
+            function (erro) {
+                console.log(erro);
+                console.log(
+                    "\nHouve um erro ao realizar o cadastro! Erro: ",
+                    erro.sqlMessage
+                );
+                res.status(500).json(erro.sqlMessage);
+            }
+        );
 }
 
-function mandarMensagem(req, res) {
-    var nomeCompleto = req.body.nomeServer;
-    var email = req.body.emailServer;
-    var telefone = req.body.telefoneServer;
-    var mensagem = req.body.mensagemServer;
+function listarPorEmpresa(req, res) {
+    var idEmpresa = req.params.idEmpresa;
+    // let idEmpresa = 1;
 
-    if (nomeCompleto == undefined) {
-        res.status(400).send("Seu nome completo está undefined!");
-    } else if (email == undefined) {
-        res.status(400).send("Seu email está undefined!");
-    } else if (telefone == undefined) {
-        res.status(400).send("Seu telefone está undefined!");
-    } else if (mensagem == undefined) {
-        res.status(400).send("Sua mensagem está undefined!");
-    } else {
-        usuarioModel.mandarMensagem(nomeCompleto, email, telefone, mensagem)
-            .then(
-                function (resultado) {
-                    res.json(resultado);
+    usuarioModel.listarPorEmpresa(idEmpresa)
+        .then(
+            function (resultado) {
+                if (resultado.length > 0) {
+                    res.status(200).json(resultado);
+                } else {
+                    res.status(204).send("Nenhum resultado encontrado!");
                 }
-            ).catch(
-                function (erro) {
-                    console.log(erro);
-                    console.log("\nHouve um erro ao enviar a mensagem! Erro: ", erro.sqlMessage);
-                    res.status(500).json(erro.sqlMessage);
+            }
+        )
+        .catch(
+            function (erro) {
+                console.log(erro);
+                console.log(
+                    "Houve um erro ao buscar usuários: ",
+                    erro.sqlMessage
+                );
+                res.status(500).json(erro.sqlMessage);
+            }
+        );
+}
+
+function listarPorUsuario(req, res) {
+    var idUsuario = req.params.idUsuario;
+    // let idUsuario = 1;
+
+    usuarioModel.listarPorUsuario(idUsuario)
+        .then(
+            function (resultado) {
+                if (resultado.length > 0) {
+                    res.status(200).json(resultado);
+                } else {
+                    res.status(204).send("Nenhum resultado encontrado!");
                 }
-            );
-    }
+            }
+        )
+        .catch(
+            function (erro) {
+                console.log(erro);
+                console.log(
+                    "Houve um erro ao buscar usuários: ",
+                    erro.sqlMessage
+                );
+                res.status(500).json(erro.sqlMessage);
+            }
+        );
+}
+
+function editarUsuario(req, res) {
+    let idUsuario = req.params.idUsuario;
+    let novoNome = req.body.nomeFunc;
+    let novaFuncao = req.body.funcaoFunc;
+    let novoCpf = req.body.cpfFunc;
+    let novoEmail = req.body.emailFunc;
+
+    usuarioModel.editarUsuario(novoNome, idUsuario, novaFuncao, novoCpf, novoEmail)
+        .then(
+            function (resultado) {
+                res.json(resultado);
+            }
+        )
+        .catch(
+            function (erro) {
+                console.log(erro);
+                console.log("Houve um erro ao realizar o post: ", erro.sqlMessage);
+                res.status(500).json(erro.sqlMessage);
+            }
+        );
+
+}
+
+function deletarUsuario(req, res) {
+    let idUsuario = req.params.idUsuario;
+
+    usuarioModel.deletarUsuario(idUsuario)
+        .then(
+            function (resultado) {
+                res.json(resultado);
+            }
+        )
+        .catch(
+            function (erro) {
+                console.log(erro);
+                console.log("Houve um erro ao deletar o post: ", erro.sqlMessage);
+                res.status(500).json(erro.sqlMessage);
+            }
+        );
 }
 
 module.exports = {
     autenticar,
     cadastrar,
-    mandarMensagem
+    listarPorEmpresa,
+    listarPorUsuario,
+    editarUsuario,
+    deletarUsuario
 }
