@@ -7,21 +7,18 @@
     <link rel="stylesheet" href="../../css/dashboard.css">
 
     <link href='https://fonts.googleapis.com/css?family=Inter' rel='stylesheet'>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
-        integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg=="
-        crossorigin="anonymous" referrerpolicy="no-referrer" />
-
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 
     <title>CitrusVital | Talhões</title>
 </head>
 
-<body id="fazendas">
+<body id="fazendas" onload="bumBum()">
     <aside id="aside-menu">
     </aside>
 
     <main id="main-content">
         <div class="title">
-            <h1 class="main-title">Fazenda Citrus</h1>
+            <h1 class="main-title" id="nome-fazenda">Fazenda Citrus</h1>
             <div class="buttons">
                 <button class="main-button" onclick="modal_talhao.showModal()">Adicionar</button>
                 <dialog id="modal_talhao">
@@ -102,8 +99,13 @@
     </main>
 
     <script src="../../middlewares/aside-menu.js"></script>
-    <script src="../../middlewares/open-wheater.js" defer></script>
     <script>
+        function bumBum(){
+            const talhaoData = JSON.parse(sessionStorage.getItem("TALHAO_DATA"));
+            console.log(talhaoData)
+            document.getElementById("nome-fazenda").innerHTML = talhaoData.name;
+        }
+
         function adicionarPraga() {
             let idInnerPragas = document.getElementById("pragas")
 

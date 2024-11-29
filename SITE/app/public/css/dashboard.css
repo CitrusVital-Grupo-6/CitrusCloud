@@ -330,7 +330,6 @@ main .cards-group .card .card-desc {
 }
 
 main .cards-group .card:hover {
-    transform: scale(1.05);
     border-color: var(--cor-titulo);
 }
 
