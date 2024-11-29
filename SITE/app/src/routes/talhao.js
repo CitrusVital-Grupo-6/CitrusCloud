@@ -12,5 +12,9 @@ router.get("/exibirTalhao", function (req, res) {
     talhaoController.exibirTalhao(req, res);
 });
 
+router.post("/adicionarTalhao", function (req, res) {
+  talhaoController.adicionarTalhao(req, res);
+});
+
 
 module.exports = router;

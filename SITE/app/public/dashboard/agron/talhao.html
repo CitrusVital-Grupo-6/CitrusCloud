@@ -7,7 +7,9 @@
     <link rel="stylesheet" href="../../css/dashboard.css">
 
     <link href='https://fonts.googleapis.com/css?family=Inter' rel='stylesheet'>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
+        integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
 
     <title>CitrusVital | Talhões</title>
 </head>
@@ -32,7 +34,7 @@
                         <div class="box-talhao">
                             <div class="box-childrem-talhao">
                                 <span>NOME</span>
-                                <input class="input-hectar" type="text" name="" id="input_nome_hactar">
+                                <input class="input-hectar" type="text" name="" id="input_nome_talhao">
                             </div>
                             <div class="box-childrem-talhao">
                                 <span>HECTARES</span>
@@ -50,7 +52,7 @@
                                 </select>
                             </div>
                         </div>
-                        <button  onclick="adicionarTalhao()" class="botao-adicionar-talhao">ADICIONAR</button>
+                        <button onclick="adicionarTalhao()" class="botao-adicionar-talhao">ADICIONAR</button>
                     </div>
                 </dialog>
                 <button class="main-button" onclick="modal_pulverizacao.showModal()">Pulverizar</button>
@@ -95,15 +97,19 @@
         </div>
 
         <div id="card" class="cards-group"></div>
-      
+
     </main>
 
     <script src="../../middlewares/aside-menu.js"></script>
     <script>
-        function bumBum(){
+        function bumBum() {
             const talhaoData = JSON.parse(sessionStorage.getItem("TALHAO_DATA"));
             console.log(talhaoData)
             document.getElementById("nome-fazenda").innerHTML = talhaoData.name;
+
+            if (talhaoData) {
+                buscarTalhoes(talhaoData.idFazenda);
+            }
         }
 
         function adicionarPraga() {
@@ -127,35 +133,97 @@
 
         }
 
+        function adicionarTalhao() {
+            const talhaoData = JSON.parse(sessionStorage.getItem("TALHAO_DATA"));
+            const nomeTalhao = document.getElementById('input_nome_talhao').value;
+            const tamanhoHectar = document.getElementById('input_qtd_hactar').value;
+            const tipoLaranja = document.getElementById('tipo_laranja').value;
 
-        function exibirTalhoes() {
-            
-        fetch(`/talhao/exibirTalhao?idFazenda=2`).then(res => {
-        res.json().then(res => {
-            for (let posicao = 0; posicao < res.length; posicao++) {
-                    card.innerHTML += `
-                          <a href="./agendar.html">
-                             <div class="card">
-                                <img src="../../assets/img/plot.jpg" alt="Fazenda" class="card-image">
-                                <div class="card-content">
-                                    <h3 class="card-subtitle">${res[posicao].tipoLaranja}</h3>
-                                    <h2 class="card-title">${res[posicao].nome}</h2>
-                                </div>
+            fetch("/talhao/adicionarTalhao", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify({
+                    nomeTalhao: nomeTalhao,
+                    tamanhoHectar: tamanhoHectar,
+                    tipoLaranja: tipoLaranja,
+                    idFazenda: talhaoData.idFazenda
+                }),
+            })
+                .then(response => {
+                    if (response.ok) {
+                        modal_talhao.close();
+                        buscarTalhoes(talhaoData.idFazenda);
+                    } else {
+                        throw new Error("Erro ao adicionar talhão.");
+                    }
+                })
+                .catch(error => {
+                    console.error('Erro:', error);
+                });
+        }
+
+
+        document.addEventListener("DOMContentLoaded", function () {
+            const talhaoData = JSON.parse(sessionStorage.getItem("TALHAO_DATA"));
+
+            if (talhaoData) {
+                buscarTalhoes(talhaoData.idFazenda);
+            }
+
+            function buscarTalhoes(idFazenda) {
+                fetch(`/talhao/exibirTalhao?idFazenda=${idFazenda}`)
+                    .then(res => res.json())
+                    .then(talhoes => {
+                        const card1 = document.getElementById('card1');
+
+                        for (let posicao = 0; posicao < talhoes.length; posicao++) {
+                            card.innerHTML += `
+                    <a href="./agendar.html">
+                        <div class="card">
+                            <img src="../../assets/img/plot.jpg" alt="Fazenda" class="card-image">
+                            <div class="card-content">
+                                <h3 class="card-subtitle">${talhoes[posicao].tipoLaranja}</h3>
+                                <h2 class="card-title">${talhoes[posicao].nome}</h2>
                             </div>
-                          </a>`;
-                        
-                    console.log(res);
+                        </div>
+                    </a>`;
+                        }
+                    })
+                    .catch(error => {
+                        console.error('Erro ao buscar talhões:', error);
+                    });
             }
         })
-    })
-}
 
 
-        function adicionarTalhao() {
 
-            modal_talhao.close()
+        /*    fetch(`/talhao/exibirTalhao?idFazenda=2`).then(res => {
+            res.json().then(res => {
+                for (let posicao = 0; posicao < res.length; posicao++) {
+                        card.innerHTML += `
+                              <a href="./agendar.html">
+                                 <div class="card">
+                                    <img src="../../assets/img/plot.jpg" alt="Fazenda" class="card-image">
+                                    <div class="card-content">
+                                        <h3 class="card-subtitle">${res[posicao].tipoLaranja}</h3>
+                                        <h2 class="card-title">${res[posicao].nome}</h2>
+                                    </div>
+                                </div>
+                              </a>`;
+                            
+                        console.log(res);
+                }
+            })
+        })
+            */
 
-        }
+
+
+    
+
+        
 
         function recomendacoes() {
 

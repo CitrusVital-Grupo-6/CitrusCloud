@@ -1,24 +1,37 @@
 var talhaoModel = require("../models/talhaoModel");
 
 
-function exibirTalhao(req, res) {
-    const idFazenda = req.query.idFazenda; // Assumindo que você espera um parâmetro na query string
+function adicionarTalhao(req, res) {
+    const {nomeTalhao, tipoLaranja, tamanhoHectar, idFazenda} = req.body;
 
-    talhaoModel.consultarTalhao(idFazenda).then(
-        function (resultado7) {
-            console.log(resultado7);
-            res.status(200).json(resultado7);
+    talhaoModel.adicionarTalhao(nomeTalhao, tipoLaranja, tamanhoHectar, idFazenda).then(
+        function (resultado) {
+            res.status(200).json({ message: "Talhão adicionado com sucesso!", talhao: resultado });
         }
     ).catch(
         function (erro) {
-            console.log(erro);
-            console.log("\nHouve um erro ao realizar a consulta! Erro: ", erro.sqlMessage);
+            console.error(erro);
+            res.status(500).json({ error: 'Houve um erro ao adicionar o talhão!' });
+        }
+    );
+}
+
+function exibirTalhao(req, res) {
+    const idFazenda = req.query.idFazenda;
+
+    talhaoModel.consultarTalhao(idFazenda).then(
+        function (resultado) {
+            res.status(200).json(resultado);
+        }
+    ).catch(
+        function (erro) {
+            console.error(erro);
             res.status(500).json({ error: 'Houve um erro ao realizar a consulta!' });
         }
     );
 }
 
-
 module.exports = {
-    exibirTalhao
+    exibirTalhao,
+    adicionarTalhao
 }
