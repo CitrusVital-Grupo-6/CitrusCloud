@@ -122,7 +122,7 @@
                 buscarCEP(res[posicao].cep)
                 .then((cepResult) => {
                     card1.innerHTML += `
-                        <a href="./talhao.html">
+                        <a onclick="exibirTalhoes(this)"href="./talhao.html">
                             <div class="card">
                                 <img src="../../assets/img/farm.jpg" alt="Fazenda" class="card-image">
                                 <div class="card-content">

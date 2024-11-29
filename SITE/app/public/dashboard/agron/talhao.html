@@ -44,11 +44,16 @@
                             <div class="box-childrem-talhao">
                                 <span>TIPO DE LARANJA</span>
                                 <select class="input-hectar" id="tipo_laranja">
-                                    <option value=""></option>
+                                    <option value="laranja_bahia">Laranja Bahia</option>
+                                    <option value="larana_pera">Laranja Pêra</option>
+                                    <option value="laranja_natal">Laranja Natal</option>
+                                    <option value="laranja_da_terra">Laranja-da-terra</option>
+                                    <option value="laranja_hamlin">Laranja Hamlin</option>
+                                    <option value="laranja_lima">Laranja Lima</option>
                                 </select>
                             </div>
                         </div>
-                        <button onclick="adicionarTalhao()" class="botao-adicionar-talhao">ADICIONAR</button>
+                        <button  onclick="adicionarTalhao()" class="botao-adicionar-talhao">ADICIONAR</button>
                     </div>
                 </dialog>
                 <button class="main-button" onclick="modal_pulverizacao.showModal()">Pulverizar</button>
@@ -92,17 +97,8 @@
             </div>
         </div>
 
-        <div class="cards-group">
-            <a href="./agendar.html">
-                <div class="card">
-                    <img src="../../assets/img/plot.jpg" alt="Fazenda" class="card-image">
-                    <div class="card-content">
-                        <h3 class="card-subtitle">Laranja Lima</h3>
-                        <h2 class="card-title">Talhão Sul</h2>
-                    </div>
-                </div>
-            </a>
-        </div>
+        <div id="card" class="cards-group"></div>
+      
     </main>
 
     <script src="../../middlewares/aside-menu.js"></script>
@@ -128,6 +124,29 @@
         </div>`
 
         }
+
+
+        function exibirTalhoes() {
+            
+        fetch(`/talhao/exibirTalhao?idFazenda=2`).then(res => {
+        res.json().then(res => {
+            for (let posicao = 0; posicao < res.length; posicao++) {
+                    card.innerHTML += `
+                          <a href="./agendar.html">
+                             <div class="card">
+                                <img src="../../assets/img/plot.jpg" alt="Fazenda" class="card-image">
+                                <div class="card-content">
+                                    <h3 class="card-subtitle">${res[posicao].tipoLaranja}</h3>
+                                    <h2 class="card-title">${res[posicao].nome}</h2>
+                                </div>
+                            </div>
+                          </a>`;
+                        
+                    console.log(res);
+            }
+        })
+    })
+}
 
 
         function adicionarTalhao() {

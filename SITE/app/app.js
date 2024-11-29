@@ -15,6 +15,7 @@ var app = express();
 var indexRouter = require("./src/routes/index");
 var usuarioRouter = require("./src/routes/usuarios");
 var fazendaRouter =  require("./src/routes/fazendas");
+var talhaoRouter = require("./src/routes/talhao")
 var financRouter = require("./src/routes/financ");
 
 app.use(express.json());
@@ -25,7 +26,8 @@ app.use(cors());
 
 app.use("/", indexRouter);
 app.use("/usuarios", usuarioRouter);
-app.use("/fazendas", fazendaRouter)
+app.use("/fazendas", fazendaRouter);
+app.use("/talhao", talhaoRouter);
 app.use("/financ", financRouter);
 
 app.listen(PORTA_APP, function () {
