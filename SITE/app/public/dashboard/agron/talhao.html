@@ -55,7 +55,6 @@
                         <button onclick="adicionarTalhao()" class="botao-adicionar-talhao">ADICIONAR</button>
                     </div>
                 </dialog>
-                <button class="main-button" onclick="modal_pulverizacao.showModal()">Pulverizar</button>
                 <dialog id="modal_pulverizacao">
                     <div class="container-modal-pulverizacao">
                         <div class="box-titulo-pulverizacao">
@@ -102,43 +101,55 @@
 
     <script src="../../middlewares/aside-menu.js"></script>
     <script>
+       
+        function buscarTalhoes(idFazenda) {
+            fetch(`/talhao/exibirTalhao?idFazenda=${idFazenda}`)
+                .then(res => res.json())
+                .then(talhoes => {
+                    const card = document.getElementById('card'); 
+                    card.innerHTML = '';
+    
+                    for (let posicao = 0; posicao < talhoes.length; posicao++) {
+                        card.innerHTML += ` 
+                            <div onclick="modal_pulverizacao.showModal()" class="card">
+                                <img src="../../assets/img/plot.jpg" alt="Fazenda" class="card-image">
+                                <div class="card-content">
+                                    <h3 class="card-subtitle">${talhoes[posicao].tipoLaranja}</h3>
+                                    <h2 class="card-title">${talhoes[posicao].nome}</h2>
+                                </div>
+                            </div>`;
+                    }
+                })
+                .catch(error => {
+                    console.error('Erro ao buscar talhões:', error);
+                });
+        }
+    
         function bumBum() {
             const talhaoData = JSON.parse(sessionStorage.getItem("TALHAO_DATA"));
-            console.log(talhaoData)
+            console.log(talhaoData);
             document.getElementById("nome-fazenda").innerHTML = talhaoData.name;
-
+    
             if (talhaoData) {
                 buscarTalhoes(talhaoData.idFazenda);
             }
         }
-
-        function adicionarPraga() {
-            let idInnerPragas = document.getElementById("pragas")
-
-            let id = "praga" + idInnerPragas.childElementCount;
-
-            idInnerPragas.innerHTML += `<div class="box-pragas">
-            <div class="pragas">
-                <span>PRAGA 1</span>
-                <select name="" id="escolher-praga">
-                    <option value="">Ferrugem</option>
-                </select>
-            </div>
-            <div class="hectares">
-                <span>HECTARES</span>
-                <input placeholder="Hectares afetados pela praga" type="text" name=""
-                    id="input_hectares_afetado">
-            </div>
-        </div>`
-
-        }
-
+    
+        document.addEventListener("DOMContentLoaded", function () {
+            const talhaoData = JSON.parse(sessionStorage.getItem("TALHAO_DATA"));
+    
+            // Aqui é a primeira chamada para buscarTalhoes
+            if (talhaoData) {
+                buscarTalhoes(talhaoData.idFazenda);
+            }
+        });
+    
         function adicionarTalhao() {
             const talhaoData = JSON.parse(sessionStorage.getItem("TALHAO_DATA"));
             const nomeTalhao = document.getElementById('input_nome_talhao').value;
             const tamanhoHectar = document.getElementById('input_qtd_hactar').value;
             const tipoLaranja = document.getElementById('tipo_laranja').value;
-
+    
             fetch("/talhao/adicionarTalhao", {
                 method: "POST",
                 headers: {
@@ -154,7 +165,7 @@
                 .then(response => {
                     if (response.ok) {
                         modal_talhao.close();
-                        buscarTalhoes(talhaoData.idFazenda);
+                        buscarTalhoes(talhaoData.idFazenda); 
                     } else {
                         throw new Error("Erro ao adicionar talhão.");
                     }
@@ -163,74 +174,27 @@
                     console.error('Erro:', error);
                 });
         }
-
-
-        document.addEventListener("DOMContentLoaded", function () {
-            const talhaoData = JSON.parse(sessionStorage.getItem("TALHAO_DATA"));
-
-            if (talhaoData) {
-                buscarTalhoes(talhaoData.idFazenda);
-            }
-
-            function buscarTalhoes(idFazenda) {
-                fetch(`/talhao/exibirTalhao?idFazenda=${idFazenda}`)
-                    .then(res => res.json())
-                    .then(talhoes => {
-                        const card1 = document.getElementById('card1');
-
-                        for (let posicao = 0; posicao < talhoes.length; posicao++) {
-                            card.innerHTML += `
-                    <a href="./agendar.html">
-                        <div class="card">
-                            <img src="../../assets/img/plot.jpg" alt="Fazenda" class="card-image">
-                            <div class="card-content">
-                                <h3 class="card-subtitle">${talhoes[posicao].tipoLaranja}</h3>
-                                <h2 class="card-title">${talhoes[posicao].nome}</h2>
-                            </div>
-                        </div>
-                    </a>`;
-                        }
-                    })
-                    .catch(error => {
-                        console.error('Erro ao buscar talhões:', error);
-                    });
-            }
-        })
-
-
-
-        /*    fetch(`/talhao/exibirTalhao?idFazenda=2`).then(res => {
-            res.json().then(res => {
-                for (let posicao = 0; posicao < res.length; posicao++) {
-                        card.innerHTML += `
-                              <a href="./agendar.html">
-                                 <div class="card">
-                                    <img src="../../assets/img/plot.jpg" alt="Fazenda" class="card-image">
-                                    <div class="card-content">
-                                        <h3 class="card-subtitle">${res[posicao].tipoLaranja}</h3>
-                                        <h2 class="card-title">${res[posicao].nome}</h2>
-                                    </div>
-                                </div>
-                              </a>`;
-                            
-                        console.log(res);
-                }
-            })
-        })
-            */
-
-
-
     
-
-        
-
-        function recomendacoes() {
-
-            modal_pulverizacao.close()
-
+        function adicionarPraga() {
+            let idInnerPragas = document.getElementById("pragas");
+    
+            idInnerPragas.innerHTML += `<div class="box-pragas">
+            <div class="pragas">
+                <span>PRAGA 1</span>
+                <select name="" id="escolher-praga">
+                    <option value="">Ferrugem</option>
+                </select>
+            </div>
+            <div class="hectares">
+                <span>HECTARES</span>
+                <input placeholder="Hectares afetados pela praga" type="text" name="" id="input_hectares_afetado">
+            </div>
+        </div>`;
         }
-
+    
+        function recomendacoes() {
+            modal_pulverizacao.close();
+        }
     </script>
 </body>
 
