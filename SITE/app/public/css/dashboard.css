@@ -681,6 +681,13 @@ select{
     gap:170px ;
 }
 
+.box-edt-del-talhao{
+
+    display: flex;
+    gap: 1.0rem;
+    cursor: pointer;
+}
+
 .titulo-modal-talhao{
     font-size: 32px !important;
     font-weight: bold;

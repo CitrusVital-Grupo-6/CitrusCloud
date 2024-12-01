@@ -16,6 +16,8 @@ function adicionarTalhao(req, res) {
     );
 }
 
+
+
 function exibirTalhao(req, res) {
     const idFazenda = req.query.idFazenda;
 
@@ -31,7 +33,15 @@ function exibirTalhao(req, res) {
     );
 }
 
+function buscarFazenda(req, res) {
+    var idFazenda = req.params.idFazenda;
+    fazendaModel.buscarFazenda(idFazenda).then((resultado) => {
+      res.status(200).json(resultado);
+    });
+  }
+
 module.exports = {
     exibirTalhao,
-    adicionarTalhao
+    adicionarTalhao,
+    buscarFazenda
 }
