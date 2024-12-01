@@ -40,8 +40,44 @@ function buscarFazenda(req, res) {
     });
   }
 
+  function buscarTalhao(req, res) {
+    var idTalhao = req.params.idTalhao;
+
+    talhaoModel.buscarTalhao(idTalhao)
+        .then(resultado => {
+            if (resultado.length > 0) {
+                res.status(200).json(resultado[0]); // Retorna a primeira fazenda encontrada
+            } else {
+                res.status(204).send("Nenhuma fazenda encontrada!"); // Não encontrou a fazenda
+            }
+        })
+        .catch(erro => {
+            console.error("Erro ao buscar fazenda: ", erro);
+            res.status(500).json({ error: erro.sqlMessage });
+        });
+}
+
+function atualizarTalhao(req, res) {
+    let idTalhao = req.params.idTalhao;
+    let nome = req.body.nomeServer;
+    let tipoLaranja = req.body.tipoLaranjaServer;
+    let tamanhoHec = req.body.tamanhoHecServer;
+
+    talhaoModel.atualizarTalhao(nome, tipoLaranja, tamanhoHec, idTalhao)
+        .then(resultado => {
+            res.json(resultado);
+        })
+        .catch(erro => {
+            console.log(erro);
+            res.status(500).json({ error: erro.sqlMessage });
+        });
+}
+
+
 module.exports = {
     exibirTalhao,
     adicionarTalhao,
-    buscarFazenda
+    buscarFazenda,
+    buscarTalhao,
+    atualizarTalhao
 }
