@@ -11,12 +11,8 @@ function consultarEndereco(cep, numero) {
     return database.executar(instrucaoSql);
 }
 
-function adicionarFazenda(nome, idEndereco) {
-
-    console.log("ACESSEI O USUARIO MODEL \n \n\t\t >> Se aqui der erro de 'Error: connect ECONNREFUSED',\n \t\t >> verifique suas credenciais de acesso ao banco\n \t\t >> e se o servidor de seu BD está rodando corretamente. \n\n function adicionarFazenda():", nome, idEndereco);
-
-    var instrucaoSql = `
-        INSERT INTO Fazenda (nome, fkEndereco) VALUES ('${nome}', '${idEndereco}')`;
+function adicionarFazenda(nome, idEndereco, idEmpresa) {
+    var instrucaoSql = `INSERT INTO Fazenda (nomeFazenda, fkEndereco, fkEmpresa) VALUES ('${nome}', ${idEndereco}, ${idEmpresa})`;
 
     console.log("Executando a instrução SQL: \n" + instrucaoSql);
     return database.executar(instrucaoSql);

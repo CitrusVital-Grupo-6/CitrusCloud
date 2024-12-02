@@ -3,15 +3,15 @@ var fazendaModel = require("../models/fazendaModel");
 function adicionarFazenda(req, res) {    
     var nomeFazenda = req.body.nomeServer
     var cep = req.body.cepServer;
-    var descricao = req.body.descricaoServer;
     var numero = req.body.numeroServer;
     var complemento = req.body.complementoServer;
+    var idEmpresa = req.body.idEmpresaServer;
 
-    fazendaModel.adicionarEndereco(cep, numero, complemento, descricao).then(
+    fazendaModel.adicionarEndereco(cep, numero, complemento, idEmpresa).then(
         fazendaModel.consultarEndereco(cep, numero).then(
             function (resultado1) {
 
-                fazendaModel.adicionarFazenda(nomeFazenda, resultado1[0].idEndereco).then(
+                fazendaModel.adicionarFazenda(nomeFazenda, resultado1[0].idEndereco, idEmpresa).then(
                     function (resultado) {
                         console.log(resultado);
                         res.status(200).json(resultado);
@@ -48,7 +48,6 @@ function exibirFazenda(req, res) {
         );
 }
 
-
 function buscarFazenda(req, res) {
     var idFazenda = req.params.idFazenda;
 
@@ -65,7 +64,6 @@ function buscarFazenda(req, res) {
             res.status(500).json({ error: erro.sqlMessage });
         });
 }
-
 
 function atualizarFazenda(req, res) {
     let idFazenda = req.params.idFazenda;
@@ -111,13 +109,11 @@ function deletarFazenda(req, res) {
         });
 }
 
-
 module.exports = {
     adicionarFazenda,
     exibirFazenda,
     atualizarFazenda,
     buscarFazenda,
     deletarFazenda,
-    deletarFazenda,
-    
+    deletarFazenda
 }

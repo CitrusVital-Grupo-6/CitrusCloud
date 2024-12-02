@@ -33,17 +33,28 @@ function getTotalValueMonth(idEmpresa) {
 function atualizarGrafico() {
     const divTotalMl = document.getElementById('total_ml_mensal').getContext('2d');
     new Chart(divTotalMl, {
-        type: 'line',
+        type: 'bar', // Define o tipo principal como 'bar'
         data: {
             labels: labelTotalValue,
             datasets: [
                 {
-                    label: "Total Gasto(Mensal)",
+                    type: 'bar', // Define este dataset como barras
+                    label: "Gasto Mensal",
                     data: valueTotalValue,
-                    borderColor: '#FEA301',
-                    backgroundColor: '#FEA30150',
-                    fill: true,
-                    tension: 0,
+                    backgroundColor: '#FEA30150', // Cor semitransparente
+                    borderColor: '#FEA301', // Cor da borda
+                    borderWidth: 1,
+                },
+                {
+                    type: 'line', // Define este dataset como linha
+                    label: "Total Acumulado",
+                    data: valueTotalValue.map((value, index) => 
+                        valueTotalValue.slice(0, index + 1).reduce((acc, curr) => acc + curr, 0) // Cálculo acumulado
+                    ),
+                    borderColor: '#0288D1',
+                    backgroundColor: '#0288D150',
+                    fill: false,
+                    tension: 0.4,
                 }
             ]
         },
@@ -51,7 +62,7 @@ function atualizarGrafico() {
             maintainAspectRatio: false,
             plugins: {
                 legend: {
-                    display: false,
+                    display: true,
                 },
                 tooltip: {
                     callbacks: {
@@ -72,7 +83,7 @@ function atualizarGrafico() {
                 }
             }
         }
-    });
+    });    
 }
 
 // -------------------------------------------------------------------

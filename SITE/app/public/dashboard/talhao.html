@@ -14,7 +14,7 @@
     <title>CitrusVital | Talhões</title>
 </head>
 
-<body id="fazendas" onload="bumBum()">
+<body id="fazendas" onload="init()">
     <aside id="aside-menu">
     </aside>
 
@@ -22,27 +22,28 @@
         <div class="title">
             <h1 class="main-title" id="nome-fazenda">Fazenda Citrus</h1>
             <div class="buttons">
-                <button class="main-button" onclick="modal_talhao.showModal()">Adicionar</button>
-                <dialog class="modal-talhao" id="modal_talhao">
-                    <div class="container-modal-talhao">
-                        <div class="box-titulo-talhao">
-                            <span class="titulo-modal-talhao">ADICIONAR TALHÃO</span>
-                            <button class="botao-fechar-modal-talhao" onclick="modal_talhao.close()"><img width="24"
+                <button class="main-button" onclick="modal_add_talhao.showModal()">Adicionar</button>
+
+                <dialog class="modal-layout" id="modal_add_talhao">
+                    <div class="modal-form-wrapper">
+                        <div class="box-titulo">
+                            <span class="titulo-modal">ADICIONAR TALHÃO</span>
+                            <button class="botao-fechar-modal" onclick="modal_add_talhao.close()"><img width="24"
                                     height="24" src="https://img.icons8.com/material-outlined/24/delete-sign.png"
                                     alt="delete-sign" /></button>
                         </div>
-                        <div class="box-talhao">
-                            <div class="box-childrem-talhao">
-                                <span>NOME</span>
-                                <input class="input-hectar" type="text" name="" id="input_nome_talhao">
+                        <div class="modal-box-container">
+                            <div class="login-form-field">
+                                <label for="nome">NOME</span>
+                                <input class="input-hectar" type="text" name="nome" id="input_nome_talhao">
                             </div>
-                            <div class="box-childrem-talhao">
-                                <span>HECTARES</span>
-                                <input class="input-hectar" type="text" name="" id="input_qtd_hactar">
+                            <div class="login-form-field">
+                                <label for="hec">HECTARES</label>
+                                <input class="input-hectar" type="text" name="hec" id="input_qtd_hactar">
                             </div>
-                            <div class="box-childrem-talhao">
-                                <span>TIPO DE LARANJA</span>
-                                <select class="input-hectar" id="tipo_laranja">
+                            <div class="login-form-field">
+                                <label for="tpLaranja">TIPO DE LARANJA</label>
+                                <select class="input-hectar" id="tipo_laranja" name="tpLaranja">
                                     <option value="laranja Bahia">Laranja Bahia</option>
                                     <option value="laranja Pera">Laranja Pêra</option>
                                     <option value="laranja Natal">Laranja Natal</option>
@@ -121,6 +122,20 @@
 
     <script src="../../middlewares/aside-menu.js"></script>
     <script>
+        const userData = sessionStorage.getItem("USER_DATA");
+        const parsedData = JSON.parse(userData);
+        const companyId = parsedData.companyId;
+
+        function init() {
+            const fazendaData = JSON.parse(sessionStorage.getItem("FAZENDA_DATA"));
+            console.log(fazendaData);
+            document.getElementById("nome-fazenda").innerHTML = fazendaData.nome;
+    
+            if (fazendaData) {
+                buscarTalhoes(fazendaData.idFazenda);
+            }
+        }
+
         function buscarTalhoes(idFazenda) {
             fetch(`/talhao/exibirTalhao?idFazenda=${idFazenda}`)
                 .then(res => res.json())
@@ -134,10 +149,10 @@
                                 <img src="../../assets/img/plot.jpg" alt="Fazenda" class="card-image">
                                 <div class="card-content">
                                     <h3 class="card-subtitle">${talhoes[posicao].tipoLaranja}</h3>
-                                    <h2 class="card-title">${talhoes[posicao].nome}</h2>
+                                    <h2 class="card-title">${talhoes[posicao].nomeTalhao}</h2>
                                      <div class="box-edt-del-talhao">
-                                        <button class="edit-del-fazenda" onclick="openEditTalhaoModal(${talhoes[posicao].idTalhao})">Editar</button>
-                                        <button class="edit-del-fazenda" onclick="deletarTalhao(${talhoes[posicao].idTalhao})">Remover</button>
+                                        <button class="edit-del-fazenda" onclick="openEditTalhaoModal(${talhoes[posicao].idTalhao}, event)">Editar</button>
+                                        <button class="edit-del-fazenda" onclick="deletarTalhao(${talhoes[posicao].idTalhao}, event)">Remover</button>
                                     </div>
                                 </div>
                             </div>`;
@@ -148,29 +163,12 @@
                 });
         }
 
-        function bumBum() {
-            const fazendaData = JSON.parse(sessionStorage.getItem("FAZENDA_DATA"));
-            console.log(fazendaData);
-            document.getElementById("nome-fazenda").innerHTML = fazendaData.name;
-    
-            if (fazendaData) {
-                buscarTalhoes(fazendaData.idFazenda);
-            }
-        }
-
-        document.addEventListener("DOMContentLoaded", function () {
-            const fazendaData = JSON.parse(sessionStorage.getItem("TALHAO_DATA"));
-    
-            if (fazendaData) {
-                buscarTalhoes(fazendaData.idFazenda);
-            }
-        });
-
         function adicionarTalhao() {
-            const fazendaData = JSON.parse(sessionStorage.getItem("TALHAO_DATA"));
+            const fazendaData = JSON.parse(sessionStorage.getItem("FAZENDA_DATA"));
             const nomeTalhao = document.getElementById('input_nome_talhao').value;
             const tamanhoHectar = document.getElementById('input_qtd_hactar').value;
             const tipoLaranja = document.getElementById('tipo_laranja').value;
+            const idEmpresa = companyId;
 
             fetch("/talhao/adicionarTalhao", {
                 method: "POST",
@@ -181,12 +179,13 @@
                     nomeTalhao: nomeTalhao,
                     tamanhoHectar: tamanhoHectar,
                     tipoLaranja: tipoLaranja,
-                    idFazenda: fazendaData.idFazenda
+                    idFazenda: fazendaData.idFazenda,
+                    idEmpresa: idEmpresa
                 }),
             })
                 .then(response => {
                     if (response.ok) {
-                        modal_talhao.close();
+                        modal_add_talhao.close();
                         buscarTalhoes(fazendaData.idFazenda); 
                     } else {
                         throw new Error("Erro ao adicionar talhão.");
@@ -200,21 +199,23 @@
         function adicionarPraga() {
             let idInnerPragas = document.getElementById("pragas");
 
-            idInnerPragas.innerHTML += `<div class="box-pragas">
-            <div class="pragas">
-                <span>PRAGA 1</span>
-                <select name="" id="escolher-praga">
-                    <option value="">Ferrugem</option>
-                </select>
-            </div>
-            <div class="hectares">
-                <span>HECTARES</span>
-                <input placeholder="Hectares afetados pela praga" type="text" name="" id="input_hectares_afetado">
-            </div>
-        </div>`;
+            idInnerPragas.innerHTML += `
+            <div class="box-pragas">
+                <div class="pragas">
+                    <span>PRAGA 1</span>
+                    <select name="" id="escolher-praga">
+                        <option value="">Ferrugem</option>
+                    </select>
+                </div>
+                <div class="hectares">
+                    <span>HECTARES</span>
+                    <input placeholder="Hectares afetados pela praga" type="text" name="" id="input_hectares_afetado">
+                </div>
+            </div>`;
         }
 
-        function openEditTalhaoModal(idTalhao) {
+        function openEditTalhaoModal(idTalhao,) {
+            event.stopPropagation();
 
             fetch(`/talhao/buscarTalhao/${idTalhao}`)
                 .then(res => {
@@ -224,12 +225,12 @@
                 .then(talhao => {
 
                     const tiposLaranja = [
-                        "laranja Bahia",
-                        "laranja Pêra",
-                        "laranja Natal",
-                        "laranja da Terra",
-                        "laranja Hamlin",
-                        "laranja Lima"
+                        "Laranja Bahia",
+                        "Laranja Pêra",
+                        "Laranja Natal",
+                        "Laranja da Terra",
+                        "Laranja Hamlin",
+                        "Laranja Lima"
                     ];
 
                     const options = [];
@@ -244,35 +245,35 @@
                     const modalContainer = document.getElementById('container-modal-edit-talhao');
                     modalContainer.innerHTML = `
                     <dialog class="modal-talhao" id="modal_edit_talhao">
-                    <div class="container-modal-talhao">
-                        <div class="box-titulo-talhao">
-                            <span class="titulo-modal-talhao">EDITAR TALHÃO</span>
-                            <button class="botao-fechar-modal-talhao" onclick="closeEditTalhao()"><img width="24"
-                                    height="24" src="https://img.icons8.com/material-outlined/24/delete-sign.png"
-                                    alt="delete-sign" /></button>
+                        <div class="container-modal-talhao">
+                            <div class="box-titulo-talhao">
+                                <span class="titulo-modal-talhao">EDITAR TALHÃO</span>
+                                <button class="botao-fechar-modal-talhao" onclick="closeEditTalhao()"><img width="24"
+                                        height="24" src="https://img.icons8.com/material-outlined/24/delete-sign.png"
+                                        alt="delete-sign" /></button>
+                            </div>
+                            <div class="box-talhao">
+                                <div class="box-childrem-talhao">
+                                    <span>NOME</span>
+                                    <input class="input-hectar" type="text" name="" value="${talhao.nomeTalhao}" id="input_editar_nome_talhao">
+                                </div>
+                                <div class="box-childrem-talhao">
+                                    <span>HECTARES</span>
+                                    <input class="input-hectar" type="text" name="" value="${talhao.tamanhoHec}" id="input_editar_qtd_hactar">
+                                </div>
+                                <div class="box-childrem-talhao">
+                                    <span>TIPO DE LARANJA</span>
+                                    <select class="input-hectar"  id="editar_tipo_laranja">
+                                        ${options.join('')}
+                                    </select>
+                                </div>
+                            </div>
+                            <button onclick="atualizarTalhao(${talhao.idTalhao})" class="botao-adicionar-talhao">EDITAR</button>
                         </div>
-                        <div class="box-talhao">
-                            <div class="box-childrem-talhao">
-                                <span>NOME</span>
-                                <input class="input-hectar" type="text" name="" value="${talhao.nome}" id="input_editar_nome_talhao">
-                            </div>
-                            <div class="box-childrem-talhao">
-                                <span>HECTARES</span>
-                                <input class="input-hectar" type="text" name="" value="${talhao.tamanhoHec}" id="input_editar_qtd_hactar">
-                            </div>
-                            <div class="box-childrem-talhao">
-                                <span>TIPO DE LARANJA</span>
-                                <select class="input-hectar"  id="editar_tipo_laranja">
-                                       ${options.join('')}
-                                </select>
-                            </div>
-                        </div>
-                        <button onclick="atualizarTalhao(${talhao.idTalhao})" class="botao-adicionar-talhao">EDITAR</button>
-                    </div>
-                </dialog> `;
+                    </dialog> `;
 
-                    const modal = document.getElementById('modal_edit_talhao');
-                    modal.showModal(); // Abre o modal
+                    const modalEdit = document.getElementById('modal_edit_talhao');
+                    modalEdit.showModal();
                 })
                 .catch(err => {
                     console.error("Erro:", err);
@@ -319,13 +320,10 @@
                 });
         }
 
-        let idTalhaoAtual; // Variável global para armazenar o ID do talhão
-
         function abrirModalPulverizacao(idTalhao) {
             idTalhaoAtual = idTalhao; // Armazena o ID do talhão
             modal_pulverizacao.showModal(); // Exibe o modal
         }
-
 
         function agendarPulverizacao() {
 
@@ -344,6 +342,8 @@
         }
 
         function deletarTalhao(idTalhao) {
+            event.stopPropagation();
+
             console.log("Tentando deletar a fazenda com ID: " + idTalhao);
             fetch(`/talhao/deletarTalhao/${idTalhao}`, {
                 method: "DELETE",
@@ -364,7 +364,6 @@
                 });
         }
 
-
     </script>
 </body>
 </html>
@@ -372,7 +371,6 @@
 <script>
     let selectPraga = document.getElementById('escolher-praga'); // Selecione o elemento select da praga
     let selectDefensivo = document.createElement('select'); // Crie o select para os defensivos
-
 
     selectPraga.addEventListener('change', function() {  // Adicione um event listener
         let idPraga = this.value;
@@ -420,7 +418,6 @@
 
             });
     }
-
 
     function agendarPulverizacao() {
         let fkTalhao = // Precisa passar o fk do talhão como SESSION, boa sorte irmão //

@@ -1,9 +1,9 @@
 var talhaoModel = require("../models/talhaoModel");
 
 function adicionarTalhao(req, res) {
-    const {nomeTalhao, tipoLaranja, tamanhoHectar, idFazenda} = req.body;
+    const {nomeTalhao, tipoLaranja, tamanhoHectar, idFazenda, idEmpresa} = req.body;
 
-    talhaoModel.adicionarTalhao(nomeTalhao, tipoLaranja, tamanhoHectar, idFazenda).then(
+    talhaoModel.adicionarTalhao(nomeTalhao, tipoLaranja, tamanhoHectar, idFazenda, idEmpresa).then(
         function (resultado) {
             res.status(200).json({ message: "Talhão adicionado com sucesso!", talhao: resultado });
         }

@@ -375,8 +375,8 @@ main .cards-group .card:hover {
 }
 
 .modal-form-wrapper {
-    margin-inline: 5rem;
-    margin-block: 5rem;
+    min-height: 40rem;
+    margin: 5rem;
     display: flex;
     flex-direction: column;
 }
@@ -487,8 +487,6 @@ main .cards-group .card:hover {
 }
 
 #modal_pulverizacao {
-    width: 637px;
-    height: 440px;
     background-color: var(--cor-primaria);
     border-radius: 10px;
     border: none;
@@ -505,13 +503,10 @@ main .cards-group .card:hover {
 }
 
 .container-modal-pulverizacao {
-    width: 86%;
     height: 390px;
-    margin-top: 20px;
-    margin-left: 45px;
+    margin: 5rem;
     display: flex;
     flex-direction: column;
-    margin-top: 6%;
 }
 
 .box-titulo-pulverizacao {
@@ -558,7 +553,7 @@ main .cards-group .card:hover {
     margin-top: 3px;
     font-size: 20px;
     align-items: center;
-    width: 101%;    
+    width: 100%;    
     cursor: pointer;
 }
 
@@ -631,13 +626,13 @@ main .cards-group .card:hover {
     width: 160px;
     height: 40px;
     border: none;
-    margin-top: 10%;
+    margin-top: auto;
+    margin-left: auto;
     border-radius: 10px;
     background-color: orange;
     color: white;
     font-weight: bold;
     font-size: 16px;
-    margin-left: 70%;
     font-family: 'Inter'; 
     transition: all .4s ease-in-out;
     cursor: pointer;
@@ -685,7 +680,7 @@ select{
 
 .box-titulo-talhao {
     display: flex;
-    gap:170px ;
+    justify-content: space-between;
 }
 
 .box-edt-del-talhao{
@@ -732,13 +727,13 @@ select{
     width: 120px;
     height: 45px;
     border: none;
-    margin-top: 8%;
+    margin-top: auto;
     border-radius: 10px;
     background-color: orange;
     color: white;
     font-weight: bold;
     font-size: 16px;
-    margin-left: 74.5%;
+    margin-left: auto;
     font-family: 'Inter'; 
     transition: all .4s ease-in-out;
     cursor: pointer;

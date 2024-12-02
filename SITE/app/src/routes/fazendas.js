@@ -19,7 +19,6 @@ router.put("/atualizarFazenda/:idFazenda", function (req, res) {
     fazendaController.atualizarFazenda(req, res);
   });
 
-
 router.delete("/deletarFazenda/:idFazenda", function (req, res) {
   fazendaController.deletarFazenda(req, res);
 });

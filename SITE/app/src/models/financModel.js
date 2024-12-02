@@ -4,7 +4,7 @@ function listNextBuyDefen(idEmpresa) {
     var instrucaoSql = `
         SELECT 
             p.dataPulverizacao,
-            f.nome,
+            f.nomeFazenda,
             t.nomeTalhao,
             a.nome AS nomeAgrotoxico,
             SUM(p.qtdML) AS qtdTotalML,
@@ -43,7 +43,7 @@ function getTotalValueMonth(idEmpresa) {
         INNER JOIN
             Fazenda f ON t.fkFazenda = f.idFazenda
         WHERE
-            f.idFazenda = 1
+            f.fkEmpresa = ${idEmpresa}
         GROUP BY
             MONTH(p.dataPulverizacao)
         ORDER BY

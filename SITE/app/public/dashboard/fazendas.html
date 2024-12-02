@@ -87,12 +87,12 @@
 
                 .then((cepResult) => {
                     card1.innerHTML += `
-                        <a class="card" data-json='{"idFazenda": ${res[posicao].idFazenda}, "name": "${res[posicao].nome}", "cep": "${res[posicao].cep}"}'>
+                        <a class="card" data-json='{"idFazenda": ${res[posicao].idFazenda}, "nome": "${res[posicao].nomeFazenda}", "cep": "${res[posicao].cep}"}'>
                             <div>
                                 <img src="../../assets/img/farm.jpg" alt="Fazenda" class="card-image">
                                 <div class="card-content">
                                     <h3 class="card-subtitle">${cepResult}</h3>
-                                    <h2 class="card-title">${res[posicao].nome}</h2>
+                                    <h2 class="card-title">${res[posicao].nomeFazenda}</h2>
                                     <div>
                                         <p>Editar Remover</p>
                                     </div>
@@ -123,14 +123,11 @@
     }
 
     function adicionarFazenda() {
-
         var nomeFazenda = input_nome_fazenda.value;
-        //  var cidade = city_input.value;
         var cep = input_cep_fazenda.value;
-        var descricao = input_descricao.value;
         var numero = input_numero_fazenda.value;
         var complemento = input_complemento_fazenda.value;
-        const idFazenda = sessionStorage.getItem("idFazenda")
+        var idEmpresa = companyId;
 
         modal_fazenda.close();
 
@@ -142,7 +139,7 @@
             body: JSON.stringify({
                 nomeServer: nomeFazenda,
                 cepServer: cep,
-                descricaoServer: descricao,
+                idEmpresaServer: idEmpresa,
                 numeroServer: numero,
                 complementoServer: complemento
             }),
@@ -185,7 +182,6 @@
             alert('Ocorreu um erro ao buscar o CEP. Verifique a sua conexão com a internet.');
         }
     }
-
 
     listarFazendas(companyId)
     // const OPENWEATHER_API_KEY = 'f4652d12e1e313414bdf86ce7dff0d93';
