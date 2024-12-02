@@ -61,7 +61,7 @@
                             <span class="titulo-modal-pulverizacao">
                                 AGENDAR PULVERIZAÇÃO
                             </span>
-                            <button class="botao-fechar-modal-pulverizacao" onclick="modal_pulverizacao.close()"><img
+                            <button class="botao-fechar-modal-pulverizacao" onclick="FecharModalPulverizacao().close"><img
                                     width="24" height="24"
                                     src="https://img.icons8.com/material-outlined/24/delete-sign.png"
                                     alt="delete-sign" /></button>
@@ -71,7 +71,22 @@
                                 <div class="pragas">
                                     <span>PRAGA 1</span>
                                     <select name="" id="escolher-praga">
-                                        <option value="">Ferrugem</option>
+                                        <option  data-id="1" value="Ferrugem">Ferrugem</option>
+                                        <option  data-id="2" value="Mosca-das-Frutas">Mosca-das-Frutas</option>
+                                        <option  data-id="3" value="Lagarta-Minadora-dos-Citros">Lagarta-Minadora-dos-Citros</option>
+                                        <option  data-id="4" value="Pulgão-preto">Pulgão-preto</option>
+                                        <option  data-id="5" value="Ácaro da Falsa-Ferrugem">Ácaro da Falsa-Ferrugem</option>
+                                        <option  data-id="6" value="Cigarrinhas">Cigarrinhas</option>
+                                        <option  data-id="7" value="Ácaro Vermelho">Ácaro Vermelho</option>
+                                        <option  data-id="8" value="Bicudo da Laranja">Bicudo da Laranja</option>
+                                        <option  data-id="9" value="Broca da Laranja">Broca da Laranja</option>
+                                        <option  data-id="10" value="Cancro Cítrico">Cancro Cítrico</option>
+                                        <option  data-id="11" value="Cochonilha Farinha">Cochonilha Farinha</option>
+                                        <option  data-id="12" value="Formigas Cortadeiras">Formigas Cortadeiras</option>
+                                        <option  data-id="13" value="Lagarta Minadora">Lagarta Minadora</option>
+                                        <option  data-id="14" value="Mosca Branca">Mosca Branca</option>
+                                        <option  data-id="15" value="Nematoides">Nematoides</option>
+                                        <option  data-id="16" value="Pulgão Verde">Pulgão Verde</option>
                                     </select>
                                 </div>
                                 <div class="hectares">
@@ -88,7 +103,7 @@
                             DATA DESEJADA
                             <input class="data-inicio" type="date">
                         </div>
-                        <button onclick="recomendacoes()" class="botao-recomendacoes">Recomendações</button>
+                        <button onclick="agendarPulverizacao(idTalhaoAtual)" class="botao-recomendacoes">AGENDAR</button>
                     </div>
                 </dialog>
 
@@ -112,7 +127,7 @@
 
                     for (let posicao = 0; posicao < talhoes.length; posicao++) {
                         card.innerHTML += ` 
-                            <div onclick="modal_pulverizacao.showModal()" class="card">
+                            <div onclick="abrirModalPulverizacao(${talhoes[posicao].idTalhao})" class="card">
                                 <img src="../../assets/img/plot.jpg" alt="Fazenda" class="card-image">
                                 <div class="card-content">
                                     <h3 class="card-subtitle">${talhoes[posicao].tipoLaranja}</h3>
@@ -265,7 +280,7 @@
         function closeEditTalhao() {
             const modal = document.getElementById('modal_edit_talhao');
             modal.close();
-            document.getElementById('container-modal-edit-talhao').innerHTML = ''; 
+            document.getElementById('container-modal-edit-talhao').innerHTML = '';
         }
 
         function atualizarTalhao(idTalhao) {
@@ -302,11 +317,31 @@
                 });
         }
 
+        let idTalhaoAtual; // Variável global para armazenar o ID do talhão
 
-
-        function recomendacoes() {
-            modal_pulverizacao.close();
+        function abrirModalPulverizacao(idTalhao) {
+            idTalhaoAtual = idTalhao; // Armazena o ID do talhão
+            modal_pulverizacao.showModal(); // Exibe o modal
         }
+
+    
+        function agendarPulverizacao() {
+
+            const talhaoData = {
+                idTalhao: idTalhaoAtual,
+                praga: document.getElementById('escolher-praga').value,
+                idPraga: document.getElementById('escolher-praga').selectedOptions[0].getAttribute('data-id'),
+                hectaresAfetados: document.getElementById('input_hectares_afetado').value,
+                dataDesejada: document.querySelector('.data-inicio').value // ou o elemento correto
+            };
+
+            sessionStorage.setItem("TALHAO_AGENDAR", JSON.stringify(talhaoData));
+
+            // Redirecionar para a página agenda.html
+            window.location.href = 'agendar.html'; // Ajuste o caminho conforme necessário
+        }
+
+
     </script>
 </body>
 
