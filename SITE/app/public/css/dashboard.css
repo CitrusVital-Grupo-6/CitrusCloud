@@ -364,6 +364,7 @@ main .cards-group .card:hover {
     cursor: pointer;
 }
 
+
 .edit-del-fazenda:hover {
 
     color: var(--cor-titulo);
@@ -688,6 +689,7 @@ select{
     display: flex;
     gap: 1.0rem;
     cursor: pointer;
+    border: none;
 }
 
 .titulo-modal-talhao{
