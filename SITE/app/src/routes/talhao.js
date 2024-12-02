@@ -24,5 +24,9 @@ router.put("/atualizarTalhao/:idTalhao", function (req, res) {
   talhaoController.atualizarTalhao(req, res);
 });
 
+router.delete("/deletarTalhao/:idTalhao", function (req, res) {
+  talhaoController.deletarTalhao(req, res);
+});
+
 
 module.exports = router;

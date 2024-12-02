@@ -73,11 +73,39 @@ function atualizarTalhao(req, res) {
         });
 }
 
+function deletarTalhao(req, res) {
+    const idTalhao = req.params.idTalhao;
+
+    talhaoModel.buscarPulverizacaoPorTalhao(idTalhao)
+        .then(pulverizacoes => {
+            if (pulverizacoes.length > 0) {
+                const deletePromises = pulverizacoes.map(pulverizacao => {
+                    return talhaoModel.deletarPulverizacao(pulverizacao.idPulverizacao);
+                });
+
+                return Promise.all(deletePromises)
+                    .then(() => {
+                        return talhaoModel.deletarTalhao(idTalhao);
+                    });
+            } else {
+                return talhaoModel.deletarTalhao(idTalhao);
+            }
+        })
+        .then(() => {
+            res.status(200).send("Fazenda e talhões deletados com sucesso!");
+        })
+        .catch(erro => {
+            console.error("Erro ao deletar fazenda e talhões:", erro);
+            res.status(500).json({ error: erro.sqlMessage });
+        });
+}
+
 
 module.exports = {
     exibirTalhao,
     adicionarTalhao,
     buscarFazenda,
     buscarTalhao,
-    atualizarTalhao
+    atualizarTalhao,
+    deletarTalhao
 }

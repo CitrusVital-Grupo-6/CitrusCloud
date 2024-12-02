@@ -48,6 +48,32 @@ function atualizarTalhao(nome, tipoLaranja, tamanhoHec, idTalhao) {
     return database.executar(instrucaoSql);
 }
 
+function deletarTalhao(idTalhao) {
+    console.log("Tentando deletar a fazenda com ID: " + idTalhao);
+    var instrucaoSql = `
+        DELETE FROM Talhao WHERE idTalhao = ${idTalhao};
+    `;
+    console.log("Executando a instrução SQL: \n" + instrucaoSql);
+    return database.executar(instrucaoSql);
+}
+
+function buscarPulverizacaoPorTalhao(idTalhao) {
+    var instrucaoSql = `
+        SELECT * FROM Pulverizacao WHERE fkTalhao = ${idTalhao};`;
+
+    console.log("Executando a instrução SQL: \n" + instrucaoSql);
+    return database.executar(instrucaoSql);
+}
+
+function deletarPulverizacao(idPulverizacao) {
+    var instrucaoSql = `
+        DELETE FROM Pulverizacao WHERE idPulverizacao = ${idPulverizacao};`;
+
+    console.log("Executando a instrução SQL: \n" + instrucaoSql);
+    return database.executar(instrucaoSql);
+}
+
+
 
 
 
@@ -56,5 +82,8 @@ module.exports = {
     consultarTalhao,
     adicionarTalhao,
     buscarTalhao,
-    atualizarTalhao
+    atualizarTalhao,
+    deletarTalhao,
+    buscarPulverizacaoPorTalhao,
+    deletarPulverizacao
 }

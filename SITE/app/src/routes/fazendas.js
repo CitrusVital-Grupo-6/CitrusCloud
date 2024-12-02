@@ -25,11 +25,6 @@ router.delete("/deletarFazenda/:idFazenda", function (req, res) {
   fazendaController.deletarFazenda(req, res);
 });
 
-router.delete("/deletarFazenda/:idFazenda", function (req, res) {
-  fazendaController.deletarFazenda(req, res);
-});
-  
-
 
 
 
