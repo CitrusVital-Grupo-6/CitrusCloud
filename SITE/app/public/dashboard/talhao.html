@@ -23,6 +23,7 @@
             <h1 class="main-title" id="nome-fazenda">Fazenda Citrus</h1>
             <div class="buttons">
                 <button class="main-button" onclick="modal_talhao.showModal()">Adicionar</button>
+
                 <dialog id="modal_talhao">
                     <div class="container-modal-talhao">
                         <div class="box-titulo-talhao">
@@ -55,6 +56,7 @@
                         <button onclick="adicionarTalhao()" class="botao-adicionar-talhao">ADICIONAR</button>
                     </div>
                 </dialog>
+
                 <dialog id="modal_pulverizacao">
                     <div class="container-modal-pulverizacao">
                         <div class="box-titulo-pulverizacao">
@@ -100,8 +102,7 @@
     </main>
 
     <script src="../../middlewares/aside-menu.js"></script>
-    <script>
-       
+    <script>  
         function buscarTalhoes(idFazenda) {
             fetch(`/talhao/exibirTalhao?idFazenda=${idFazenda}`)
                 .then(res => res.json())
@@ -126,26 +127,25 @@
         }
     
         function bumBum() {
-            const talhaoData = JSON.parse(sessionStorage.getItem("TALHAO_DATA"));
-            console.log(talhaoData);
-            document.getElementById("nome-fazenda").innerHTML = talhaoData.name;
+            const fazendaData = JSON.parse(sessionStorage.getItem("FAZENDA_DATA"));
+            console.log(fazendaData);
+            document.getElementById("nome-fazenda").innerHTML = fazendaData.name;
     
-            if (talhaoData) {
-                buscarTalhoes(talhaoData.idFazenda);
+            if (fazendaData) {
+                buscarTalhoes(fazendaData.idFazenda);
             }
         }
     
         document.addEventListener("DOMContentLoaded", function () {
-            const talhaoData = JSON.parse(sessionStorage.getItem("TALHAO_DATA"));
+            const fazendaData = JSON.parse(sessionStorage.getItem("TALHAO_DATA"));
     
-            // Aqui é a primeira chamada para buscarTalhoes
-            if (talhaoData) {
-                buscarTalhoes(talhaoData.idFazenda);
+            if (fazendaData) {
+                buscarTalhoes(fazendaData.idFazenda);
             }
         });
     
         function adicionarTalhao() {
-            const talhaoData = JSON.parse(sessionStorage.getItem("TALHAO_DATA"));
+            const fazendaData = JSON.parse(sessionStorage.getItem("TALHAO_DATA"));
             const nomeTalhao = document.getElementById('input_nome_talhao').value;
             const tamanhoHectar = document.getElementById('input_qtd_hactar').value;
             const tipoLaranja = document.getElementById('tipo_laranja').value;
@@ -159,13 +159,13 @@
                     nomeTalhao: nomeTalhao,
                     tamanhoHectar: tamanhoHectar,
                     tipoLaranja: tipoLaranja,
-                    idFazenda: talhaoData.idFazenda
+                    idFazenda: fazendaData.idFazenda
                 }),
             })
                 .then(response => {
                     if (response.ok) {
                         modal_talhao.close();
-                        buscarTalhoes(talhaoData.idFazenda); 
+                        buscarTalhoes(fazendaData.idFazenda); 
                     } else {
                         throw new Error("Erro ao adicionar talhão.");
                     }
@@ -197,5 +197,90 @@
         }
     </script>
 </body>
-
 </html>
+
+<script>
+    let selectPraga = document.getElementById('escolher-praga'); // Selecione o elemento select da praga
+    let selectDefensivo = document.createElement('select'); // Crie o select para os defensivos
+
+
+    selectPraga.addEventListener('change', function() {  // Adicione um event listener
+        let idPraga = this.value;
+        if (idPraga) {
+            obterDefensivos(idPraga);
+        } else {
+            selectDefensivo.innerHTML = ''; // Limpa as opções se nenhuma praga for selecionada.
+        }
+    });
+
+    function obterDefensivos(idPraga) {
+        fetch(`usuarios/listarDefensivosPorPraga/${idPraga}`)
+            .then(response => {
+                if (response.ok) {
+                    return response.json();
+                } else if (response.status == 204) {
+                    alert("Nenhum defensivo encontrado para esta praga.")
+                     selectDefensivo.innerHTML = ''; // Limpa as opções se nenhuma praga for encontrada.
+
+                    throw new Error("Nenhum defensivo encontrado para esta praga."); // Rejeita a promise para o catch
+                    
+
+                } else {
+                    throw new Error("Erro ao obter defensivos.");
+                }
+            })
+            .then(defensivos => {
+                selectDefensivo.innerHTML = ''; // Limpa as opções anteriores
+                defensivos.forEach(defensivo => {
+                    let option = document.createElement('option');
+                    option.value = defensivo.idAgrotoxico; // Define o valor como o ID do defensivo.
+                    option.text = defensivo.nome; // Define o texto visível como o nome do defensivo.
+                    selectDefensivo.appendChild(option);
+                });
+
+                // Adicione o select de defensivos ao HTML (substitua 'seu-elemento' pelo ID do elemento onde você quer adicionar o select)
+                let containerDefensivo = document.getElementById('pragas') // Exemplo
+                containerDefensivo.appendChild(selectDefensivo);
+
+
+            })
+            .catch(error => {
+                console.error("Erro na requisição:", error);
+                alert("Erro ao obter defensivos: " + error.message); // Exibe a mensagem de erro para o usuário
+
+            });
+    }
+
+
+    function agendarPulverizacao() {
+        let fkTalhao = // Precisa passar o fk do talhão como SESSION, boa sorte irmão //
+        let fkAgrotoxico = selectDefensivo.value;
+        let dataPulverizacao = document.querySelector('.data-inicio').value;
+
+        let dados = {
+            fkTalhaoServer: fkTalhao,
+            fkAgrotoxicoServer: fkAgrotoxico,
+            dataPulverizacaoServer: dataPulverizacao
+        };
+
+
+        fetch("usuarios/adicionarPulverizacao", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify(dados)
+        })
+            .then(response => response.json())
+            .then(resultado => {
+
+                console.log("Pulverização agendada com sucesso:", resultado);
+
+                modal_pulverizacao.close();
+            })
+            .catch(error => {
+                console.error("Erro ao agendar pulverização:", error);
+                alert("Erro ao agendar pulverização: " + error.message)
+            });
+    }
+</script>

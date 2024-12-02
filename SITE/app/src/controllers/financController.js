@@ -1,7 +1,7 @@
 var financModel = require("../models/financModel");
 
 function listNextBuyDefen(req, res) {
-    var idEmpresa = req.body.idEmpresa;
+    var idEmpresa = req.params.idEmpresa;
 
     financModel.listNextBuyDefen(idEmpresa).then(
         function (resultado) {
@@ -16,7 +16,7 @@ function listNextBuyDefen(req, res) {
 };
 
 function getTotalValueMonth(req, res) {
-    var idEmpresa = req.body.idEmpresa;
+    var idEmpresa = req.params.idEmpresa;
     console.log("Bateu na controller")
 
     financModel.getTotalValueMonth(idEmpresa).then(

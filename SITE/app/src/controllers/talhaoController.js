@@ -1,6 +1,5 @@
 var talhaoModel = require("../models/talhaoModel");
 
-
 function adicionarTalhao(req, res) {
     const {nomeTalhao, tipoLaranja, tamanhoHectar, idFazenda} = req.body;
 

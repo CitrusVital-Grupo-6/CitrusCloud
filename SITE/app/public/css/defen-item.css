@@ -53,3 +53,86 @@ label:hover{
     display: flex;
     align-items: center;
 }
+
+.open{
+    display: flex;
+}
+
+.next-buy-box.open .next-buy-defen {
+    display: flex;
+}
+  
+.toggle-icon {
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.toggle-icon.rotate {
+    transform: rotate(180deg);
+    transition: transform 0.3s ease;
+}
+
+.next-buy-title{
+    background-color: #2d2d2d;
+    color: white;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    padding-inline: 2rem;
+    padding-block: 1rem;
+    cursor: pointer;
+
+    div{
+        font-size: 1.75rem;
+        font-weight: 800;
+        display: flex;
+        align-items: center;
+    }
+}
+
+.next-buy-defen table{
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.next-buy-defen td{
+    border: 1px solid #00000050;
+    text-align: left;
+    box-sizing: border-box;
+    font-size: 2rem;
+    padding-block: 0.5rem;
+    padding-left: 1rem;
+}
+
+.next-buy-defen td:first-child{
+    padding-left: 4rem
+}
+
+.next-buy-box {
+    padding: 0.5rem 0;
+    display: flex;
+    flex-direction: column;
+}
+
+.next-buy-title {
+    cursor: pointer;
+    font-weight: bold;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.next-buy-defen {
+    display: none;
+}
+
+td, th {
+    width: 20%;
+}
+tr td:nth-child(1), td:nth-child(2){
+    width: 25%;
+}
+
+tr td:last-child, td:nth-child(4){
+    width: 15%;
+}

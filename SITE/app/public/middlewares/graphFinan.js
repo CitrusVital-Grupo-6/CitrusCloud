@@ -1,37 +1,3 @@
-function listNextBuyDefen(idEmpresa) {
-    fetch(`/financ/listNextBuyDefen/${idEmpresa}`).then(function (resposta) {
-        let listaUsuarios = document.getElementById("lista_usuarios");
-        if (resposta.ok) {
-            if (resposta.status == 204) {
-                alert.innerHTML = "Nenhum resultado encontrado."
-                throw "Nenhum resultado encontrado!!";
-            }
-
-            resposta.json().then(function (resposta) {
-                console.log("Dados recebidos: ", JSON.stringify(resposta));
-
-                for (let i = 0; i < resposta.length; i++) {
-                    listaUsuarios.innerHTML += `
-                    <tr>
-                        <td>${resposta[i].nomeCompleto}</td>
-                        <td>${resposta[i].email}</td>
-                        <td>${resposta[i].funcao}</td>
-                        <td>${resposta[i].nome}</td>
-                        <td><button onclick="deletarUsuario(${resposta[i].idUsuario})">Excluir</button> <button onclick="editarUsuario(${resposta[i].idUsuario})">Editar</button></td>
-                    </tr>`
-                }
-            });
-        } else {
-            throw ('Houve um erro na API!');
-        }
-    }).catch(function (resposta) {
-        console.error(resposta);
-    });
-}
-
-var labelTotalValue = []
-var valueTotalValue = []
-
 function getTotalValueMonth(idEmpresa) {
     fetch(`/financ/getTotalValueMonth/${idEmpresa}`)
         .then(function (resposta) {
@@ -62,9 +28,7 @@ function getTotalValueMonth(idEmpresa) {
         .catch(function (erro) {
             console.error("Erro:", erro);
         });
-    }
-
-getTotalValueMonth(1);
+}
 
 function atualizarGrafico() {
     const divTotalMl = document.getElementById('total_ml_mensal').getContext('2d');
@@ -158,5 +122,4 @@ const graficoDefensivos = new Chart(divGraphDefen, {
         }
     }
 });
-
 // -------------------------------------------------------------------

@@ -53,9 +53,6 @@
         let password_input = document.getElementById('login_password');
         let error_span = document.getElementById('error-span');
 
-        console.log("FORM LOGIN: ", emailVar);
-        console.log("FORM SENHA: ", senhaVar);
-
         fetch("/usuarios/autenticar", {
             method: "POST",
             headers: {
@@ -66,20 +63,28 @@
                 senhaServer: senhaVar
             })
         }).then(function (resposta) {
-            console.log("ESTOU NO THEN DO entrar()!")
-
             if (resposta.ok) {
-                console.log(resposta);
+                console.log("bumbum", resposta);
 
                 resposta.json().then(json => {
-                    console.log(json);
-                    console.log(JSON.stringify(json));
-                    sessionStorage.EMAIL_USUARIO = json.email;
-                    sessionStorage.NOME_USUARIO = json.nomeCompleto;
-                    sessionStorage.ID_USUARIO = json.idUsuario;
+                    console.log(json)
+
+                    const userData = {
+                        userId: json[0].idUsuario,
+                        userEmail: json[0].email,
+                        userName: json[0].nomeCompleto,
+                        companyId: json[0].idEmpresa,
+                        role: json[0].funcao
+                    };
+
+
+
+                    console.log(userData)
+
+                    sessionStorage.setItem("USER_DATA", JSON.stringify(userData));
 
                     setTimeout(function () {
-                        window.location = "../dashboard/agron/homeAgron.html";
+                        window.location = "../dashboard/homeAgron.html";
                     }, 1000);
 
                 });

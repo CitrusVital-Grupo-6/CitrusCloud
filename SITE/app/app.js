@@ -17,6 +17,7 @@ var usuarioRouter = require("./src/routes/usuarios");
 var fazendaRouter =  require("./src/routes/fazendas");
 var talhaoRouter = require("./src/routes/talhao")
 var financRouter = require("./src/routes/financ");
+var pulverizacaoRouter = require("./src/routes/pulverizacao");
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
@@ -29,6 +30,7 @@ app.use("/usuarios", usuarioRouter);
 app.use("/fazendas", fazendaRouter);
 app.use("/talhao", talhaoRouter);
 app.use("/financ", financRouter);
+app.use("/pulverizacao", pulverizacaoRouter)
 
 app.listen(PORTA_APP, function () {
     console.log(`

@@ -15,12 +15,7 @@ function autenticar(req, res) {
                 function (resultadoAutenticar) {
                     if (resultadoAutenticar.length == 1) {
                         console.log(resultadoAutenticar);
-                                    res.json({
-                                        idUsuario: resultadoAutenticar[0].idUsuario,
-                                        email: resultadoAutenticar[0].email,
-                                        nomeCompleto: resultadoAutenticar[0].nomeCompleto,
-                                        senha: resultadoAutenticar[0].senha,
-                                    });
+                                    res.json(resultadoAutenticar);
                     } else if (resultadoAutenticar.length == 0) {
                         res.status(403).send("Email e/ou senha inválido(s)");
                     } else {
@@ -66,8 +61,7 @@ function cadastrar(req, res) {
 }
 
 function listarPorEmpresa(req, res) {
-    var idEmpresa = req.params.idEmpresa;
-    // let idEmpresa = 1;
+    var idEmpresa = req.params.idEmpresa;   
 
     usuarioModel.listarPorEmpresa(idEmpresa)
         .then(

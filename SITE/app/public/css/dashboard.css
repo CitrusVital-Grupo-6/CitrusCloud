@@ -190,7 +190,7 @@ aside.open nav .nav-items .nav-item a {
 main {
     padding: 3.2rem 3.2rem 3.2rem 12rem; 
     transition: all .4s ease-out;
-    width: calc(100vw - 1.1%);
+    width: 100vw;
 }
 
 .main-content-wrapper{
@@ -221,10 +221,6 @@ main .title .buttons {
 }
 
 main .title div {
-    span{
-        /* font-size: 2rem; */
-    }
-
     select {
         font-family: "Manrope", sans-serif;
         padding: .5rem .8rem;
@@ -281,7 +277,6 @@ main .title .main-button:hover {
 
 main.aside-open { 
     margin-left: 9rem !important; 
-    width: calc(100% - 20rem);
 }
 
 main .cards-group {
@@ -777,44 +772,7 @@ select{
     }
 }
 
-.container-box-1{
+.container-box{
     padding-top: 3rem;
     width: 100%;
-}
-
-.next-buy-title{
-    background-color: #2d2d2d;
-    color: white;
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    padding-inline: 2rem;
-    padding-block: 1rem;
-    cursor: pointer;
-
-    div{
-        font-size: 1.75rem;
-        font-weight: 800;
-        display: flex;
-        align-items: center;
-    }
-}
-
-.next-buy-defen table{
-    width: 100%;
-    border-collapse: collapse;
-}
-
-.next-buy-defen td{
-    width: 20%;
-    border: 1px solid #00000050;
-    text-align: left;
-    box-sizing: border-box;
-    font-size: 2rem;
-    padding-block: 0.5rem;
-    padding-left: 1rem;
-}
-
-.next-buy-defen td:first-child{
-    padding-left: 4rem
 }

@@ -71,6 +71,53 @@
 </html>
 
 <script>
+    const userData = sessionStorage.getItem("USER_DATA");
+    const parsedData = JSON.parse(userData);
+    const companyId = parsedData.companyId;
+
+    function listarFazendas(idEmpresa) {
+        fetch(`/fazendas/exibirFazenda/${idEmpresa}`).then(res => {
+        res.json().then(res => {
+            for (let posicao = 0; posicao < res.length; posicao++) {
+                buscarCEP(res[posicao].cep)
+
+                .then((cepResult) => {
+                    card1.innerHTML += `
+                        <a class="card" data-json='{"idFazenda": ${res[posicao].idFazenda}, "name": "${res[posicao].nome}", "cep": "${res[posicao].cep}"}'>
+                            <div>
+                                <img src="../../assets/img/farm.jpg" alt="Fazenda" class="card-image">
+                                <div class="card-content">
+                                    <h3 class="card-subtitle">${cepResult}</h3>
+                                    <h2 class="card-title">${res[posicao].nome}</h2>
+                                    <div>
+                                        <p>Editar Remover</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </a>`;
+                        
+                    console.log(res);
+                }).finally(() => {
+                    document.querySelectorAll(".card").forEach((card) => {
+                        card.addEventListener("click", (event) => {
+                            event.preventDefault();
+                            
+                            // Obtém os dados do JSON no atributo data-json
+                            const data = JSON.parse(card.getAttribute("data-json"));
+                            
+                            // Salva os dados no Session Storage
+                            sessionStorage.setItem("FAZENDA_DATA", JSON.stringify(data));
+                            
+                            // Redireciona para a página Talhao.html
+                            window.location.href = "Talhao.html";
+                        });
+                    })
+                })
+            }
+        })
+    })
+    }
+
     function adicionarFazenda() {
 
         var nomeFazenda = input_nome_fazenda.value;
@@ -113,48 +160,6 @@
 
     }
 
-    fetch(`/fazendas/exibirFazenda`).then(res => {
-        res.json().then(res => {
-            for (let posicao = 0; posicao < res.length; posicao++) {
-                buscarCEP(res[posicao].cep)
-
-                .then((cepResult) => {
-                    card1.innerHTML += `
-                        <a class="card" data-json='{"idFazenda": ${res[posicao].idFazenda}, "name": "${res[posicao].nome}", "cep": "${res[posicao].cep}"}'>
-                            <div>
-                                <img src="../../assets/img/farm.jpg" alt="Fazenda" class="card-image">
-                                <div class="card-content">
-                                    <h3 class="card-subtitle">${cepResult}</h3>
-                                    <h2 class="card-title">${res[posicao].nome}</h2>
-                                    <div>
-                                        <p>Editar Remover</p>
-                                    </div>
-                                </div>
-                            </div>
-                        </a>`;
-                        
-                    console.log(res);
-                }).finally(() => {
-                    document.querySelectorAll(".card").forEach((card) => {
-                        card.addEventListener("click", (event) => {
-                            event.preventDefault();
-                            
-                            // Obtém os dados do JSON no atributo data-json
-                            const data = JSON.parse(card.getAttribute("data-json"));
-                            
-                            // Salva os dados no Session Storage
-                            sessionStorage.setItem("TALHAO_DATA", JSON.stringify(data));
-                            
-                            // Redireciona para a página Talhao.html
-                            window.location.href = "Talhao.html";
-                        });
-                    })
-                })
-            }
-        })
-    })
-
-    // BUSCAR CEP
     async function buscarCEP(cep) {
         const cepUrl = cep.replace(/\D/g, '');
         const url = `https://viacep.com.br/ws/${cepUrl}/json/`;
@@ -176,45 +181,46 @@
         }
     }
 
-    // TEMPERATURA
-    const OPENWEATHER_API_KEY = 'f4652d12e1e313414bdf86ce7dff0d93';
 
-    async function buscarPrevisaoTempo() {
-        const cep = '07142210'.replace(/\D/g, '');
+    listarFazendas(companyId)
+    // const OPENWEATHER_API_KEY = 'f4652d12e1e313414bdf86ce7dff0d93';
 
-        try {
-            const responseViaCEP = await fetch(`https://viacep.com.br/ws/${cep}/json/`);
-            const dataViaCEP = await responseViaCEP.json();
+    // async function buscarPrevisaoTempo() {
+    //     const cep = '07142210'.replace(/\D/g, '');
 
-            if (dataViaCEP.erro) {
-                alert('CEP não encontrado.');
-                return;
-            }
+    //     try {
+    //         const responseViaCEP = await fetch(`https://viacep.com.br/ws/${cep}/json/`);
+    //         const dataViaCEP = await responseViaCEP.json();
 
-            let logradouro = dataViaCEP.logradouro;
-            let bairro = dataViaCEP.bairro;
-            let cidade = dataViaCEP.localidade;
+    //         if (dataViaCEP.erro) {
+    //             alert('CEP não encontrado.');
+    //             return;
+    //         }
 
-            const responseGeocoding = await fetch(`https://nominatim.openstreetmap.org/search?q=${logradouro} ${bairro} ${cidade}&format=json&addressdetails=1&limit=1`);
-            const dataGeocoding = await responseGeocoding.json();
+    //         let logradouro = dataViaCEP.logradouro;
+    //         let bairro = dataViaCEP.bairro;
+    //         let cidade = dataViaCEP.localidade;
 
-            if (dataGeocoding && dataGeocoding.length > 0) {
-                latitude = dataGeocoding[0].lat;
-                longitude = dataGeocoding[0].lon;
-            } else {
-                alert('Não foi possível obter as coordenadas geográficas do CEP.');
-                return;
-            }
+    //         const responseGeocoding = await fetch(`https://nominatim.openstreetmap.org/search?q=${logradouro} ${bairro} ${cidade}&format=json&addressdetails=1&limit=1`);
+    //         const dataGeocoding = await responseGeocoding.json();
 
-            const responseOpenWeather = await fetch(`https://api.openweathermap.org/data/2.5/weather?lat=${latitude}&lon=${longitude}&appid=${OPENWEATHER_API_KEY}&units=metric&lang=pt_br`);
-            const dataOpenWeather = await responseOpenWeather.json();
+    //         if (dataGeocoding && dataGeocoding.length > 0) {
+    //             latitude = dataGeocoding[0].lat;
+    //             longitude = dataGeocoding[0].lon;
+    //         } else {
+    //             alert('Não foi possível obter as coordenadas geográficas do CEP.');
+    //             return;
+    //         }
 
-            console.log(dataOpenWeather);
-        } catch (error) {
-            console.error('Erro ao buscar previsão do tempo:', error);
-            alert('Ocorreu um erro ao buscar a previsão do tempo.');
-        }
-    }
+    //         const responseOpenWeather = await fetch(`https://api.openweathermap.org/data/2.5/weather?lat=${latitude}&lon=${longitude}&appid=${OPENWEATHER_API_KEY}&units=metric&lang=pt_br`);
+    //         const dataOpenWeather = await responseOpenWeather.json();
 
-    buscarPrevisaoTempo();
+    //         console.log(dataOpenWeather);
+    //     } catch (error) {
+    //         console.error('Erro ao buscar previsão do tempo:', error);
+    //         alert('Ocorreu um erro ao buscar a previsão do tempo.');
+    //     }
+    // }
+
+    // buscarPrevisaoTempo();
 </script>

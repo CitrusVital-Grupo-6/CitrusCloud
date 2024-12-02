@@ -56,6 +56,7 @@ CREATE TABLE Telefone (
 -- Tabela Plantacao
 CREATE TABLE Talhao (
     idTalhao INT PRIMARY KEY,
+    nomeTalhao VARCHAR(45),
     tipoLaranja VARCHAR(45),
     tamanhoHec VARCHAR(45),
     fkFazenda INT,
