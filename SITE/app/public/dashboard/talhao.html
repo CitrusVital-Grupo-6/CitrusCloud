@@ -76,10 +76,8 @@
                                         <option data-id="1" value="Ferrugem">Ferrugem</option>
                                         <option data-id="2" value="Mosca-das-Frutas">Mosca-das-Frutas</option>
                                         <option data-id="3" value="Lagarta-Minadora-dos-Citros">
-                                            Lagarta-Minadora-dos-Citros</option>
                                         <option data-id="4" value="Pulgão-preto">Pulgão-preto</option>
-                                        <option data-id="5" value="Ácaro da Falsa-Ferrugem">Ácaro da Falsa-Ferrugem
-                                        </option>
+                                        <option data-id="5" value="Ácaro da Falsa-Ferrugem">Ácaro da Falsa-Ferrugem</option>
                                         <option data-id="6" value="Cigarrinhas">Cigarrinhas</option>
                                         <option data-id="7" value="Ácaro Vermelho">Ácaro Vermelho</option>
                                         <option data-id="8" value="Bicudo da Laranja">Bicudo da Laranja</option>
@@ -149,7 +147,7 @@
                                 <img src="../../assets/img/plot.jpg" alt="Fazenda" class="card-image">
                                 <div class="card-content">
                                     <h3 class="card-subtitle">${talhoes[posicao].tipoLaranja}</h3>
-                                    <h2 class="card-title">${talhoes[posicao].nomeTalhao}</h2>
+                                    <h2 class="card-title">${talhoes[posicao].nome}</h2>
                                      <div class="box-edt-del-talhao">
                                         <button class="edit-del-fazenda" onclick="openEditTalhaoModal(${talhoes[posicao].idTalhao}, event)">Editar</button>
                                         <button class="edit-del-fazenda" onclick="deletarTalhao(${talhoes[posicao].idTalhao}, event)">Remover</button>
@@ -420,7 +418,7 @@
     }
 
     function agendarPulverizacao() {
-        let fkTalhao = // Precisa passar o fk do talhão como SESSION, boa sorte irmão //
+       // let fkTalhao = ;// Precisa passar o fk do talhão como SESSION, boa sorte irmão //
         let fkAgrotoxico = selectDefensivo.value;
         let dataPulverizacao = document.querySelector('.data-inicio').value;
 

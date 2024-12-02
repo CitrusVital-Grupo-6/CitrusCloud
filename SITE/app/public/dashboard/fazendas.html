@@ -66,7 +66,6 @@
 
         <div id="card1" class="cards-group"> </div>
         <div id="modal_editar_fazenda_container"></div>
-
     </main>
 
     <script src="../../middlewares/aside-menu.js"></script>
@@ -75,153 +74,294 @@
 </html>
 
 <script>
+
+
     const userData = sessionStorage.getItem("USER_DATA");
     const parsedData = JSON.parse(userData);
     const companyId = parsedData.companyId;
 
-    function listarFazendas(idEmpresa) {
-        fetch(`/fazendas/exibirFazenda/${idEmpresa}`).then(res => {
-        res.json().then(res => {
-            for (let posicao = 0; posicao < res.length; posicao++) {
-                buscarCEP(res[posicao].cep)
 
-                .then((cepResult) => {
-                    card1.innerHTML += `
+    listarFazendas(companyId)
+    const OPENWEATHER_API_KEY = 'f4652d12e1e313414bdf86ce7dff0d93';
+
+    /*async function buscarPrevisaoTempo() {
+        const cep = '07142210'.replace(/\D/g, '');
+
+        try {
+            const responseViaCEP = await fetch(`https://viacep.com.br/ws/${cep}/json/`);
+            const dataViaCEP = await responseViaCEP.json();
+
+            if (dataViaCEP.erro) {
+                alert('CEP não encontrado.');
+                return;
+            }
+
+            let logradouro = dataViaCEP.logradouro;
+            let bairro = dataViaCEP.bairro;
+            let cidade = dataViaCEP.localidade;
+
+            const responseGeocoding = await fetch(`https://nominatim.openstreetmap.org/search?q=${logradouro} ${bairro}
+            ${cidade}&format=json&addressdetails=1&limit=1`);
+            const dataGeocoding = await responseGeocoding.json();
+
+            if (dataGeocoding && dataGeocoding.length > 0) {
+                latitude = dataGeocoding[0].lat;
+                longitude = dataGeocoding[0].lon;
+            } else {
+                alert('Não foi possível obter as coordenadas geográficas do CEP.');
+                return;
+            }
+
+            const responseOpenWeather = await
+                fetch(`https://api.openweathermap.org/data/2.5/weather?lat=${latitude}&lon=${longitude}&appid=${OPENWEATHER_API_KEY}&units=metric&lang=pt_br`);
+            const dataOpenWeather = await responseOpenWeather.json();
+
+            console.log(dataOpenWeather);
+        } catch (error) {
+            console.error('Erro ao buscar previsão do tempo:', error);
+            alert('Ocorreu um erro ao buscar a previsão do tempo.');
+        }
+    }
+
+
+
+    buscarPrevisaoTempo();
+*/
+    function listarFazendas(idEmpresa) {
+                fetch(`/fazendas/exibirFazenda/${idEmpresa}`).then(res => {
+                    res.json().then(res => {
+                        for (let posicao = 0; posicao < res.length; posicao++) {
+                            buscarCEP(res[posicao].cep)
+
+                                .then((cepResult) => {
+                                    card1.innerHTML += `
                         <a class="card" data-json='{"idFazenda": ${res[posicao].idFazenda}, "nome": "${res[posicao].nomeFazenda}", "cep": "${res[posicao].cep}"}'>
                             <div>
                                 <img src="../../assets/img/farm.jpg" alt="Fazenda" class="card-image">
                                 <div class="card-content">
                                     <h3 class="card-subtitle">${cepResult}</h3>
-                                    <h2 class="card-title">${res[posicao].nomeFazenda}</h2>
-                                    <div>
-                                        <p>Editar Remover</p>
+                                    <h2 class="card-title">${res[posicao].nome}</h2>
+                                      <div class="box-edt-del-talhao">
+                                        <button onclick="openEditFazendaModal(${res[posicao].idFazenda})">Editar</button>
+                                        <button onclick="deletarFazenda(${res[posicao].idFazenda})">Remover</button>
                                     </div>
                                 </div>
                             </div>
                         </a>`;
-                        
-                    console.log(res);
-                }).finally(() => {
-                    document.querySelectorAll(".card").forEach((card) => {
-                        card.addEventListener("click", (event) => {
-                            event.preventDefault();
-                            
-                            // Obtém os dados do JSON no atributo data-json
-                            const data = JSON.parse(card.getAttribute("data-json"));
-                            
-                            // Salva os dados no Session Storage
-                            sessionStorage.setItem("FAZENDA_DATA", JSON.stringify(data));
-                            
-                            // Redireciona para a página Talhao.html
-                            window.location.href = "Talhao.html";
-                        });
+
+                                    console.log(res);
+                                }).finally(() => {
+                                    document.querySelectorAll(".card").forEach((card) => {
+                                        card.addEventListener("click", (event) => {
+                                            event.preventDefault();
+
+                                            // Obtém os dados do JSON no atributo data-json
+                                            const data = JSON.parse(card.getAttribute("data-json"));
+
+                                            // Salva os dados no Session Storage
+                                            sessionStorage.setItem("FAZENDA_DATA", JSON.stringify(data));
+
+                                            // Redireciona para a página Talhao.html
+                                            window.location.href = "Talhao.html";
+                                        });
+                                    })
+                                })
+                        }
                     })
                 })
             }
-        })
-    })
-    }
 
     function adicionarFazenda() {
-        var nomeFazenda = input_nome_fazenda.value;
-        var cep = input_cep_fazenda.value;
-        var numero = input_numero_fazenda.value;
-        var complemento = input_complemento_fazenda.value;
-        var idEmpresa = companyId;
+                var nomeFazenda = input_nome_fazenda.value;
+                var cep = input_cep_fazenda.value;
+                var numero = input_numero_fazenda.value;
+                var complemento = input_complemento_fazenda.value;
+                const idFazenda = sessionStorage.getItem("idFazenda")
+                var idEmpresa = companyId;
 
-        modal_fazenda.close();
+                modal_fazenda.close();
 
-        fetch("/fazendas/cadastrarFazenda", {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json",
-            },
-            body: JSON.stringify({
-                nomeServer: nomeFazenda,
-                cepServer: cep,
-                idEmpresaServer: idEmpresa,
-                numeroServer: numero,
-                complementoServer: complemento
-            }),
-        })
-            .then(function (resposta) {
-                console.log("resposta: ", resposta);
+                fetch("/fazendas/cadastrarFazenda", {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json",
+                    },
+                    body: JSON.stringify({
+                        nomeServer: nomeFazenda,
+                        cepServer: cep,
+                        idEmpresaServer: idEmpresa,
+                        numeroServer: numero,
+                        complementoServer: complemento
+                    }),
+                })
+                    .then(function (resposta) {
+                        console.log("resposta: ", resposta);
 
-                if (resposta.ok) {
+                        if (resposta.ok) {
 
-                    window.location = "./fazendas.html"
+                            window.location = "./fazendas.html"
 
-                } else {
-                    throw "Houve um erro ao tentar realizar o cadastro!";
-                }
-            })
-            .catch(function (resposta) {
-                console.log(`#ERRO: ${resposta}`);
-            });
+                        } else {
+                            throw "Houve um erro ao tentar realizar o cadastro!";
+                        }
+                    })
+                    .catch(function (resposta) {
+                        console.log(`#ERRO: ${resposta}`);
+                    });
 
 
-    }
+            }
 
     async function buscarCEP(cep) {
-        const cepUrl = cep.replace(/\D/g, '');
-        const url = `https://viacep.com.br/ws/${cepUrl}/json/`;
+                const cepUrl = cep.replace(/\D/g, '');
+                const url = `https://viacep.com.br/ws/${cepUrl}/json/`;
 
-        try {
-            const response = await fetch(url);
-            const data = await response.json();
+                try {
+                    const response = await fetch(url);
+                    const data = await response.json();
 
-            if (data.erro) {
-                alert('CEP não encontrado.');
+                    if (data.erro) {
+                        alert('CEP não encontrado.');
+                        return;
+                    }
+
+                    console.log(data);
+                    return `${data.localidade}, ${data.estado}`;
+                } catch (error) {
+                    console.error('Erro ao buscar CEP:', error);
+                    alert('Ocorreu um erro ao buscar o CEP. Verifique a sua conexão com a internet.');
+                }
+            }
+
+            let fazenda;
+
+
+        function openEditFazendaModal(idFazenda) {
+            fetch(`/fazendas/buscarFazenda/${idFazenda}`)
+                .then(res => {
+                    if (!res.ok) throw new Error("Erro ao buscar fazenda.");
+                    return res.json();
+                })
+                .then(fazenda => {
+                    const modalContainer = document.getElementById('modal_editar_fazenda_container');
+                    modalContainer.innerHTML = `
+            <dialog class="modal-layout" id="modal_edit_fazenda">
+                <div class="modal-form-wrapper">
+                    <div class="box-titulo">
+                        <span class="titulo-modal">EDITAR FAZENDA</span>
+                        <button class="botao-fechar-modal" onclick="closeEditFazendaModal()">
+                            <img width="24" height="24" src="https://img.icons8.com/material-outlined/24/delete-sign.png"/>
+                        </button>
+                    </div>
+                    <div>
+                        <div class="modal-box-wrapper">
+                            <div class="modal-box-container">
+                                <div class="dados-fazenda">
+                                    <span>NOME</span>
+                                    <input class="input-modal" type="text" id="input_editar_nome_fazenda" value="${fazenda.nome}">
+                                </div>
+                                <div class="dados-fazenda">
+                                    <span>CEP</span>
+                                    <input class="input-modal" type="number" id="input_editar_cep_fazenda" value="${fazenda.cep}">
+                                </div>
+                            </div>
+                            <div class="modal-box-container">
+                                <div class="dados-fazenda">
+                                    <span>NUMERO</span>
+                                    <input class="input-modal" type="number" id="input_editar_numero_fazenda" value="${fazenda.numero}">
+                                </div>
+                                <div class="dados-fazenda">
+                                    <span>COMPLEMENTO</span>
+                                    <input class="input-modal" type="text" id="input_editar_complemento_fazenda" value="${fazenda.complemento}">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="dados-fazenda" style="margin-top: 2rem;">
+                        <span>DESCRICAO</span>
+                        <input class="input-modal" id="input_descricao" style="width: 100%;" value="${fazenda.descricao}"/>
+                    </div>
+                    <button onclick="atualizarFazenda(${fazenda.idFazenda})" class="btn-add-modal">ATUALIZAR</button>
+                </div>
+            </dialog>
+        `;
+
+                    const modal = document.getElementById('modal_edit_fazenda');
+                    modal.showModal(); // Abre o modal
+                })
+                .catch(err => {
+                    console.error("Erro:", err);
+                });
+        }
+
+        function closeEditFazendaModal() {
+            const modal = document.getElementById('modal_edit_fazenda');
+            modal.close();
+            document.getElementById('modal_editar_fazenda_container').innerHTML = ''; // Limpa o conteúdo
+        }
+
+
+        function atualizarFazenda(idFazenda) {
+            const nomeFazenda = document.getElementById('input_editar_nome_fazenda').value;
+            const cep = document.getElementById('input_editar_cep_fazenda').value;
+            const numero = document.getElementById('input_editar_numero_fazenda').value;
+            const complemento = document.getElementById('input_editar_complemento_fazenda').value;
+            const descricao = document.getElementById('input_descricao').value;
+
+            if (!idFazenda) {
+                console.error("ID da fazenda não foi fornecido.");
                 return;
             }
 
-            console.log(data);
-            return `${data.localidade}, ${data.estado}`;
-        } catch (error) {
-            console.error('Erro ao buscar CEP:', error);
-            alert('Ocorreu um erro ao buscar o CEP. Verifique a sua conexão com a internet.');
+            fetch(`/fazendas/atualizarFazenda/${idFazenda}`, {
+                method: "PUT",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({
+                    nomeServer: nomeFazenda,
+                    cepServer: cep,
+                    numeroServer: numero,
+                    complementoServer: complemento,
+                    descricaoServer: descricao
+                })
+            })
+                .then(res => {
+                    if (res.ok) {
+                        alert("Fazenda atualizada com sucesso!");
+                        window.location.reload();
+                    } else {
+                        throw new Error("Erro ao atualizar fazenda.");
+                    }
+                })
+                .catch(err => {
+                    console.error("Erro:", err);
+                });
         }
-    }
 
-    listarFazendas(companyId)
-    // const OPENWEATHER_API_KEY = 'f4652d12e1e313414bdf86ce7dff0d93';
+        function deletarFazenda(idFazenda) {
+            console.log("Tentando deletar a fazenda com ID: " + idFazenda);
+            fetch(`/fazendas/deletarFazenda/${idFazenda}`, {
+                method: "DELETE",
+                headers: {
+                    "Content-Type": "application/json"
+                }
+            })
+                .then(resposta => {
+                    if (resposta.ok) {
+                        alert("Fazenda e endereço deletados com sucesso!");
+                        window.location.reload();
+                    } else {
+                        throw new Error("Houve um erro ao tentar deletar a fazenda.");
+                    }
+                })
+                .catch(err => {
+                    console.error("Erro:", err);
+                });
+        }
 
-    // async function buscarPrevisaoTempo() {
-    //     const cep = '07142210'.replace(/\D/g, '');
 
-    //     try {
-    //         const responseViaCEP = await fetch(`https://viacep.com.br/ws/${cep}/json/`);
-    //         const dataViaCEP = await responseViaCEP.json();
 
-    //         if (dataViaCEP.erro) {
-    //             alert('CEP não encontrado.');
-    //             return;
-    //         }
+        buscarPrevisaoTempo();
 
-    //         let logradouro = dataViaCEP.logradouro;
-    //         let bairro = dataViaCEP.bairro;
-    //         let cidade = dataViaCEP.localidade;
-
-    //         const responseGeocoding = await fetch(`https://nominatim.openstreetmap.org/search?q=${logradouro} ${bairro} ${cidade}&format=json&addressdetails=1&limit=1`);
-    //         const dataGeocoding = await responseGeocoding.json();
-
-    //         if (dataGeocoding && dataGeocoding.length > 0) {
-    //             latitude = dataGeocoding[0].lat;
-    //             longitude = dataGeocoding[0].lon;
-    //         } else {
-    //             alert('Não foi possível obter as coordenadas geográficas do CEP.');
-    //             return;
-    //         }
-
-    //         const responseOpenWeather = await fetch(`https://api.openweathermap.org/data/2.5/weather?lat=${latitude}&lon=${longitude}&appid=${OPENWEATHER_API_KEY}&units=metric&lang=pt_br`);
-    //         const dataOpenWeather = await responseOpenWeather.json();
-
-    //         console.log(dataOpenWeather);
-    //     } catch (error) {
-    //         console.error('Erro ao buscar previsão do tempo:', error);
-    //         alert('Ocorreu um erro ao buscar a previsão do tempo.');
-    //     }
-    // }
-
-    // buscarPrevisaoTempo();
 </script>
