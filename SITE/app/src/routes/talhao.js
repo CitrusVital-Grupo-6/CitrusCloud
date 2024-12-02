@@ -11,5 +11,17 @@ router.post("/adicionarTalhao", function (req, res) {
   talhaoController.adicionarTalhao(req, res);
 });
 
+router.get("/buscarTalhao/:idTalhao", function (req, res) {
+  talhaoController.buscarTalhao(req, res);
+});
+
+router.put("/atualizarTalhao/:idTalhao", function (req, res) {
+  talhaoController.atualizarTalhao(req, res);
+});
+
+router.delete("/deletarTalhao/:idTalhao", function (req, res) {
+  talhaoController.deletarTalhao(req, res);
+});
+
 
 module.exports = router;

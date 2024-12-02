@@ -23,8 +23,7 @@
             <h1 class="main-title" id="nome-fazenda">Fazenda Citrus</h1>
             <div class="buttons">
                 <button class="main-button" onclick="modal_talhao.showModal()">Adicionar</button>
-
-                <dialog id="modal_talhao">
+                <dialog class="modal-talhao" id="modal_talhao">
                     <div class="container-modal-talhao">
                         <div class="box-titulo-talhao">
                             <span class="titulo-modal-talhao">ADICIONAR TALHÃO</span>
@@ -44,12 +43,12 @@
                             <div class="box-childrem-talhao">
                                 <span>TIPO DE LARANJA</span>
                                 <select class="input-hectar" id="tipo_laranja">
-                                    <option value="laranja_bahia">Laranja Bahia</option>
-                                    <option value="larana_pera">Laranja Pêra</option>
-                                    <option value="laranja_natal">Laranja Natal</option>
-                                    <option value="laranja_da_terra">Laranja-da-terra</option>
-                                    <option value="laranja_hamlin">Laranja Hamlin</option>
-                                    <option value="laranja_lima">Laranja Lima</option>
+                                    <option value="laranja Bahia">Laranja Bahia</option>
+                                    <option value="laranja Pera">Laranja Pêra</option>
+                                    <option value="laranja Natal">Laranja Natal</option>
+                                    <option value="laranja da Terra">Laranja-da-terra</option>
+                                    <option value="laranja Hamlin">Laranja Hamlin</option>
+                                    <option value="laranja Lima">Laranja Lima</option>
                                 </select>
                             </div>
                         </div>
@@ -73,7 +72,24 @@
                                 <div class="pragas">
                                     <span>PRAGA 1</span>
                                     <select name="" id="escolher-praga">
-                                        <option value="">Ferrugem</option>
+                                        <option data-id="1" value="Ferrugem">Ferrugem</option>
+                                        <option data-id="2" value="Mosca-das-Frutas">Mosca-das-Frutas</option>
+                                        <option data-id="3" value="Lagarta-Minadora-dos-Citros">
+                                            Lagarta-Minadora-dos-Citros</option>
+                                        <option data-id="4" value="Pulgão-preto">Pulgão-preto</option>
+                                        <option data-id="5" value="Ácaro da Falsa-Ferrugem">Ácaro da Falsa-Ferrugem
+                                        </option>
+                                        <option data-id="6" value="Cigarrinhas">Cigarrinhas</option>
+                                        <option data-id="7" value="Ácaro Vermelho">Ácaro Vermelho</option>
+                                        <option data-id="8" value="Bicudo da Laranja">Bicudo da Laranja</option>
+                                        <option data-id="9" value="Broca da Laranja">Broca da Laranja</option>
+                                        <option data-id="10" value="Cancro Cítrico">Cancro Cítrico</option>
+                                        <option data-id="11" value="Cochonilha Farinha">Cochonilha Farinha</option>
+                                        <option data-id="12" value="Formigas Cortadeiras">Formigas Cortadeiras</option>
+                                        <option data-id="13" value="Lagarta Minadora">Lagarta Minadora</option>
+                                        <option data-id="14" value="Mosca Branca">Mosca Branca</option>
+                                        <option data-id="15" value="Nematoides">Nematoides</option>
+                                        <option data-id="16" value="Pulgão Verde">Pulgão Verde</option>
                                     </select>
                                 </div>
                                 <div class="hectares">
@@ -90,7 +106,8 @@
                             DATA DESEJADA
                             <input class="data-inicio" type="date">
                         </div>
-                        <button onclick="recomendacoes()" class="botao-recomendacoes">Recomendações</button>
+                        <button onclick="agendarPulverizacao(idTalhaoAtual)"
+                            class="botao-recomendacoes">AGENDAR</button>
                     </div>
                 </dialog>
 
@@ -98,25 +115,30 @@
         </div>
 
         <div id="card" class="cards-group"></div>
+        <div id="container-modal-edit-talhao"></div>
 
     </main>
 
     <script src="../../middlewares/aside-menu.js"></script>
-    <script>  
+    <script>
         function buscarTalhoes(idFazenda) {
             fetch(`/talhao/exibirTalhao?idFazenda=${idFazenda}`)
                 .then(res => res.json())
                 .then(talhoes => {
-                    const card = document.getElementById('card'); 
+                    const card = document.getElementById('card');
                     card.innerHTML = '';
-    
+
                     for (let posicao = 0; posicao < talhoes.length; posicao++) {
                         card.innerHTML += ` 
-                            <div onclick="modal_pulverizacao.showModal()" class="card">
+                            <div onclick="abrirModalPulverizacao(${talhoes[posicao].idTalhao})" class="card">
                                 <img src="../../assets/img/plot.jpg" alt="Fazenda" class="card-image">
                                 <div class="card-content">
                                     <h3 class="card-subtitle">${talhoes[posicao].tipoLaranja}</h3>
                                     <h2 class="card-title">${talhoes[posicao].nome}</h2>
+                                     <div class="box-edt-del-talhao">
+                                        <button class="edit-del-fazenda" onclick="openEditTalhaoModal(${talhoes[posicao].idTalhao})">Editar</button>
+                                        <button class="edit-del-fazenda" onclick="deletarTalhao(${talhoes[posicao].idTalhao})">Remover</button>
+                                    </div>
                                 </div>
                             </div>`;
                     }
@@ -125,7 +147,7 @@
                     console.error('Erro ao buscar talhões:', error);
                 });
         }
-    
+
         function bumBum() {
             const fazendaData = JSON.parse(sessionStorage.getItem("FAZENDA_DATA"));
             console.log(fazendaData);
@@ -135,7 +157,7 @@
                 buscarTalhoes(fazendaData.idFazenda);
             }
         }
-    
+
         document.addEventListener("DOMContentLoaded", function () {
             const fazendaData = JSON.parse(sessionStorage.getItem("TALHAO_DATA"));
     
@@ -143,13 +165,13 @@
                 buscarTalhoes(fazendaData.idFazenda);
             }
         });
-    
+
         function adicionarTalhao() {
             const fazendaData = JSON.parse(sessionStorage.getItem("TALHAO_DATA"));
             const nomeTalhao = document.getElementById('input_nome_talhao').value;
             const tamanhoHectar = document.getElementById('input_qtd_hactar').value;
             const tipoLaranja = document.getElementById('tipo_laranja').value;
-    
+
             fetch("/talhao/adicionarTalhao", {
                 method: "POST",
                 headers: {
@@ -174,10 +196,10 @@
                     console.error('Erro:', error);
                 });
         }
-    
+
         function adicionarPraga() {
             let idInnerPragas = document.getElementById("pragas");
-    
+
             idInnerPragas.innerHTML += `<div class="box-pragas">
             <div class="pragas">
                 <span>PRAGA 1</span>
@@ -191,10 +213,158 @@
             </div>
         </div>`;
         }
-    
-        function recomendacoes() {
-            modal_pulverizacao.close();
+
+        function openEditTalhaoModal(idTalhao) {
+
+            fetch(`/talhao/buscarTalhao/${idTalhao}`)
+                .then(res => {
+                    if (!res.ok) throw new Error("Erro ao buscar fazenda.");
+                    return res.json();
+                })
+                .then(talhao => {
+
+                    const tiposLaranja = [
+                        "laranja Bahia",
+                        "laranja Pêra",
+                        "laranja Natal",
+                        "laranja da Terra",
+                        "laranja Hamlin",
+                        "laranja Lima"
+                    ];
+
+                    const options = [];
+                    options.push(`<option value="${talhao.tipoLaranja}">${talhao.tipoLaranja}</option>`);
+
+                    tiposLaranja.forEach(tipo => {
+                        if (tipo !== talhao.tipoLaranja) {
+                            options.push(`<option value="${tipo}">${tipo}</option>`);
+                        }
+                    });
+
+                    const modalContainer = document.getElementById('container-modal-edit-talhao');
+                    modalContainer.innerHTML = `
+                    <dialog class="modal-talhao" id="modal_edit_talhao">
+                    <div class="container-modal-talhao">
+                        <div class="box-titulo-talhao">
+                            <span class="titulo-modal-talhao">EDITAR TALHÃO</span>
+                            <button class="botao-fechar-modal-talhao" onclick="closeEditTalhao()"><img width="24"
+                                    height="24" src="https://img.icons8.com/material-outlined/24/delete-sign.png"
+                                    alt="delete-sign" /></button>
+                        </div>
+                        <div class="box-talhao">
+                            <div class="box-childrem-talhao">
+                                <span>NOME</span>
+                                <input class="input-hectar" type="text" name="" value="${talhao.nome}" id="input_editar_nome_talhao">
+                            </div>
+                            <div class="box-childrem-talhao">
+                                <span>HECTARES</span>
+                                <input class="input-hectar" type="text" name="" value="${talhao.tamanhoHec}" id="input_editar_qtd_hactar">
+                            </div>
+                            <div class="box-childrem-talhao">
+                                <span>TIPO DE LARANJA</span>
+                                <select class="input-hectar"  id="editar_tipo_laranja">
+                                       ${options.join('')}
+                                </select>
+                            </div>
+                        </div>
+                        <button onclick="atualizarTalhao(${talhao.idTalhao})" class="botao-adicionar-talhao">EDITAR</button>
+                    </div>
+                </dialog> `;
+
+                    const modal = document.getElementById('modal_edit_talhao');
+                    modal.showModal(); // Abre o modal
+                })
+                .catch(err => {
+                    console.error("Erro:", err);
+                });
         }
+
+        function closeEditTalhao() {
+            const modal = document.getElementById('modal_edit_talhao');
+            modal.close();
+            document.getElementById('container-modal-edit-talhao').innerHTML = '';
+        }
+
+        function atualizarTalhao(idTalhao) {
+            const nomeTalhao = document.getElementById('input_editar_nome_talhao').value;
+            const tamanhoHec = document.getElementById('input_editar_qtd_hactar').value;
+            const tipoLaranja = document.getElementById('editar_tipo_laranja').value;
+
+            if (!idTalhao) {
+                console.error("ID da fazenda não foi fornecido.");
+                return;
+            }
+
+            fetch(`/talhao/atualizarTalhao/${idTalhao}`, {
+                method: "PUT",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({
+                    nomeServer: nomeTalhao,
+                    tamanhoHecServer: tamanhoHec,
+                    tipoLaranjaServer: tipoLaranja
+                })
+            })
+                .then(res => {
+                    if (res.ok) {
+                        alert("Fazenda atualizada com sucesso!");
+                        window.location.reload();
+                    } else {
+                        throw new Error("Erro ao atualizar fazenda.");
+                    }
+                })
+                .catch(err => {
+                    console.error("Erro:", err);
+                });
+        }
+
+        let idTalhaoAtual; // Variável global para armazenar o ID do talhão
+
+        function abrirModalPulverizacao(idTalhao) {
+            idTalhaoAtual = idTalhao; // Armazena o ID do talhão
+            modal_pulverizacao.showModal(); // Exibe o modal
+        }
+
+
+        function agendarPulverizacao() {
+
+            const talhaoData = {
+                idTalhao: idTalhaoAtual,
+                praga: document.getElementById('escolher-praga').value,
+                idPraga: document.getElementById('escolher-praga').selectedOptions[0].getAttribute('data-id'),
+                hectaresAfetados: document.getElementById('input_hectares_afetado').value,
+                dataDesejada: document.querySelector('.data-inicio').value // ou o elemento correto
+            };
+
+            sessionStorage.setItem("TALHAO_AGENDAR", JSON.stringify(talhaoData));
+
+            // Redirecionar para a página agenda.html
+            window.location.href = 'agendar.html'; // Ajuste o caminho conforme necessário
+        }
+
+        function deletarTalhao(idTalhao) {
+            console.log("Tentando deletar a fazenda com ID: " + idTalhao);
+            fetch(`/talhao/deletarTalhao/${idTalhao}`, {
+                method: "DELETE",
+                headers: {
+                    "Content-Type": "application/json"
+                }
+            })
+                .then(resposta => {
+                    if (resposta.ok) {
+                        alert("Fazenda e endereço deletados com sucesso!");
+                        window.location.reload();
+                    } else {
+                        throw new Error("Houve um erro ao tentar deletar a fazenda.");
+                    }
+                })
+                .catch(err => {
+                    console.error("Erro:", err);
+                });
+        }
+
+
     </script>
 </body>
 </html>

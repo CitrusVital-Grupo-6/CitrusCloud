@@ -358,6 +358,18 @@ main .cards-group .card:hover {
     transform: translate(-50%, -50%); /* Ajusta a posição para o centro */
 }
 
+.edit-del-fazenda {
+
+    border: none;
+    cursor: pointer;
+}
+
+.edit-del-fazenda:hover {
+
+    color: var(--cor-titulo);
+}
+
+
 .modal-layout::backdrop{
     background-color: #0000009f;
 }
@@ -643,7 +655,7 @@ select{
     padding-left: 6px;  
 }
 
-#modal_talhao {
+.modal-talhao {
 
     width: 637px;
     height: 540px;
@@ -658,7 +670,7 @@ select{
     transform: translate(-50%, -50%); /* Ajusta a posição para o centro */
 }
 
-#modal_talhao::backdrop{
+.modal-talhao::backdrop{
     background-color: #0000009f;
 }
 
@@ -674,6 +686,13 @@ select{
 .box-titulo-talhao {
     display: flex;
     gap:170px ;
+}
+
+.box-edt-del-talhao{
+
+    display: flex;
+    gap: 1.0rem;
+    cursor: pointer;
 }
 
 .titulo-modal-talhao{

@@ -11,4 +11,17 @@ router.get("/exibirFazenda/:idEmpresa", function (req, res) {
     fazendaController.exibirFazenda(req, res);
 })
 
+router.get("/buscarFazenda/:idFazenda", function (req, res) {
+    fazendaController.buscarFazenda(req, res);
+  });
+
+router.put("/atualizarFazenda/:idFazenda", function (req, res) {
+    fazendaController.atualizarFazenda(req, res);
+  });
+
+
+router.delete("/deletarFazenda/:idFazenda", function (req, res) {
+  fazendaController.deletarFazenda(req, res);
+});
+
 module.exports = router;

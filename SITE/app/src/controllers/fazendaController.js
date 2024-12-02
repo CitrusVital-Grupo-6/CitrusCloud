@@ -48,7 +48,76 @@ function exibirFazenda(req, res) {
         );
 }
 
+
+function buscarFazenda(req, res) {
+    var idFazenda = req.params.idFazenda;
+
+    fazendaModel.buscarFazenda(idFazenda)
+        .then(resultado => {
+            if (resultado.length > 0) {
+                res.status(200).json(resultado[0]); // Retorna a primeira fazenda encontrada
+            } else {
+                res.status(204).send("Nenhuma fazenda encontrada!"); // Não encontrou a fazenda
+            }
+        })
+        .catch(erro => {
+            console.error("Erro ao buscar fazenda: ", erro);
+            res.status(500).json({ error: erro.sqlMessage });
+        });
+}
+
+
+function atualizarFazenda(req, res) {
+    let idFazenda = req.params.idFazenda;
+    let nome = req.body.nomeServer;
+    let cep = req.body.cepServer;
+    let numero = req.body.numeroServer;
+    let complemento = req.body.complementoServer;
+
+    fazendaModel.atualizarFazenda(nome, cep, numero, complemento, idFazenda)
+        .then(resultado => {
+            res.json(resultado);
+        })
+        .catch(erro => {
+            console.log(erro);
+            res.status(500).json({ error: erro.sqlMessage });
+        });
+}
+
+function deletarFazenda(req, res) {
+    const idFazenda = req.params.idFazenda;
+
+    fazendaModel.buscarTalhoesPorFazenda(idFazenda)
+        .then(talhoes => {
+            if (talhoes.length > 0) {
+                const deletePromises = talhoes.map(talhao => {
+                    return fazendaModel.deletarTalhao(talhao.idTalhao);
+                });
+
+                return Promise.all(deletePromises)
+                    .then(() => {
+                        return fazendaModel.deletarFazenda(idFazenda);
+                    });
+            } else {
+                return fazendaModel.deletarFazenda(idFazenda);
+            }
+        })
+        .then(() => {
+            res.status(200).send("Fazenda e talhões deletados com sucesso!");
+        })
+        .catch(erro => {
+            console.error("Erro ao deletar fazenda e talhões:", erro);
+            res.status(500).json({ error: erro.sqlMessage });
+        });
+}
+
+
 module.exports = {
     adicionarFazenda,
-    exibirFazenda
+    exibirFazenda,
+    atualizarFazenda,
+    buscarFazenda,
+    deletarFazenda,
+    deletarFazenda,
+    
 }

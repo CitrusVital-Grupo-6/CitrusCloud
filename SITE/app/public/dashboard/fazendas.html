@@ -1,14 +1,18 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    
+
     <title>CitrusVital | Fazendas</title>
-   
+
     <link rel="stylesheet" href="../../css/dashboard.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
+        integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
 </head>
+
 <body id="fazendas">
     <aside id="aside-menu">
     </aside>
@@ -24,8 +28,7 @@
                             <span class="titulo-modal">ADICIONAR FAZENDA</span>
                             <button class="botao-fechar-modal" onclick="modal_fazenda.close()"><img width="24"
                                     height="24" src="https://img.icons8.com/material-outlined/24/delete-sign.png"
-                                    alt="delete-sign"
-                            />
+                                    alt="delete-sign" />
                         </div>
                         <div>
                             <div class="modal-box-wrapper">
@@ -46,23 +49,24 @@
                                     </div>
                                     <div class="dados-fazenda">
                                         <span>COMPLEMENTO</span>
-                                        <input class="input-modal" type="text" name=""
-                                            id="input_complemento_fazenda">
+                                        <input class="input-modal" type="text" name="" id="input_complemento_fazenda">
                                     </div>
                                 </div>
                             </div>
                         </div>
                         <div class="dados-fazenda" style="margin-top: 2rem;">
                             <span>DESCRICAO</span>
-                            <input class="input-modal" id="input_descricao" style="width: 100%;"/>
+                            <input class="input-modal" id="input_descricao" style="width: 100%;" />
                         </div>
                         <button onclick="adicionarFazenda()" class="btn-add-modal">ADICIONAR</button>
                     </div>
-                </dialog> 
+                </dialog>
             </div>
         </div>
 
         <div id="card1" class="cards-group"> </div>
+        <div id="modal_editar_fazenda_container"></div>
+
     </main>
 
     <script src="../../middlewares/aside-menu.js"></script>
@@ -126,6 +130,7 @@
         var descricao = input_descricao.value;
         var numero = input_numero_fazenda.value;
         var complemento = input_complemento_fazenda.value;
+        const idFazenda = sessionStorage.getItem("idFazenda")
 
         modal_fazenda.close();
 
