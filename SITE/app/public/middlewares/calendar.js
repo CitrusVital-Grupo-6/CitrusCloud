@@ -41,9 +41,8 @@ const months = [
 ];
 
 let eventsArr = [];
-gerarBagulhoAi();
+
 function gerarBagulhoAi(){
-  if(fileName != "agendar.html"){
     eventsArr = [
       {
         day: 5,
@@ -87,12 +86,10 @@ function gerarBagulhoAi(){
         ],
       }
     ];
-  }
-}
+};
 
-// getEvents();
+gerarBagulhoAi();
 
-//function to add days in days with class day and prev-date next-date on previous month and next month days and active on today
 function initCalendar() {
   const firstDay = new Date(year, month, 1);
   const lastDay = new Date(year, month + 1, 0);
@@ -111,7 +108,6 @@ function initCalendar() {
   }
 
   for (let i = 1; i <= lastDate; i++) {
-    //check if event is present on that day
     let event = false;
     eventsArr.forEach((eventObj) => {
       if (
@@ -151,7 +147,6 @@ function initCalendar() {
   addListner();
 }
 
-//function to add month and year on prev and next button
 function prevMonth() {
   month--;
   if (month < 0) {
@@ -175,7 +170,6 @@ next.addEventListener("click", nextMonth);
 
 initCalendar();
 
-//function to add active on day
 function addListner() {
   const days = document.querySelectorAll(".day");
   days.forEach((day) => {
@@ -224,7 +218,6 @@ function addListner() {
   });
 }
 
-//function get active day day name and date and update eventday eventdate
 function getActiveDay(date) {
   const day = new Date(year, month, date);
   const dayName = day.toString().split(" ")[0];
@@ -234,49 +227,3 @@ function getActiveDay(date) {
     eventDate.innerHTML = date + " " + months[month] + " " + year;
   }
 }
-
-// function updateEvents(date) {
-//   let events = "";
-//   eventsArr.forEach((event) => {
-//     if (
-//       date === event.day
-//     ) {
-//       console.log("bumbum")
-//       event.events.forEach((event) => {
-//         events += `
-//           <div class="event">
-//               <div>
-//                   <h3 class="event-title">Fazenda X</h3>
-//                   <span class="event-time">-</span>
-//                   <span class="event-time">500 mL</span>
-//               </div>
-//               <div>
-//                   <h3 class="event-icon">
-//                       <i class="fa-solid fa-clipboard-list"></i>
-//                   </h3>
-//               </div>
-//           </div>
-//         `;
-//       });
-//     }
-//   });
-//   if (events === "") {
-//       events = `
-//         <div class="no-event">
-//           <h3>No Events</h3>
-//         </div>
-//       `;
-//   }
-//   if(fileName != "agendar.html"){
-//     eventsContainer.innerHTML = events;
-//   }
-// }
-
-// //function to get events from local storage
-// function getEvents() {
-//   //check if events are already saved in local storage then return event else nothing
-//   if (localStorage.getItem("events") === null) {
-//     return;
-//   }
-//   eventsArr.push(...JSON.parse(localStorage.getItem("events")));
-// }

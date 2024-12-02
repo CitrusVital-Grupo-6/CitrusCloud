@@ -1,13 +1,12 @@
-//function get active day day name and date and update eventday eventdate
 function getActiveDay(date) {
     const day = new Date(year, month, date);
     const dayName = day.toString().split(" ")[0];
     eventDate.innerHTML = date + " " + months[month] + " " + year;
-  }
+}
   
-  //function update events when a day is active
 function updateEvents(date) {
   let events = "";
+
   eventsArr.forEach((event) => {
     if (
       date === event.day &&
@@ -34,7 +33,6 @@ function updateEvents(date) {
   }
 }
   
-  //function to get events from local storage
-  function getEvents() {
-    eventsArr.push(...JSON.parse(localStorage.getItem("events")));
-  }
+function getEvents() {
+  eventsArr.push(...JSON.parse(localStorage.getItem("events")));
+}

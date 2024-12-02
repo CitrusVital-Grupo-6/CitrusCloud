@@ -29,7 +29,7 @@
                 <h3 class="subtitle">TALHÃO 2 / PRAGA: <i>FERRUGEM</i></h3>
             </div>
             <div class="buttons">
-                <button class="main-button" onclick="cancelarPulv('./talhao.html')">
+                <button class="main-button" onclick="cancelarPulv()">
                     Cancelar
                 </button>
                 <button class="main-button" id="confirmar">
@@ -51,7 +51,7 @@
                         </div>
                         <kpi class="kpi-text">
                             <h1>Temperatura</h1>
-                            <span>37ºC</span>
+                            <span id="temperatura">Carregando...</span>
                         </kpi>
                     </div>
                     <div class="kpi-box">
@@ -65,7 +65,7 @@
                         </div>
                         <kpi class="kpi-text">
                             <h1>Umidade</h1>
-                            <span>20%</span>
+                            <span id="umidade">Carregando...</span>
                         </kpi>
                     </div>
                     <div class="kpi-box">
@@ -79,7 +79,7 @@
                         </div>
                         <kpi class="kpi-text">
                             <h1>Chance de Chuva</h1>
-                            <span>20%</span>
+                            <span id="chanceChuva">Carregando...</span>
                         </kpi>
                     </div>
                 </div>
@@ -207,10 +207,6 @@
     <script src="../../middlewares/calendar.js"></script>
 
     <script>
-        function cancelarPulv(url) {
-            window.location.href = url;
-        }
-
         document.addEventListener("DOMContentLoaded", function () {
             const talhaoAgendar = JSON.parse(sessionStorage.getItem("TALHAO_AGENDAR"));
             if (talhaoAgendar) {
@@ -227,16 +223,94 @@
 </html>
 
 <script>
-    const apiKey = "75d39932958963bfb42f798f88b1e5ad"
+    const OPENWEATHER_API_KEY = 'f4652d12e1e313414bdf86ce7dff0d93';
 
-    async function buscarDadosClima(cidade) {
-        const dados = await fetch(`https://pro.openweathermap.org/data/2.5/forecast/hourly?q=${cidade}&appid=${apiKey}`).then(resposta => resposta.json())
+    const userData = sessionStorage.getItem("FAZENDA_DATA");
+    const parsedData = JSON.parse(userData);
+    const cepTalhao = parsedData.cep;
+
+    async function buscarPrevisaoTempo(cep) {
+        console.log(cep)
+        const cepLimpo = cep.replace(/\D/g, '');
+        console.log(cepLimpo);
+
+        try {
+            const responseViaCEP = await fetch(`https://viacep.com.br/ws/${cepLimpo}/json/`);
+            const dataViaCEP = await responseViaCEP.json();
+            if (dataViaCEP.erro) {
+                alert('CEP não encontrado.');
+                return;
+            }
+
+            const enderecoCompleto = `${dataViaCEP.logradouro}, ${dataViaCEP.bairro}, ${dataViaCEP.localidade}`;
+
+            const responseGeocoding = await fetch(`https://nominatim.openstreetmap.org/search?q=${enderecoCompleto}&format=json&addressdetails=1&limit=1`);
+            const dataGeocoding = await responseGeocoding.json();
+
+            let latitude, longitude;
+
+            if (dataGeocoding && dataGeocoding.length > 0) {
+                latitude = dataGeocoding[0].lat;
+                longitude = dataGeocoding[0].lon;
+            } else {
+                alert('Não foi possível obter as coordenadas geográficas do CEP.');
+                return;
+            }
 
 
+            const responseOpenWeather = await fetch(`https://api.openweathermap.org/data/2.5/forecast?lat=${latitude}&lon=${longitude}&appid=${OPENWEATHER_API_KEY}&units=metric&lang=pt_br`);
+            const dataOpenWeather = await responseOpenWeather.json();
+
+            const previsaoPorDia = {};
+
+            dataOpenWeather.list.forEach(item => {
+                const data = new Date(item.dt * 1000);
+                const dia = data.toLocaleDateString();
+
+                if (!previsaoPorDia[dia]) {
+                    previsaoPorDia[dia] = {
+                        temperatura_maxima: -Infinity,
+                        temperatura_minima: Infinity,
+                        umidade: [],
+                        probabilidade_chuva: 0,
+                        descricao: ''
+                    };
+                }
+
+                previsaoPorDia[dia].temperatura_maxima = Math.max(previsaoPorDia[dia].temperatura_maxima, item.main.temp_max);
+                previsaoPorDia[dia].temperatura_minima = Math.min(previsaoPorDia[dia].temperatura_minima, item.main.temp_min);
+                previsaoPorDia[dia].umidade.push(item.main.humidity);
+                previsaoPorDia[dia].probabilidade_chuva = Math.max(previsaoPorDia[dia].probabilidade_chuva, item.pop);
+                previsaoPorDia[dia].descricao = item.weather[0].description;
+            });
+
+            console.log(previsaoPorDia)
+
+
+            const primeiroDia = Object.keys(previsaoPorDia)[0];
+            const previsao = previsaoPorDia[primeiroDia];
+
+            // Calcula a média de umidade
+            const mediaUmidade = previsao.umidade.reduce((acc, val) => acc + val, 0) / previsao.umidade.length;
+
+            document.getElementById('temperatura').textContent = `${previsao.temperatura_maxima.toFixed(0)}°C`;
+            document.getElementById('umidade').textContent = `${mediaUmidade.toFixed(0)}%`; // Exibe a média
+            document.getElementById('chanceChuva').textContent = `${(previsao.probabilidade_chuva * 100).toFixed(0)}%`;
+
+        } catch (error) {
+            console.error('Erro ao buscar previsão do tempo:', error);
+            alert('Ocorreu um erro ao buscar a previsão do tempo.');
+        }
     }
+    console.log(cepTalhao)  
 
-    fetch(`/fazendas/exibirFazenda`).then(res => {
-        res.json().then(res => {
-        })
-    })
+    window.onload = () => {
+        buscarPrevisaoTempo(cepTalhao);
+    };
+
+
+    function cancelarPulv() {
+        sessionStorage.removeItem('TALHAO_AGENDAR')
+        window.location.href= './talhao.html';
+    }
 </script>
