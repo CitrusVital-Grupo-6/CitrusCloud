@@ -17,7 +17,7 @@ public class PragaRepository extends ArquivoProcessado {
     String processandoMessage = "\u001B[33mPROCESSANDO:\u001B[0m";
     String sucessoMessage = "\u001B[32mSUCESSO:\u001B[0m";
     String erroMessage = "\u001B[31mERRO:\u001B[0m";
-    
+
     public PragaRepository(String caminhoArquivo, String bucketS3, ConexaoBancoDados conexao) {
         super(caminhoArquivo, bucketS3, conexao);
     }
@@ -27,8 +27,8 @@ public class PragaRepository extends ArquivoProcessado {
         List<Praga> pragas = extrairPragas(arquivo);
 
         for(Praga praga : pragas){
-            String sql = "INSERT INTO pragas (nome, condicao, periodo) VALUES (?, ?, ?)";
-            salvarNoBanco(sql, praga.getId(), praga.getNome());
+            String sql = "INSERT INTO praga VALUES (?, ?, ?, ?, ?)";
+            salvarNoBanco(sql, praga.getId(), praga.getNomePraga(), praga.getClimaFavoral(), praga.getPeriodoRisco(), praga.getFatoresAdicionais());
         }
     }
 
@@ -49,7 +49,10 @@ public class PragaRepository extends ArquivoProcessado {
     
                 Praga praga = new Praga();
                 praga.setId((int) linha.getCell(0).getNumericCellValue());
-                praga.setNome(linha.getCell(1).getStringCellValue());
+                praga.setNomePraga(linha.getCell(1).getStringCellValue());
+                praga.setClimaFavoral(linha.getCell(2).getStringCellValue());
+                praga.setPeriodoRisco(linha.getCell(3).getStringCellValue());
+                praga.setFatoresAdicionais(linha.getCell(4).getStringCellValue());
 
                 objetosExtraidos.add(praga);
             }
