@@ -27,7 +27,7 @@ public class PragaRepository extends ArquivoProcessado {
         List<Praga> pragas = extrairPragas(arquivo);
 
         for(Praga praga : pragas){
-            String sql = "INSERT INTO praga VALUES (?, ?, ?, ?, ?)";
+            String sql = "INSERT INTO Praga VALUES (?, ?, ?, ?, ?)";
             salvarNoBanco(sql, praga.getId(), praga.getNomePraga(), praga.getClimaFavoral(), praga.getPeriodoRisco(), praga.getFatoresAdicionais());
         }
     }
