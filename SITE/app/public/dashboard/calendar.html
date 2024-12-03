@@ -9,6 +9,7 @@
     <link rel="stylesheet" href="../../css/dashboard.css">
     <link rel="stylesheet" href="../../css/calendar.css">
     <link rel="stylesheet" href="../../css/planejPage.css">
+    <link rel="shortcut icon" href="../assets/icon/logo.ico" type="image/x-icon">
 </head>
 <body>
     <aside id="aside-menu">
@@ -91,8 +92,92 @@
         </div>
     </main>
 
-    <script src="../../middlewares/aside-menu.js"></script>
-    <script src="../../middlewares/calendar.js"></script>
-    <script src="../../middlewares/events.js"></script>
-</body>
+
+    <script src="../middlewares/aside-menu.js"></script>
+    <script>
+                function addListner() {
+            const days = document.querySelectorAll(".day");
+            days.forEach((day) => {
+                day.addEventListener("click", (e) => {
+                getActiveDay(e.target.innerHTML); // Define o dia ativo
+                activeDay = Number(e.target.innerHTML);
+                // Remove a classe "active" de todos os dias
+                days.forEach((day) => {
+                    day.classList.remove("active");
+                });
+                // Verifica se o clique foi em um dia do mês anterior ou próximo
+                if (e.target.classList.contains("prev-date")) {
+                    prevMonth();
+                    setTimeout(() => {
+                    const days = document.querySelectorAll(".day");
+                    days.forEach((day) => {
+                        if (
+                        !day.classList.contains("prev-date") &&
+                        day.innerHTML === e.target.innerHTML
+                        ) {
+                        day.classList.add("active");
+                        }
+                    });
+                    }, 100);
+                } else if (e.target.classList.contains("next-date")) {
+                    nextMonth();
+                    setTimeout(() => {
+                    const days = document.querySelectorAll(".day");
+                    days.forEach((day) => {
+                        if (
+                        !day.classList.contains("next-date") &&
+                        day.innerHTML === e.target.innerHTML
+                        ) {
+                        day.classList.add("active");
+                        }
+                    });
+                    }, 100);
+                } else {
+                    e.target.classList.add("active"); // Adiciona a classe "active" ao dia selecionado
+                    updateEvents(activeDay)
+                }
+                });
+            });
+        }
+    </script>
+    <script src="../middlewares/calendar.js"></script>
+    <script src="../middlewares/events.js"></script>
+    <script>
+        const userData = sessionStorage.getItem("USER_DATA");
+        const parsedData = JSON.parse(userData);
+        const companyId = parsedData.companyId;
+        
+        function listarPulverizacao() {
+            fetch(`/pulverizacao/listarPulverizacaoPorEmpresa/${companyId}`)
+                .then(response => response.json())
+                .then(data => {
+                    Object.entries(data).forEach(([data, dia]) => {
+                        const newData = {
+                            id_pulv: dia.idPulverizacao,
+                            nome_defen: dia.nome,
+                            nome_fazenda: dia.nomeFazenda, // Corrigi o erro de digitação aqui: nomeFazneda para nomeFazenda
+                            nome_talhao: dia.nomeTalhao,
+                            qtd_ml: dia.qtdml
+                        };
+
+                        const [day, month, year] = data.split("-");
+
+                        eventsArr.push({
+                            day: day,
+                            month: parseInt(month),
+                            year: year,
+                            data: [newData],
+                        });
+                    });
+
+                    console.log(eventsArr);
+                })
+                .catch(error => {
+                    console.error('Erro ao listar pulverização:', error);
+                });
+        }
+
+        listarPulverizacao();
+
+    </script>
 </html>

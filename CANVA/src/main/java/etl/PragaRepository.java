@@ -14,6 +14,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class PragaRepository extends ArquivoProcessado {
+    String processandoMessage = "\u001B[33mPROCESSANDO:\u001B[0m";
+    String sucessoMessage = "\u001B[32mSUCESSO:\u001B[0m";
+    String erroMessage = "\u001B[31mERRO:\u001B[0m";
+    
     public PragaRepository(String caminhoArquivo, String bucketS3, ConexaoBancoDados conexao) {
         super(caminhoArquivo, bucketS3, conexao);
     }

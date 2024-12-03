@@ -15,8 +15,6 @@ function adicionarTalhao(req, res) {
     );
 }
 
-
-
 function exibirTalhao(req, res) {
     const idFazenda = req.query.idFazenda;
 
@@ -37,9 +35,9 @@ function buscarFazenda(req, res) {
     fazendaModel.buscarFazenda(idFazenda).then((resultado) => {
       res.status(200).json(resultado);
     });
-  }
+}
 
-  function buscarTalhao(req, res) {
+function buscarTalhao(req, res) {
     var idTalhao = req.params.idTalhao;
 
     talhaoModel.buscarTalhao(idTalhao)
@@ -98,7 +96,6 @@ function deletarTalhao(req, res) {
             res.status(500).json({ error: erro.sqlMessage });
         });
 }
-
 
 module.exports = {
     exibirTalhao,

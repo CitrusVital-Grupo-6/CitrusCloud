@@ -16,6 +16,10 @@
     --cor-titulo: #282626;
     --cor-font: #636363;
     --cor-font-light: #636363AE;
+
+    --primary-clr: #FEA301;
+    --cor-titulo: #282626;
+    --cor-font: #28262680;
 }
 
 html {
@@ -249,21 +253,19 @@ main .title {
         text-transform: uppercase;
         font-weight: 800;
     }
-    h3{
+    h3, b{
         font-size: 1.2rem;
-        font-weight: 400;
+        /* font-weight: 400; */
     }
 }
 
 main .title .main-button {
     font-size: 1.8rem;
     color: var(--cor-font);
-    border: 1px solid var(--cor-titulo);
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.5);
+    border: 2px solid var(--cor-font);
     font-weight: 700;
     text-transform: uppercase;
     padding: .8rem 1.9rem;
-    border: 0;
     border-radius: 15px;
     cursor: pointer;
     transition: all .2s ease-out;
@@ -273,6 +275,25 @@ main .title .main-button {
 main .title .main-button:hover {
     opacity: 1;
     transform: scale(1.02);
+}
+
+.main-agendar .title #confirmar{
+    border: 2px solid var(--primary-clr);
+    background-color: var(--primary-clr);
+    color: white;
+    text-transform: uppercase;
+}
+
+.main-agendar .title #confirmar.disabled{
+    border: 2px solid var(--cor-font);
+    background-color: rgba(167, 167, 167, 0.514);
+    color: var(--cor-font);
+    text-transform: uppercase;
+}
+
+main .title .main-button.disabled:hover {
+    opacity: .7;
+    transform: scale(1.0);
 }
 
 main.aside-open { 
@@ -340,6 +361,7 @@ main .cards-group .card:hover {
 .right-content{
     display: flex;
     flex-direction: column;
+    justify-content: space-between;
     gap: 20px;
     width: 50%;
 }
@@ -363,6 +385,7 @@ main .cards-group .card:hover {
     border: none;
     cursor: pointer;
 }
+
 
 .edit-del-fazenda:hover {
 
@@ -688,6 +711,7 @@ select{
     display: flex;
     gap: 1.0rem;
     cursor: pointer;
+    border: none;
 }
 
 .titulo-modal-talhao{
@@ -763,7 +787,7 @@ select{
 
 .graph-box div {
     width: 100%;
-    height: 90.55%;
+    height: 89.55%;
     border: 1px solid black;
     background-color: white;
     border-radius: 0;
@@ -789,4 +813,33 @@ select{
 .container-box{
     padding-top: 3rem;
     width: 100%;
+}
+
+.box-edt-del-talhao button{
+    border: 0;
+}
+
+.box-edt-del-talhao button:hover{
+    svg{
+        fill: #FEA301;
+        cursor: pointer;
+    }
+}
+
+#modal_delete_fazenda, #modal_delete_talhao{
+    .modal-form-wrapper{
+        min-height: auto;
+        margin: 2.5rem 5rem;
+        text-align: center;
+        gap: 2rem;
+    }
+
+    .titulo-modal{
+        margin-inline: auto;
+    }
+
+    .btn-add-modal{
+        margin-left: 0;
+        margin-top: 0;
+    }
 }

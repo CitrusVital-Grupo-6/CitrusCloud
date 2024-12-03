@@ -76,10 +76,8 @@
                                         <option data-id="1" value="Ferrugem">Ferrugem</option>
                                         <option data-id="2" value="Mosca-das-Frutas">Mosca-das-Frutas</option>
                                         <option data-id="3" value="Lagarta-Minadora-dos-Citros">
-                                            Lagarta-Minadora-dos-Citros</option>
                                         <option data-id="4" value="Pulgão-preto">Pulgão-preto</option>
-                                        <option data-id="5" value="Ácaro da Falsa-Ferrugem">Ácaro da Falsa-Ferrugem
-                                        </option>
+                                        <option data-id="5" value="Ácaro da Falsa-Ferrugem">Ácaro da Falsa-Ferrugem</option>
                                         <option data-id="6" value="Cigarrinhas">Cigarrinhas</option>
                                         <option data-id="7" value="Ácaro Vermelho">Ácaro Vermelho</option>
                                         <option data-id="8" value="Bicudo da Laranja">Bicudo da Laranja</option>
@@ -95,17 +93,16 @@
                                 </div>
                                 <div class="hectares">
                                     <span>HECTARES</span>
-                                    <input id="input_hectares_afetado" placeholder="Hectares afetados pela praga"
-                                        type="text" name="">
+                                    <input id="input_hectares_afetado" placeholder="Hectares afetados pela praga" type="number">
                                 </div>
                             </div>
                         </div>
                         <div class="box-adicionar-praga">
-                            <button class="adicionar-praga" onclick="adicionarPraga()">+</button>
+                            <button class="adicionar-praga" onclick="adicionarPraga()" disabled>+</button>
                         </div>
                         <div class="data-desejada">
                             DATA DESEJADA
-                            <input class="data-inicio" type="date">
+                            <input disabled class="data-inicio disabled" type="date">
                         </div>
                         <button onclick="agendarPulverizacao(idTalhaoAtual)"
                             class="botao-recomendacoes">AGENDAR</button>
@@ -117,13 +114,15 @@
 
         <div id="card" class="cards-group"></div>
         <div id="container-modal-edit-talhao"></div>
-
+        <div id="modal_delete_talhao_container"></div>
     </main>
 
     <script src="../../middlewares/aside-menu.js"></script>
     <script>
         const userData = sessionStorage.getItem("USER_DATA");
         const parsedData = JSON.parse(userData);
+
+        const cargo = parsedData.role;
         const companyId = parsedData.companyId;
 
         function init() {
@@ -150,10 +149,22 @@
                                 <div class="card-content">
                                     <h3 class="card-subtitle">${talhoes[posicao].tipoLaranja}</h3>
                                     <h2 class="card-title">${talhoes[posicao].nomeTalhao}</h2>
-                                     <div class="box-edt-del-talhao">
-                                        <button class="edit-del-fazenda" onclick="openEditTalhaoModal(${talhoes[posicao].idTalhao}, event)">Editar</button>
-                                        <button class="edit-del-fazenda" onclick="deletarTalhao(${talhoes[posicao].idTalhao}, event)">Remover</button>
-                                    </div>
+                                        ${
+                                            cargo === 'ADMINISTRADOR'
+                                            ? `<div class="box-edt-del-talhao">
+                                                <button onclick="openEditTalhaoModal(${talhoes[posicao].idTalhao}, event)">
+                                                    <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="#000000" viewBox="0 0 256 256">
+                                                        <path d="M229.66,58.34l-32-32a8,8,0,0,0-11.32,0l-96,96A8,8,0,0,0,88,128v32a8,8,0,0,0,8,8h32a8,8,0,0,0,5.66-2.34l96-96A8,8,0,0,0,229.66,58.34ZM124.69,152H104V131.31l64-64L188.69,88ZM200,76.69,179.31,56,192,43.31,212.69,64ZM224,128v80a16,16,0,0,1-16,16H48a16,16,0,0,1-16-16V48A16,16,0,0,1,48,32h80a8,8,0,0,1,0,16H48V208H208V128a8,8,0,0,1,16,0Z"></path>
+                                                    </svg>
+                                                </button>
+                                                <button onclick="openDeleteFazendaModal(${talhoes[posicao].idTalhao}, event)">
+                                                    <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="#000000" viewBox="0 0 256 256">
+                                                        <path d="M216,48H176V40a24,24,0,0,0-24-24H104A24,24,0,0,0,80,40v8H40a8,8,0,0,0,0,16h8V208a16,16,0,0,0,16,16H192a16,16,0,0,0,16-16V64h8a8,8,0,0,0,0-16ZM96,40a8,8,0,0,1,8-8h48a8,8,0,0,1,8,8v8H96Zm96,168H64V64H192ZM112,104v64a8,8,0,0,1-16,0V104a8,8,0,0,1,16,0Zm48,0v64a8,8,0,0,1-16,0V104a8,8,0,0,1,16,0Z"></path>
+                                                    </svg>
+                                                </button>
+                                            </div>`
+                                            : ''
+                                        }
                                 </div>
                             </div>`;
                     }
@@ -209,12 +220,12 @@
                 </div>
                 <div class="hectares">
                     <span>HECTARES</span>
-                    <input placeholder="Hectares afetados pela praga" type="text" name="" id="input_hectares_afetado">
+                    <input placeholder="Hectares afetados pela praga" type="number" name="" id="input_hectares_afetado">
                 </div>
             </div>`;
         }
 
-        function openEditTalhaoModal(idTalhao,) {
+        function openEditTalhaoModal(idTalhao, event) {
             event.stopPropagation();
 
             fetch(`/talhao/buscarTalhao/${idTalhao}`)
@@ -259,7 +270,7 @@
                                 </div>
                                 <div class="box-childrem-talhao">
                                     <span>HECTARES</span>
-                                    <input class="input-hectar" type="text" name="" value="${talhao.tamanhoHec}" id="input_editar_qtd_hactar">
+                                    <input disabled class="input-hectar" type="text" name="" value="${talhao.tamanhoHec}" id="input_editar_qtd_hactar">
                                 </div>
                                 <div class="box-childrem-talhao">
                                     <span>TIPO DE LARANJA</span>
@@ -284,6 +295,37 @@
             const modal = document.getElementById('modal_edit_talhao');
             modal.close();
             document.getElementById('container-modal-edit-talhao').innerHTML = '';
+        }
+
+        function openDeleteFazendaModal(idTalhao, event) {
+            event.stopPropagation()
+
+            const modalContainer = document.getElementById('modal_delete_talhao_container');
+            modalContainer.innerHTML = `
+                <dialog class="modal-layout" id="modal_delete_talhao">
+                    <div class="modal-form-wrapper">
+                        <div class="box-titulo">
+                            <span class="titulo-modal">DELETAR TALHAO</span>
+                        </div>
+                        <div>
+                            <span>Tem certeza que deseja remover o talhão? Esta ação é irreversível e irá impactar outras operações do site, como o calendário de pulverização e o planejamento de orçamento dos usuários com cargo de financeiro da plataforma.</span>
+                        </div>
+                        <div style="display: flex; flex-direction: row; gap: 1rem">
+                            <button onclick="closeDeleteTalhaoModal()" class="btn-add-modal">CANCELAR</button>
+                            <button onclick="deletarTalhao(${idTalhao})" class="btn-add-modal">REMOVER</button>
+                        </div>
+                    </div>
+                </dialog>
+            `;
+
+            const modal = document.getElementById('modal_delete_talhao');
+            modal.showModal(); // Abre o modal
+        }
+
+        function closeDeleteTalhaoModal(){
+            const modal = document.getElementById('modal_delete_talhao');
+            modal.close();
+            document.getElementById('modal_delete_talhao_container').innerHTML = ''; // Limpa o conteúdo
         }
 
         function atualizarTalhao(idTalhao) {
@@ -326,19 +368,16 @@
         }
 
         function agendarPulverizacao() {
-
             const talhaoData = {
                 idTalhao: idTalhaoAtual,
                 praga: document.getElementById('escolher-praga').value,
                 idPraga: document.getElementById('escolher-praga').selectedOptions[0].getAttribute('data-id'),
                 hectaresAfetados: document.getElementById('input_hectares_afetado').value,
-                dataDesejada: document.querySelector('.data-inicio').value // ou o elemento correto
+                dataDesejada: document.querySelector('.data-inicio').value
             };
 
             sessionStorage.setItem("TALHAO_AGENDAR", JSON.stringify(talhaoData));
-
-            // Redirecionar para a página agenda.html
-            window.location.href = 'agendar.html'; // Ajuste o caminho conforme necessário
+            window.location.href = 'agendar.html';
         }
 
         function deletarTalhao(idTalhao) {
@@ -367,87 +406,3 @@
     </script>
 </body>
 </html>
-
-<script>
-    let selectPraga = document.getElementById('escolher-praga'); // Selecione o elemento select da praga
-    let selectDefensivo = document.createElement('select'); // Crie o select para os defensivos
-
-    selectPraga.addEventListener('change', function() {  // Adicione um event listener
-        let idPraga = this.value;
-        if (idPraga) {
-            obterDefensivos(idPraga);
-        } else {
-            selectDefensivo.innerHTML = ''; // Limpa as opções se nenhuma praga for selecionada.
-        }
-    });
-
-    function obterDefensivos(idPraga) {
-        fetch(`usuarios/listarDefensivosPorPraga/${idPraga}`)
-            .then(response => {
-                if (response.ok) {
-                    return response.json();
-                } else if (response.status == 204) {
-                    alert("Nenhum defensivo encontrado para esta praga.")
-                     selectDefensivo.innerHTML = ''; // Limpa as opções se nenhuma praga for encontrada.
-
-                    throw new Error("Nenhum defensivo encontrado para esta praga."); // Rejeita a promise para o catch
-                    
-
-                } else {
-                    throw new Error("Erro ao obter defensivos.");
-                }
-            })
-            .then(defensivos => {
-                selectDefensivo.innerHTML = ''; // Limpa as opções anteriores
-                defensivos.forEach(defensivo => {
-                    let option = document.createElement('option');
-                    option.value = defensivo.idAgrotoxico; // Define o valor como o ID do defensivo.
-                    option.text = defensivo.nome; // Define o texto visível como o nome do defensivo.
-                    selectDefensivo.appendChild(option);
-                });
-
-                // Adicione o select de defensivos ao HTML (substitua 'seu-elemento' pelo ID do elemento onde você quer adicionar o select)
-                let containerDefensivo = document.getElementById('pragas') // Exemplo
-                containerDefensivo.appendChild(selectDefensivo);
-
-
-            })
-            .catch(error => {
-                console.error("Erro na requisição:", error);
-                alert("Erro ao obter defensivos: " + error.message); // Exibe a mensagem de erro para o usuário
-
-            });
-    }
-
-    function agendarPulverizacao() {
-        let fkTalhao = // Precisa passar o fk do talhão como SESSION, boa sorte irmão //
-        let fkAgrotoxico = selectDefensivo.value;
-        let dataPulverizacao = document.querySelector('.data-inicio').value;
-
-        let dados = {
-            fkTalhaoServer: fkTalhao,
-            fkAgrotoxicoServer: fkAgrotoxico,
-            dataPulverizacaoServer: dataPulverizacao
-        };
-
-
-        fetch("usuarios/adicionarPulverizacao", {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json"
-            },
-            body: JSON.stringify(dados)
-        })
-            .then(response => response.json())
-            .then(resultado => {
-
-                console.log("Pulverização agendada com sucesso:", resultado);
-
-                modal_pulverizacao.close();
-            })
-            .catch(error => {
-                console.error("Erro ao agendar pulverização:", error);
-                alert("Erro ao agendar pulverização: " + error.message)
-            });
-    }
-</script>
