@@ -31,9 +31,9 @@
     // LISTA DE PÁGINAS
     const homeFinanc = `
     <li class="nav-item">
-        <a href="./homeFinanc.html">
-            <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="#636363" viewBox="0 0 256 256"><path d="M217.9,110.1l-80-80a14,14,0,0,0-19.8,0l-80,80A13.92,13.92,0,0,0,34,120v96a6,6,0,0,0,6,6h64a6,6,0,0,0,6-6V158h36v58a6,6,0,0,0,6,6h64a6,6,0,0,0,6-6V120A13.92,13.92,0,0,0,217.9,110.1ZM210,210H158V152a6,6,0,0,0-6-6H104a6,6,0,0,0-6,6v58H46V120a2,2,0,0,1,.58-1.42l80-80a2,2,0,0,1,2.84,0l80,80A2,2,0,0,1,210,120Z"></path></svg>
-            <span>Home</span>
+        <a href="./calendar.html">
+            <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="#000000" viewBox="0 0 256 256"><path d="M208,32H184V24a8,8,0,0,0-16,0v8H88V24a8,8,0,0,0-16,0v8H48A16,16,0,0,0,32,48V208a16,16,0,0,0,16,16H208a16,16,0,0,0,16-16V48A16,16,0,0,0,208,32ZM72,48v8a8,8,0,0,0,16,0V48h80v8a8,8,0,0,0,16,0V48h24V80H48V48ZM208,208H48V96H208V208Zm-68-76a12,12,0,1,1-12-12A12,12,0,0,1,140,132Zm44,0a12,12,0,1,1-12-12A12,12,0,0,1,184,132ZM96,172a12,12,0,1,1-12-12A12,12,0,0,1,96,172Zm44,0a12,12,0,1,1-12-12A12,12,0,0,1,140,172Zm44,0a12,12,0,1,1-12-12A12,12,0,0,1,184,172Z"></path></svg>
+            <span>Calendário</span>
         </a>
     </li>
     `
@@ -89,11 +89,11 @@
 
     // VERIFICANDO O CARGO PRA ATRIBUIR AS TELAS
     if(cargo == "FINANCEIRO"){
-        document.getElementById("nav-items-wrapper").innerHTML = `${homeFinanc} ${dashFinanc} ${telaAjuda} ${logoutBtn}`;
+        document.getElementById("nav-items-wrapper").innerHTML = `${homeFinanc} ${dashFinanc} ${logoutBtn}`;
     } else if(cargo == "AGRONOMO"){
-        document.getElementById("nav-items-wrapper").innerHTML = `${homeFinanc} ${telaPulverizar} ${telaAjuda} ${logoutBtn}`
+        document.getElementById("nav-items-wrapper").innerHTML = `${homeFinanc} ${telaPulverizar} ${logoutBtn}`
     } else if(cargo == "ADMINISTRADOR"){
-        document.getElementById("nav-items-wrapper").innerHTML = `${homeFinanc} ${telaPulverizar} ${dashFinanc} ${telaUsuarios} ${telaAjuda} ${logoutBtn}`
+        document.getElementById("nav-items-wrapper").innerHTML = `${homeFinanc} ${telaPulverizar} ${dashFinanc} ${telaUsuarios} ${logoutBtn}`
     }
 })();
 

@@ -8,9 +8,9 @@ public class ConexaoBancoDados {
 
     public ConexaoBancoDados() {
         BasicDataSource dataSource = new BasicDataSource();
-        dataSource.setUrl("jdbc:mysql://localhost:3306/citruscloud");
-        dataSource.setUsername("root");
-        dataSource.setPassword("citrus24vital");
+        dataSource.setUrl(System.getenv("DB_URL"));
+        dataSource.setUsername(System.getenv("DB_USER"));
+        dataSource.setPassword(System.getenv("DB_PASSWORD"));
         conexaoBanco = new JdbcTemplate(dataSource);
     }
 

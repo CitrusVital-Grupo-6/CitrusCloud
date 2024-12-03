@@ -1,34 +1,38 @@
 var fazendaModel = require("../models/fazendaModel");
 
 function adicionarFazenda(req, res) {    
-    var nomeFazenda = req.body.nomeServer
+    var nomeFazenda = req.body.nomeServer;
     var cep = req.body.cepServer;
     var numero = req.body.numeroServer;
     var complemento = req.body.complementoServer;
     var idEmpresa = req.body.idEmpresaServer;
 
-    fazendaModel.adicionarEndereco(cep, numero, complemento, idEmpresa).then(
-        fazendaModel.consultarEndereco(cep, numero).then(
-            function (resultado1) {
-
-                fazendaModel.adicionarFazenda(nomeFazenda, resultado1[0].idEndereco, idEmpresa).then(
-                    function (resultado) {
-                        console.log(resultado);
-                        res.status(200).json(resultado);
-                    }
-                ).catch(
-                    function (erro) {
-                        console.log(erro);
-                        console.log("\nHouve um erro ao realizar a consulta !Erro: ", erro.sqlMessage);
-                    }
-                )
-            }
-        ).catch(
-            function (erro) {
-                console.log(erro);
-                console.log("\nHouve um erro ao realizar a consulta !Erro: ", erro.sqlMessage);
+    fazendaModel.adicionarEndereco(cep, numero, complemento, idEmpresa)
+        .then(() => {
+            // Introduzindo cooldown antes de consultar o endereço
+            setTimeout(() => {
+                fazendaModel.consultarEndereco(cep, numero)
+                    .then((resultado1) => {
+                        fazendaModel.adicionarFazenda(nomeFazenda, resultado1[0].idEndereco, idEmpresa)
+                            .then((resultado) => {
+                                console.log(resultado);
+                                res.status(200).json(resultado);
+                            })
+                            .catch((erro) => {
+                                console.error("Erro ao adicionar fazenda:", erro.sqlMessage);
+                                res.status(500).json({ error: erro.sqlMessage });
+                            });
+                    })
+                    .catch((erro) => {
+                        console.error("Erro ao consultar endereço:", erro.sqlMessage);
+                        res.status(500).json({ error: erro.sqlMessage });
+                    });
+            }, 2000); // Cooldown de 2 segundos
         })
-    );
+        .catch((erro) => {
+            console.error("Erro ao adicionar endereço:", erro.sqlMessage);
+            res.status(500).json({ error: erro.sqlMessage });
+        });
 }
 
 function exibirFazenda(req, res) {
@@ -88,24 +92,36 @@ function deletarFazenda(req, res) {
     fazendaModel.buscarTalhoesPorFazenda(idFazenda)
         .then(talhoes => {
             if (talhoes.length > 0) {
-                const deletePromises = talhoes.map(talhao => {
-                    return fazendaModel.deletarTalhao(talhao.idTalhao);
-                });
-
-                return Promise.all(deletePromises)
+                // Busca as pulverizações associadas à fazenda
+                return fazendaModel.buscarPulverizacaoPorFazenda(idFazenda)
+                    .then(pulverizacoes => {
+                        if (pulverizacoes.length > 0) {
+                            // Deleta todas as pulverizações primeiro
+                            const deletePulvPromises = pulverizacoes.map(pulverizacao =>
+                                fazendaModel.deletarPulverizacao(pulverizacao.idPulverizacao)
+                            );
+                            return Promise.all(deletePulvPromises);
+                        }
+                    })
                     .then(() => {
-                        return fazendaModel.deletarFazenda(idFazenda);
+                        // Após deletar as pulverizações, deleta os talhões
+                        const deleteTalhoesPromises = talhoes.map(talhao =>
+                            fazendaModel.deletarTalhao(talhao.idTalhao)
+                        );
+                        return Promise.all(deleteTalhoesPromises);
                     });
-            } else {
-                return fazendaModel.deletarFazenda(idFazenda);
             }
         })
         .then(() => {
-            res.status(200).send("Fazenda e talhões deletados com sucesso!");
+            // Após deletar pulverizações e talhões, deleta a fazenda
+            return fazendaModel.deletarFazenda(idFazenda);
+        })
+        .then(() => {
+            res.status(200).send("Fazenda, talhões e pulverizações deletados com sucesso!");
         })
         .catch(erro => {
-            console.error("Erro ao deletar fazenda e talhões:", erro);
-            res.status(500).json({ error: erro.sqlMessage });
+            console.error("Erro ao deletar fazenda, talhões e pulverizações:", erro);
+            res.status(500).json({ error: erro.sqlMessage || erro.message });
         });
 }
 
@@ -114,6 +130,5 @@ module.exports = {
     exibirFazenda,
     atualizarFazenda,
     buscarFazenda,
-    deletarFazenda,
     deletarFazenda
 }

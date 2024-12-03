@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CitrusVital | Planejamento</title>
+    <title>CitrusVital | Home</title>
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link rel="stylesheet" href="../../css/dashboard.css">
@@ -18,7 +18,7 @@
     <main class="main-planej">
         <div class="title">
             <div>
-                <h1 class="main-title">pulverização planejada</h1>
+                <h1 class="main-title">overview</h1>
             </div>
         </div>
 
@@ -56,26 +56,31 @@
                     <div class="events">
                         <table>
                             <tr>
+                                <th>Nome Fazenda</th>
                                 <th>Nome Talhão</th>
                                 <th>Nome Agrotóxico</th>
                                 <th>Quantidade (mL)</th>
                             </tr>
                             <tr class="event">
+                                <td class="event-title">Fazendo Citrus</td>
                                 <td class="event-title">Talhão Sul</td>
                                 <td class="event-title">Agrotóxico X</td>
                                 <td class="event-title">500 mL</td>
                             </tr>
                             <tr class="event">
+                                <td class="event-title">Fazendo Citrus</td>
                                 <td class="event-title">Talhão Norte</td>
                                 <td class="event-title">Agrotóxico X</td>
                                 <td class="event-title">500 mL</td>
                             </tr>
                             <tr class="event">
+                                <td class="event-title">Fazendo Citrus</td>
                                 <td class="event-title">Talhão Leste</td>
                                 <td class="event-title">Agrotóxico X</td>
                                 <td class="event-title">500 mL</td>
                             </tr>
                             <tr class="event">
+                                <td class="event-title">Fazendo Citrus</td>
                                 <td class="event-title">Talhão Oeste</td>
                                 <td class="event-title">Agrotóxico X</td>
                                 <td class="event-title">500 mL</td>
@@ -87,8 +92,92 @@
         </div>
     </main>
 
+
     <script src="../middlewares/aside-menu.js"></script>
+    <script>
+                function addListner() {
+            const days = document.querySelectorAll(".day");
+            days.forEach((day) => {
+                day.addEventListener("click", (e) => {
+                getActiveDay(e.target.innerHTML); // Define o dia ativo
+                activeDay = Number(e.target.innerHTML);
+                // Remove a classe "active" de todos os dias
+                days.forEach((day) => {
+                    day.classList.remove("active");
+                });
+                // Verifica se o clique foi em um dia do mês anterior ou próximo
+                if (e.target.classList.contains("prev-date")) {
+                    prevMonth();
+                    setTimeout(() => {
+                    const days = document.querySelectorAll(".day");
+                    days.forEach((day) => {
+                        if (
+                        !day.classList.contains("prev-date") &&
+                        day.innerHTML === e.target.innerHTML
+                        ) {
+                        day.classList.add("active");
+                        }
+                    });
+                    }, 100);
+                } else if (e.target.classList.contains("next-date")) {
+                    nextMonth();
+                    setTimeout(() => {
+                    const days = document.querySelectorAll(".day");
+                    days.forEach((day) => {
+                        if (
+                        !day.classList.contains("next-date") &&
+                        day.innerHTML === e.target.innerHTML
+                        ) {
+                        day.classList.add("active");
+                        }
+                    });
+                    }, 100);
+                } else {
+                    e.target.classList.add("active"); // Adiciona a classe "active" ao dia selecionado
+                    updateEvents(activeDay)
+                }
+                });
+            });
+        }
+    </script>
     <script src="../middlewares/calendar.js"></script>
     <script src="../middlewares/events.js"></script>
-</body>
+    <script>
+        const userData = sessionStorage.getItem("USER_DATA");
+        const parsedData = JSON.parse(userData);
+        const companyId = parsedData.companyId;
+        
+        function listarPulverizacao() {
+            fetch(`/pulverizacao/listarPulverizacaoPorEmpresa/${companyId}`)
+                .then(response => response.json())
+                .then(data => {
+                    Object.entries(data).forEach(([data, dia]) => {
+                        const newData = {
+                            id_pulv: dia.idPulverizacao,
+                            nome_defen: dia.nome,
+                            nome_fazenda: dia.nomeFazenda, // Corrigi o erro de digitação aqui: nomeFazneda para nomeFazenda
+                            nome_talhao: dia.nomeTalhao,
+                            qtd_ml: dia.qtdml
+                        };
+
+                        const [day, month, year] = data.split("-");
+
+                        eventsArr.push({
+                            day: day,
+                            month: parseInt(month),
+                            year: year,
+                            data: [newData],
+                        });
+                    });
+
+                    console.log(eventsArr);
+                })
+                .catch(error => {
+                    console.error('Erro ao listar pulverização:', error);
+                });
+        }
+
+        listarPulverizacao();
+
+    </script>
 </html>

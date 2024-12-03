@@ -26,15 +26,11 @@
         <div class="title">
             <div>
                 <h1 class="main-title">AGENDAR PULVERIZAÇÃO</h1>
-                <h3 class="subtitle">TALHÃO 2 / PRAGA: <i>FERRUGEM</i></h3>
+                <h3 class="subtitle" id="subtitle">Carregando...</h3>
             </div>
             <div class="buttons">
-                <button class="main-button" onclick="cancelarPulv()">
-                    Cancelar
-                </button>
-                <button class="main-button" id="confirmar">
-                    Confirmar
-                </button>
+                <button class="main-button" onclick="cancelarPulv()">Cancelar</button>
+                <button class="main-button disabled" id="confirmar" onclick="agendarPulverizacao()">Confirmar</button>
             </div>
         </div>
         <div class="main-content-wrapper">
@@ -89,7 +85,7 @@
                         <div>
                             <div class="month">
                                 <i class="fas fa-angle-left prev"></i>
-                                <div class="date">december 2015</div>
+                                <div class="date">december 2024</div>
                                 <i class="fas fa-angle-right next"></i>
                             </div>
                             <div class="weekdays">
@@ -111,7 +107,7 @@
             <div class="right-content">
                 <div class="defen-item-wrapper">
                     <h1>DEFENSIVOS RECOMENDADOS</h1>
-                    <div class="defen-item-container">
+                    <div class="defen-item-container" id="box_agrotoxico">
                         <label class="defen-item">
                             <div class="defen-icon">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="42" height="42" fill="#636363"
@@ -122,76 +118,11 @@
                                 </svg>
                             </div>
                             <div class="defen-info">
-                                <h3>Nome Defensivo Agrícola</h3>
-                                <div style="display: flex; gap: 15px;">
-                                    <span><b>Temp:</b> 28ºC - 33ºC</span>
-                                    <span><b>Umid:</b> 20% - 76%</span>
-                                    <span><b>Chuvas:</b> 7 dias</span>
-                                </div>
+                                <span>Carregando...</span>
                             </div>
-                            <input type="checkbox" id="defen-id1">
-                        </label>
-                        <label class="defen-item">
-                            <div class="defen-icon">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="42" height="42" fill="#636363"
-                                    viewBox="0 0 256 256">
-                                    <path
-                                        d="M236.24,87.76l-60-60a6,6,0,0,0-8.48,0L38.53,157A42.77,42.77,0,1,0,99,217.47L211.24,105.24l22.66-7.55a6,6,0,0,0,2.34-9.93ZM90.53,209A30.77,30.77,0,1,1,47,165.47l29.13-29.12c8.84-3.14,22.84-4.56,41.08,5,12.28,6.41,23.13,8.66,32.27,8.71ZM206.1,94.31a6,6,0,0,0-2.34,1.45l-39.9,39.89c-8.84,3.14-22.84,4.56-41.08-5C110.5,124.27,99.65,122,90.51,122L172,40.49l48.89,48.89Z">
-                                    </path>
-                                </svg>
-                            </div>
-                            <div class="defen-info">
-                                <h3>Nome Defensivo Agrícola</h3>
-                                <div style="display: flex; gap: 15px;">
-                                    <span><b>Temp:</b> 28ºC - 33ºC</span>
-                                    <span><b>Umid:</b> 20% - 76%</span>
-                                    <span><b>Chuvas:</b> 7 dias</span>
-                                </div>
-                            </div>
-                            <input type="checkbox" id="defen-id2">
-                        </label>
-                        <label class="defen-item">
-                            <div class="defen-icon">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="42" height="42" fill="#636363"
-                                    viewBox="0 0 256 256">
-                                    <path
-                                        d="M236.24,87.76l-60-60a6,6,0,0,0-8.48,0L38.53,157A42.77,42.77,0,1,0,99,217.47L211.24,105.24l22.66-7.55a6,6,0,0,0,2.34-9.93ZM90.53,209A30.77,30.77,0,1,1,47,165.47l29.13-29.12c8.84-3.14,22.84-4.56,41.08,5,12.28,6.41,23.13,8.66,32.27,8.71ZM206.1,94.31a6,6,0,0,0-2.34,1.45l-39.9,39.89c-8.84,3.14-22.84,4.56-41.08-5C110.5,124.27,99.65,122,90.51,122L172,40.49l48.89,48.89Z">
-                                    </path>
-                                </svg>
-                            </div>
-                            <div class="defen-info">
-                                <h3>Nome Defensivo Agrícola</h3>
-                                <div style="display: flex; gap: 15px;">
-                                    <span><b>Temp:</b> 28ºC - 33ºC</span>
-                                    <span><b>Umid:</b> 20% - 76%</span>
-                                    <span><b>Chuvas:</b> 7 dias</span>
-                                </div>
-                            </div>
-                            <input type="checkbox" id="defen-id2">
-                        </label>
-                        <label class="defen-item">
-                            <div class="defen-icon">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="42" height="42" fill="#636363"
-                                    viewBox="0 0 256 256">
-                                    <path
-                                        d="M236.24,87.76l-60-60a6,6,0,0,0-8.48,0L38.53,157A42.77,42.77,0,1,0,99,217.47L211.24,105.24l22.66-7.55a6,6,0,0,0,2.34-9.93ZM90.53,209A30.77,30.77,0,1,1,47,165.47l29.13-29.12c8.84-3.14,22.84-4.56,41.08,5,12.28,6.41,23.13,8.66,32.27,8.71ZM206.1,94.31a6,6,0,0,0-2.34,1.45l-39.9,39.89c-8.84,3.14-22.84,4.56-41.08-5C110.5,124.27,99.65,122,90.51,122L172,40.49l48.89,48.89Z">
-                                    </path>
-                                </svg>
-                            </div>
-                            <div class="defen-info">
-                                <h3>Nome Defensivo Agrícola</h3>
-                                <div style="display: flex; gap: 15px;">
-                                    <span><b>Temp:</b> 28ºC - 33ºC</span>
-                                    <span><b>Umid:</b> 20% - 76%</span>
-                                    <span><b>Chuvas:</b> 7 dias</span>
-                                </div>
-                            </div>
-                            <input type="checkbox" id="defen-id2">
                         </label>
                     </div>
                 </div>
-
-
                 <div class="graph-box">
                     <h1>eficiência dos defensivos em relação ao dia</h1>
                     <div>
@@ -202,32 +133,78 @@
         </div>
     </main>
 
+    <script>
+        function addListner() {
+            const days = document.querySelectorAll(".day");
+            days.forEach((day) => {
+                day.addEventListener("click", (e) => {
+                getActiveDay(e.target.innerHTML); // Define o dia ativo
+                activeDay = Number(e.target.innerHTML);
+                // Remove a classe "active" de todos os dias
+                days.forEach((day) => {
+                    day.classList.remove("active");
+                });
+                // Verifica se o clique foi em um dia do mês anterior ou próximo
+                if (e.target.classList.contains("prev-date")) {
+                    prevMonth();
+                    setTimeout(() => {
+                    const days = document.querySelectorAll(".day");
+                    days.forEach((day) => {
+                        if (
+                        !day.classList.contains("prev-date") &&
+                        day.innerHTML === e.target.innerHTML
+                        ) {
+                        day.classList.add("active");
+                        }
+                    });
+                    }, 100);
+                } else if (e.target.classList.contains("next-date")) {
+                    nextMonth();
+                    setTimeout(() => {
+                    const days = document.querySelectorAll(".day");
+                    days.forEach((day) => {
+                        if (
+                        !day.classList.contains("next-date") &&
+                        day.innerHTML === e.target.innerHTML
+                        ) {
+                        day.classList.add("active");
+                        }
+                    });
+                    }, 100);
+                } else {
+                    e.target.classList.add("active"); // Adiciona a classe "active" ao dia selecionado
+                    updateEvents(activeDay)
+                    box_agrotoxico.innerHTML = ""
+                    recomendarAgrotoxico();
+                }
+                });
+            });
+            }
+    
+    </script>
+
     <script src="../../middlewares/aside-menu.js"></script>
     <script src="../../middlewares/graficoEfic.js"></script>
     <script src="../../middlewares/calendar.js"></script>
-
-    <script>
-        document.addEventListener("DOMContentLoaded", function () {
-            const talhaoAgendar = JSON.parse(sessionStorage.getItem("TALHAO_AGENDAR"));
-            if (talhaoAgendar) {
-                console.log(talhaoAgendar);
-                const idTalhao = talhaoAgendar.idTalhao;
-                const idPraga = talhaoAgendar.idPraga;
-                console.log(`ID do Talhão: ${idTalhao}, ID da Praga: ${idPraga}`);
-                // Use os dados conforme necessário, exiba-os ou faça outras operações
-            }
-        });
-    </script>
 </body>
 
 </html>
 
 <script>
     const OPENWEATHER_API_KEY = 'f4652d12e1e313414bdf86ce7dff0d93';
+  
+    const parsedFazendaData = JSON.parse(sessionStorage.getItem("FAZENDA_DATA"));
+    const parsedAgendarData = JSON.parse(sessionStorage.getItem("TALHAO_AGENDAR"));
 
-    const userData = sessionStorage.getItem("FAZENDA_DATA");
-    const parsedData = JSON.parse(userData);
-    const cepTalhao = parsedData.cep;
+    const pragaTalhao = parsedAgendarData.idPraga;
+    const idTalhao = parsedAgendarData.idTalhao;
+    const cepTalhao = parsedFazendaData.cep;
+
+    let temperaturaAtual;
+    let umidadeAtual;
+    let popAtual;
+    let diaAtual;
+    let idAgrotoxico;
 
     async function buscarPrevisaoTempo(cep) {
         console.log(cep)
@@ -286,7 +263,6 @@
 
             console.log(previsaoPorDia)
 
-
             const primeiroDia = Object.keys(previsaoPorDia)[0];
             const previsao = previsaoPorDia[primeiroDia];
 
@@ -297,20 +273,213 @@
             document.getElementById('umidade').textContent = `${mediaUmidade.toFixed(0)}%`; // Exibe a média
             document.getElementById('chanceChuva').textContent = `${(previsao.probabilidade_chuva * 100).toFixed(0)}%`;
 
+            temperaturaAtual = previsao.temperatura_maxima.toFixed(0);
+            umidadeAtual = mediaUmidade.toFixed(0);
+            popAtual = (previsao.probabilidade_chuva * 100).toFixed(0);
+
+            diasRecomendadosAgendar(previsaoPorDia);
+            markEventDays();
+            console.log(eventsArr)
         } catch (error) {
             console.error('Erro ao buscar previsão do tempo:', error);
             alert('Ocorreu um erro ao buscar a previsão do tempo.');
         }
     }
-    console.log(cepTalhao)  
 
-    window.onload = () => {
-        buscarPrevisaoTempo(cepTalhao);
-    };
+    async function recomendarAgrotoxico(){
+        console.log(temperaturaAtual)
+        
+        if(popAtual <= 30){
+            let tempoCura = 6;
+        } else {
+            tempoCura = 24;
+        }
 
+        const params = {
+            idPragaServer: pragaTalhao,
+            tempServer: temperaturaAtual
+        }
+
+        fetch('/pulverizacao/listarDefensivosPorPraga', {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify(params)
+        })
+            .then(response  => {
+                if (response.status === 204 || popAtual > 30) {
+                    box_agrotoxico.innerHTML = `
+                            <label class="defen-item">
+                                <div class="defen-icon">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="42" height="42" fill="#636363"
+                                        viewBox="0 0 256 256">
+                                        <path
+                                            d="M236.24,87.76l-60-60a6,6,0,0,0-8.48,0L38.53,157A42.77,42.77,0,1,0,99,217.47L211.24,105.24l22.66-7.55a6,6,0,0,0,2.34-9.93ZM90.53,209A30.77,30.77,0,1,1,47,165.47l29.13-29.12c8.84-3.14,22.84-4.56,41.08,5,12.28,6.41,23.13,8.66,32.27,8.71ZM206.1,94.31a6,6,0,0,0-2.34,1.45l-39.9,39.89c-8.84,3.14-22.84,4.56-41.08-5C110.5,124.27,99.65,122,90.51,122L172,40.49l48.89,48.89Z">
+                                        </path>
+                                    </svg>
+                                </div>
+                                <div class="defen-info">
+                                    <span>Nenhum defensivo recomendado</span>
+                                </div>
+                            </label>`;
+                    return;
+                }
+
+                response.json().then(data => {
+                    box_agrotoxico.innerHTML = '';
+                    for (let posicao = 0; posicao < data.length; posicao++) {
+                        box_agrotoxico.innerHTML += `
+                            <label class="defen-item">
+                                <div class="defen-icon">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="42" height="42" fill="#636363"
+                                        viewBox="0 0 256 256">
+                                        <path
+                                            d="M236.24,87.76l-60-60a6,6,0,0,0-8.48,0L38.53,157A42.77,42.77,0,1,0,99,217.47L211.24,105.24l22.66-7.55a6,6,0,0,0,2.34-9.93ZM90.53,209A30.77,30.77,0,1,1,47,165.47l29.13-29.12c8.84-3.14,22.84-4.56,41.08,5,12.28,6.41,23.13,8.66,32.27,8.71ZM206.1,94.31a6,6,0,0,0-2.34,1.45l-39.9,39.89c-8.84,3.14-22.84,4.56-41.08-5C110.5,124.27,99.65,122,90.51,122L172,40.49l48.89,48.89Z">
+                                        </path>
+                                    </svg>
+                                </div>
+                                <div class="defen-info">
+                                    <h3>${data[posicao].nomeAgrotoxico}</h3>
+                                    <div style="display: flex; gap: 15px;">
+                                        <span><b>Temperatura:</b> ${data[posicao].minTemperatura}ºC - ${data[posicao].maxTemperatura}ºC</span>
+                                        <span><b>Tempo de Cura:</b> ${data[posicao].minSemChuva} horas</span>
+                                    </div>
+                                </div>
+                                <input type="checkbox" name="defen-group" data-id="${data[posicao].idAgrotoxico}">
+                            </label>`;
+                    }
+
+                    const checkboxes = document.querySelectorAll('input[name="defen-group"]');
+                    checkboxes.forEach(checkbox => {
+                        checkbox.addEventListener('change', () => {
+                            if (checkbox.checked) {
+                                checkboxes.forEach(box => {
+                                    if (box !== checkbox) box.checked = false;
+                                });
+                            }
+
+                            verificarBtnPulverizar()
+                        });
+                    });
+                })
+            }
+        )
+    }
+
+    async function buscarCEP(cep) {
+        const cepUrl = cep.replace(/\D/g, '');
+        const url = `https://viacep.com.br/ws/${cepUrl}/json/`;
+
+        try {
+            const response = await fetch(url);
+            const data = await response.json();
+
+            if (data.erro) {
+                alert('CEP não encontrado.');
+                return;
+            }
+
+            subtitle.innerHTML = `${data.localidade}, ${data.estado} | <b>PRAGA:</b> ${parsedAgendarData.praga}`;
+        } catch (error) {
+            console.error('Erro ao buscar CEP:', error);
+            alert('Ocorreu um erro ao buscar o CEP. Verifique a sua conexão com a internet.');
+        }
+    }
 
     function cancelarPulv() {
         sessionStorage.removeItem('TALHAO_AGENDAR')
         window.location.href= './talhao.html';
+    }
+
+    window.onload = async () => {
+        try {
+            await buscarCEP(cepTalhao);
+            await buscarPrevisaoTempo(cepTalhao);
+            recomendarAgrotoxico()
+        } catch (error) {
+            console.error('Deu erro aí')
+        }
+    };
+
+    function verificarBtnPulverizar() {
+    console.log('bumbum');
+    const checkboxSelecionado = document.querySelector('input[name="defen-group"]:checked');
+
+    if (checkboxSelecionado) {
+        idAgrotoxico = checkboxSelecionado.dataset.id;
+        confirmar.classList.remove("disabled");
+    } else {
+        confirmar.classList.add("disabled");
+    }
+
+    console.log('fkAgrotoxico:', idAgrotoxico); // Log do valor selecionado
+}
+    
+    function agendarPulverizacao() {
+        fetch("/pulverizacao/adicionarPulverizacao", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+                fkTalhaoServer: idTalhao,
+                fkAgrotoxicoServer: idAgrotoxico,
+                dataPulverizacaoServer: diaAtual
+            })
+        })
+            .then(response => {
+                console.log("Status da resposta:", response.status);
+                if (!response.ok) {
+                    throw new Error(`Erro HTTP: ${response.status}`);
+                }
+                return response.json();
+            })
+            .then(resultado => {
+                console.log("Pulverização agendada com sucesso:", resultado);
+                sessionStorage.removeItem('TALHAO_AGENDAR');
+                sessionStorage.removeItem('FAZENDA_DATA');
+
+                window.location.href='./fazendas.html'
+            })
+            .catch(error => {
+                console.error("Erro ao agendar pulverização:", error);
+                alert("Erro ao agendar pulverização: " + error.message);
+            });
+    }
+
+    function cadastrar() {
+        fetch("/usuarios/cadastrar", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+                nomeEmpresaServer: nomeEmpresaVar,
+                cnpjEmpresaServer: cnpjEmpresaVar,
+                telefoneEmpresaServer: telefoneEmpresaVar,
+                nomeFuncServer: nomeFuncVar,
+                funcaoFuncServer: funcaoFuncVar,
+                cpfFuncServer: cpfFuncVar,
+                emailFuncServer: emailFuncVar,
+                senhaFuncServer: senhaFuncVar
+            }),
+        })
+        .then(function (resposta) {
+            console.log("resposta: ", resposta);
+
+            if (resposta.ok) {
+                console.log("Cadastro realizado com sucesso! Redirecionando para tela de Login...");
+
+                setTimeout(() => {
+                    window.location = "./login.html";
+                }, "2000");
+            } else {
+                throw "Houve um erro ao tentar realizar o cadastro!";
+            }
+        })
+        .catch(function (resposta) {
+            console.log(`#ERRO: ${resposta}`);
+        });
     }
 </script>

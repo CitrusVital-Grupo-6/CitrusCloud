@@ -55,10 +55,6 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="dados-fazenda" style="margin-top: 2rem;">
-                            <span>DESCRICAO</span>
-                            <input class="input-modal" id="input_descricao" style="width: 100%;" />
-                        </div>
                         <button onclick="adicionarFazenda()" class="btn-add-modal">ADICIONAR</button>
                     </div>
                 </dialog>
@@ -67,6 +63,7 @@
 
         <div id="card1" class="cards-group"> </div>
         <div id="modal_editar_fazenda_container"></div>
+        <div id="modal_delete_fazenda_container"></div>
     </main>
 
     <script src="../../middlewares/aside-menu.js"></script>
@@ -75,294 +72,281 @@
 </html>
 
 <script>
-
-
     const userData = sessionStorage.getItem("USER_DATA");
     const parsedData = JSON.parse(userData);
+
+    const cargo = parsedData.role;
     const companyId = parsedData.companyId;
 
-
-    listarFazendas(companyId)
     const OPENWEATHER_API_KEY = 'f4652d12e1e313414bdf86ce7dff0d93';
 
-    /*async function buscarPrevisaoTempo() {
-        const cep = '07142210'.replace(/\D/g, '');
+    function listarFazendas(idEmpresa) {
+        fetch(`/fazendas/exibirFazenda/${idEmpresa}`).then(res => {
+            res.json().then(res => {
+                for (let posicao = 0; posicao < res.length; posicao++) {
+                    buscarCEP(res[posicao].cep)
+
+                    .then((cepResult) => {
+                        card1.innerHTML += `
+                            <a class="card" data-json='{"idFazenda": ${res[posicao].idFazenda}, "nome": "${res[posicao].nomeFazenda}", "cep": "${res[posicao].cep}"}'>
+                                <div>
+                                    <img src="../../assets/img/farm.jpg" alt="Fazenda" class="card-image">
+                                    <div class="card-content">
+                                        <h3 class="card-subtitle">${cepResult}</h3>
+                                        <h2 class="card-title">${res[posicao].nomeFazenda}</h2>
+                                        ${
+                                            cargo === 'ADMINISTRADOR'
+                                            ? `<div class="box-edt-del-talhao">
+                                                <button onclick="openEditFazendaModal(${res[posicao].idFazenda}, event)">
+                                                    <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="#000000" viewBox="0 0 256 256">
+                                                        <path d="M229.66,58.34l-32-32a8,8,0,0,0-11.32,0l-96,96A8,8,0,0,0,88,128v32a8,8,0,0,0,8,8h32a8,8,0,0,0,5.66-2.34l96-96A8,8,0,0,0,229.66,58.34ZM124.69,152H104V131.31l64-64L188.69,88ZM200,76.69,179.31,56,192,43.31,212.69,64ZM224,128v80a16,16,0,0,1-16,16H48a16,16,0,0,1-16-16V48A16,16,0,0,1,48,32h80a8,8,0,0,1,0,16H48V208H208V128a8,8,0,0,1,16,0Z"></path>
+                                                    </svg>
+                                                </button>
+                                                <button onclick="openDeleteFazendaModal(${res[posicao].idFazenda}, event)">
+                                                    <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="#000000" viewBox="0 0 256 256">
+                                                        <path d="M216,48H176V40a24,24,0,0,0-24-24H104A24,24,0,0,0,80,40v8H40a8,8,0,0,0,0,16h8V208a16,16,0,0,0,16,16H192a16,16,0,0,0,16-16V64h8a8,8,0,0,0,0-16ZM96,40a8,8,0,0,1,8-8h48a8,8,0,0,1,8,8v8H96Zm96,168H64V64H192ZM112,104v64a8,8,0,0,1-16,0V104a8,8,0,0,1,16,0Zm48,0v64a8,8,0,0,1-16,0V104a8,8,0,0,1,16,0Z"></path>
+                                                    </svg>
+                                                </button>
+                                            </div>`
+                                            : ''
+                                        }
+                                    </div>
+                                </div>
+                            </a>`;
+
+                        console.log(res);
+                    }).finally(() => {
+                        document.querySelectorAll(".card").forEach((card) => {
+                            card.addEventListener("click", (event) => {
+                                event.preventDefault();
+
+                                // Obtém os dados do JSON no atributo data-json
+                                const data = JSON.parse(card.getAttribute("data-json"));
+
+                                // Salva os dados no Session Storage
+                                sessionStorage.setItem("FAZENDA_DATA", JSON.stringify(data));
+
+                                // Redireciona para a página Talhao.html
+                                window.location.href = "Talhao.html";
+                            });
+                        })
+                    })
+                }
+            })
+        })
+    }
+
+    function adicionarFazenda() {
+        var nomeFazenda = input_nome_fazenda.value;
+        var cep = input_cep_fazenda.value;
+        var numero = input_numero_fazenda.value;
+        var complemento = input_complemento_fazenda.value;
+        const idFazenda = sessionStorage.getItem("idFazenda")
+        var idEmpresa = companyId;
+
+        modal_fazenda.close();
+
+        fetch("/fazendas/cadastrarFazenda", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+                nomeServer: nomeFazenda,
+                cepServer: cep,
+                idEmpresaServer: idEmpresa,
+                numeroServer: numero,
+                complementoServer: complemento
+            }),
+        })
+            .then(function (resposta) {
+                console.log("resposta: ", resposta);
+
+                if (resposta.ok) {
+
+                    window.location = "./fazendas.html"
+
+                } else {
+                    throw "Houve um erro ao tentar realizar o cadastro!";
+                }
+            })
+            .catch(function (resposta) {
+                console.log(`#ERRO: ${resposta}`);
+            });
+
+
+    }
+
+    async function buscarCEP(cep) {
+        const cepUrl = cep.replace(/\D/g, '');
+        const url = `https://viacep.com.br/ws/${cepUrl}/json/`;
 
         try {
-            const responseViaCEP = await fetch(`https://viacep.com.br/ws/${cep}/json/`);
-            const dataViaCEP = await responseViaCEP.json();
+            const response = await fetch(url);
+            const data = await response.json();
 
-            if (dataViaCEP.erro) {
+            if (data.erro) {
                 alert('CEP não encontrado.');
                 return;
             }
 
-            let logradouro = dataViaCEP.logradouro;
-            let bairro = dataViaCEP.bairro;
-            let cidade = dataViaCEP.localidade;
-
-            const responseGeocoding = await fetch(`https://nominatim.openstreetmap.org/search?q=${logradouro} ${bairro}
-            ${cidade}&format=json&addressdetails=1&limit=1`);
-            const dataGeocoding = await responseGeocoding.json();
-
-            if (dataGeocoding && dataGeocoding.length > 0) {
-                latitude = dataGeocoding[0].lat;
-                longitude = dataGeocoding[0].lon;
-            } else {
-                alert('Não foi possível obter as coordenadas geográficas do CEP.');
-                return;
-            }
-
-            const responseOpenWeather = await
-                fetch(`https://api.openweathermap.org/data/2.5/weather?lat=${latitude}&lon=${longitude}&appid=${OPENWEATHER_API_KEY}&units=metric&lang=pt_br`);
-            const dataOpenWeather = await responseOpenWeather.json();
-
-            console.log(dataOpenWeather);
+            console.log(data);
+            return `${data.localidade}, ${data.estado}`;
         } catch (error) {
-            console.error('Erro ao buscar previsão do tempo:', error);
-            alert('Ocorreu um erro ao buscar a previsão do tempo.');
+            console.error('Erro ao buscar CEP:', error);
+            alert('Ocorreu um erro ao buscar o CEP. Verifique a sua conexão com a internet.');
         }
     }
 
+    function openEditFazendaModal(idFazenda, event) {
+        event.stopPropagation()
 
-
-    buscarPrevisaoTempo();
-*/
-    function listarFazendas(idEmpresa) {
-                fetch(`/fazendas/exibirFazenda/${idEmpresa}`).then(res => {
-                    res.json().then(res => {
-                        for (let posicao = 0; posicao < res.length; posicao++) {
-                            buscarCEP(res[posicao].cep)
-
-                                .then((cepResult) => {
-                                    card1.innerHTML += `
-                        <a class="card" data-json='{"idFazenda": ${res[posicao].idFazenda}, "nome": "${res[posicao].nomeFazenda}", "cep": "${res[posicao].cep}"}'>
+        fetch(`/fazendas/buscarFazenda/${idFazenda}`)
+            .then(res => {
+                if (!res.ok) throw new Error("Erro ao buscar fazenda.");
+                return res.json();
+            })
+            .then(fazenda => {
+                const modalContainer = document.getElementById('modal_editar_fazenda_container');
+                modalContainer.innerHTML = `
+                    <dialog class="modal-layout" id="modal_edit_fazenda">
+                        <div class="modal-form-wrapper">
+                            <div class="box-titulo">
+                                <span class="titulo-modal">EDITAR FAZENDA</span>
+                                <button class="botao-fechar-modal" onclick="closeEditFazendaModal()">
+                                    <img width="24" height="24" src="https://img.icons8.com/material-outlined/24/delete-sign.png"/>
+                                </button>
+                            </div>
                             <div>
-                                <img src="../../assets/img/farm.jpg" alt="Fazenda" class="card-image">
-                                <div class="card-content">
-                                    <h3 class="card-subtitle">${cepResult}</h3>
-                                    <h2 class="card-title">${res[posicao].nome}</h2>
-                                      <div class="box-edt-del-talhao">
-                                        <button onclick="openEditFazendaModal(${res[posicao].idFazenda})">Editar</button>
-                                        <button onclick="deletarFazenda(${res[posicao].idFazenda})">Remover</button>
+                                <div class="modal-box-wrapper">
+                                    <div class="modal-box-container">
+                                        <div class="dados-fazenda">
+                                            <span>NOME</span>
+                                            <input class="input-modal" type="text" id="input_editar_nome_fazenda" value="${fazenda.nomeFazenda}">
+                                        </div>
+                                        <div class="dados-fazenda">
+                                            <span>CEP</span>
+                                            <input disabled class="input-modal" type="number" id="input_editar_cep_fazenda" value="${fazenda.cep}">
+                                        </div>
+                                    </div>
+                                    <div class="modal-box-container">
+                                        <div class="dados-fazenda">
+                                            <span>NUMERO</span>
+                                            <input class="input-modal" type="number" id="input_editar_numero_fazenda" value="${fazenda.numero}">
+                                        </div>
+                                        <div class="dados-fazenda">
+                                            <span>COMPLEMENTO</span>
+                                            <input class="input-modal" type="text" id="input_editar_complemento_fazenda" value="${fazenda.complemento}">
+                                        </div>
                                     </div>
                                 </div>
                             </div>
-                        </a>`;
+                            <button onclick="atualizarFazenda(${fazenda.idFazenda})" class="btn-add-modal">ATUALIZAR</button>
+                        </div>
+                    </dialog>
+                `;
 
-                                    console.log(res);
-                                }).finally(() => {
-                                    document.querySelectorAll(".card").forEach((card) => {
-                                        card.addEventListener("click", (event) => {
-                                            event.preventDefault();
+                const modal = document.getElementById('modal_edit_fazenda');
+                modal.showModal(); // Abre o modal
+            })
+            .catch(err => {
+                console.error("Erro:", err);
+            });
+    }
 
-                                            // Obtém os dados do JSON no atributo data-json
-                                            const data = JSON.parse(card.getAttribute("data-json"));
+    function openDeleteFazendaModal(idFazenda, event) {
+        event.stopPropagation()
 
-                                            // Salva os dados no Session Storage
-                                            sessionStorage.setItem("FAZENDA_DATA", JSON.stringify(data));
-
-                                            // Redireciona para a página Talhao.html
-                                            window.location.href = "Talhao.html";
-                                        });
-                                    })
-                                })
-                        }
-                    })
-                })
-            }
-
-    function adicionarFazenda() {
-                var nomeFazenda = input_nome_fazenda.value;
-                var cep = input_cep_fazenda.value;
-                var numero = input_numero_fazenda.value;
-                var complemento = input_complemento_fazenda.value;
-                const idFazenda = sessionStorage.getItem("idFazenda")
-                var idEmpresa = companyId;
-
-                modal_fazenda.close();
-
-                fetch("/fazendas/cadastrarFazenda", {
-                    method: "POST",
-                    headers: {
-                        "Content-Type": "application/json",
-                    },
-                    body: JSON.stringify({
-                        nomeServer: nomeFazenda,
-                        cepServer: cep,
-                        idEmpresaServer: idEmpresa,
-                        numeroServer: numero,
-                        complementoServer: complemento
-                    }),
-                })
-                    .then(function (resposta) {
-                        console.log("resposta: ", resposta);
-
-                        if (resposta.ok) {
-
-                            window.location = "./fazendas.html"
-
-                        } else {
-                            throw "Houve um erro ao tentar realizar o cadastro!";
-                        }
-                    })
-                    .catch(function (resposta) {
-                        console.log(`#ERRO: ${resposta}`);
-                    });
-
-
-            }
-
-    async function buscarCEP(cep) {
-                const cepUrl = cep.replace(/\D/g, '');
-                const url = `https://viacep.com.br/ws/${cepUrl}/json/`;
-
-                try {
-                    const response = await fetch(url);
-                    const data = await response.json();
-
-                    if (data.erro) {
-                        alert('CEP não encontrado.');
-                        return;
-                    }
-
-                    console.log(data);
-                    return `${data.localidade}, ${data.estado}`;
-                } catch (error) {
-                    console.error('Erro ao buscar CEP:', error);
-                    alert('Ocorreu um erro ao buscar o CEP. Verifique a sua conexão com a internet.');
-                }
-            }
-
-            let fazenda;
-
-
-        function openEditFazendaModal(idFazenda) {
-            fetch(`/fazendas/buscarFazenda/${idFazenda}`)
-                .then(res => {
-                    if (!res.ok) throw new Error("Erro ao buscar fazenda.");
-                    return res.json();
-                })
-                .then(fazenda => {
-                    const modalContainer = document.getElementById('modal_editar_fazenda_container');
-                    modalContainer.innerHTML = `
-            <dialog class="modal-layout" id="modal_edit_fazenda">
+        const modalContainer = document.getElementById('modal_delete_fazenda_container');
+        modalContainer.innerHTML = `
+            <dialog class="modal-layout" id="modal_delete_fazenda">
                 <div class="modal-form-wrapper">
                     <div class="box-titulo">
-                        <span class="titulo-modal">EDITAR FAZENDA</span>
-                        <button class="botao-fechar-modal" onclick="closeEditFazendaModal()">
-                            <img width="24" height="24" src="https://img.icons8.com/material-outlined/24/delete-sign.png"/>
-                        </button>
+                        <span class="titulo-modal">DELETAR FAZENDA  </span>
                     </div>
                     <div>
-                        <div class="modal-box-wrapper">
-                            <div class="modal-box-container">
-                                <div class="dados-fazenda">
-                                    <span>NOME</span>
-                                    <input class="input-modal" type="text" id="input_editar_nome_fazenda" value="${fazenda.nome}">
-                                </div>
-                                <div class="dados-fazenda">
-                                    <span>CEP</span>
-                                    <input class="input-modal" type="number" id="input_editar_cep_fazenda" value="${fazenda.cep}">
-                                </div>
-                            </div>
-                            <div class="modal-box-container">
-                                <div class="dados-fazenda">
-                                    <span>NUMERO</span>
-                                    <input class="input-modal" type="number" id="input_editar_numero_fazenda" value="${fazenda.numero}">
-                                </div>
-                                <div class="dados-fazenda">
-                                    <span>COMPLEMENTO</span>
-                                    <input class="input-modal" type="text" id="input_editar_complemento_fazenda" value="${fazenda.complemento}">
-                                </div>
-                            </div>
-                        </div>
+                        <span>Tem certeza que deseja remover a fazenda? Esta ação é irreversível e irá impactar outras operações do site, como os talhões desta fazenda, tal como seus calendários de pulverização e o planejamento de orçamento dos usuários com cargo de financeiro da plataforma.</span>
                     </div>
-                    <div class="dados-fazenda" style="margin-top: 2rem;">
-                        <span>DESCRICAO</span>
-                        <input class="input-modal" id="input_descricao" style="width: 100%;" value="${fazenda.descricao}"/>
+                    <div style="display: flex; flex-direction: row; gap: 1rem">
+                        <button onclick="closeDeleteFazendaModal()" class="btn-add-modal">CANCELAR</button>
+                        <button onclick="deletarFazenda(${idFazenda})" class="btn-add-modal">REMOVER</button>
                     </div>
-                    <button onclick="atualizarFazenda(${fazenda.idFazenda})" class="btn-add-modal">ATUALIZAR</button>
                 </div>
             </dialog>
         `;
 
-                    const modal = document.getElementById('modal_edit_fazenda');
-                    modal.showModal(); // Abre o modal
-                })
-                .catch(err => {
-                    console.error("Erro:", err);
-                });
+        const modal = document.getElementById('modal_delete_fazenda');
+        modal.showModal(); // Abre o modal
+    }
+
+    function closeEditFazendaModal() {
+        const modal = document.getElementById('modal_edit_fazenda');
+        modal.close();
+        document.getElementById('modal_editar_fazenda_container').innerHTML = ''; // Limpa o conteúdo
+    }
+
+    function closeDeleteFazendaModal(){
+        const modal = document.getElementById('modal_delete_fazenda');
+        modal.close();
+        document.getElementById('modal_delete_fazenda_container').innerHTML = ''; // Limpa o conteúdo
+    }
+
+    function atualizarFazenda(idFazenda) {
+        const nomeFazenda = document.getElementById('input_editar_nome_fazenda').value;
+        const cep = document.getElementById('input_editar_cep_fazenda').value;
+        const numero = document.getElementById('input_editar_numero_fazenda').value;
+        const complemento = document.getElementById('input_editar_complemento_fazenda').value;
+
+        if (!idFazenda) {
+            console.error("ID da fazenda não foi fornecido.");
+            return;
         }
 
-        function closeEditFazendaModal() {
-            const modal = document.getElementById('modal_edit_fazenda');
-            modal.close();
-            document.getElementById('modal_editar_fazenda_container').innerHTML = ''; // Limpa o conteúdo
-        }
-
-
-        function atualizarFazenda(idFazenda) {
-            const nomeFazenda = document.getElementById('input_editar_nome_fazenda').value;
-            const cep = document.getElementById('input_editar_cep_fazenda').value;
-            const numero = document.getElementById('input_editar_numero_fazenda').value;
-            const complemento = document.getElementById('input_editar_complemento_fazenda').value;
-            const descricao = document.getElementById('input_descricao').value;
-
-            if (!idFazenda) {
-                console.error("ID da fazenda não foi fornecido.");
-                return;
-            }
-
-            fetch(`/fazendas/atualizarFazenda/${idFazenda}`, {
-                method: "PUT",
-                headers: {
-                    "Content-Type": "application/json"
-                },
-                body: JSON.stringify({
-                    nomeServer: nomeFazenda,
-                    cepServer: cep,
-                    numeroServer: numero,
-                    complementoServer: complemento,
-                    descricaoServer: descricao
-                })
+        fetch(`/fazendas/atualizarFazenda/${idFazenda}`, {
+            method: "PUT",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+                nomeServer: nomeFazenda,
+                cepServer: cep,
+                numeroServer: numero,
+                complementoServer: complemento,
             })
-                .then(res => {
-                    if (res.ok) {
-                        alert("Fazenda atualizada com sucesso!");
-                        window.location.reload();
-                    } else {
-                        throw new Error("Erro ao atualizar fazenda.");
-                    }
-                })
-                .catch(err => {
-                    console.error("Erro:", err);
-                });
-        }
-
-        function deletarFazenda(idFazenda) {
-            console.log("Tentando deletar a fazenda com ID: " + idFazenda);
-            fetch(`/fazendas/deletarFazenda/${idFazenda}`, {
-                method: "DELETE",
-                headers: {
-                    "Content-Type": "application/json"
+        })
+            .then(res => {
+                if (res.ok) {
+                    window.location.reload();
+                } else {
+                    throw new Error("Erro ao atualizar fazenda.");
                 }
             })
-                .then(resposta => {
-                    if (resposta.ok) {
-                        alert("Fazenda e endereço deletados com sucesso!");
-                        window.location.reload();
-                    } else {
-                        throw new Error("Houve um erro ao tentar deletar a fazenda.");
-                    }
-                })
-                .catch(err => {
-                    console.error("Erro:", err);
-                });
-        }
+            .catch(err => {
+                console.error("Erro:", err);
+            });
+    }
 
+    function deletarFazenda(idFazenda) {
+        event.stopPropagation()
+        
+        console.log("Tentando deletar a fazenda com ID: " + idFazenda);
+        fetch(`/fazendas/deletarFazenda/${idFazenda}`, {
+            method: "DELETE",
+            headers: {
+                "Content-Type": "application/json"
+            }
+        })
+            .then(resposta => {
+                if (resposta.ok) {
+                    window.location.reload();
+                } else {
+                    throw new Error("Houve um erro ao tentar deletar a fazenda.");
+                }
+            })
+            .catch(err => {
+                console.error("Erro:", err);
+            });
+    }
 
-
-        buscarPrevisaoTempo();
-
+    listarFazendas(companyId)
 </script>

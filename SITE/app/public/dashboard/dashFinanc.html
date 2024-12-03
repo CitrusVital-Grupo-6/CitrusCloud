@@ -11,7 +11,7 @@
     <link rel="shortcut icon" href="../assets/icon/logo.ico" type="image/x-icon">
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
-<body>
+<body onload="initTela()">
     <aside id="aside-menu">
     </aside>
 
@@ -23,17 +23,9 @@
 
             <div style="display: flex; flex-direction: row; gap: 20px;">
                 <div>
-                    <span>PERÍODO: </span>
-                    <select name="" id="">
-                        <option value="">MENSAL</option>
-                        <option value="">ANUAL</option>
-                    </select>
-                </div>
-                <div>
                     <span>FAZENDA: </span>
-                    <select name="" id="">
+                    <select id="fitro_fazenda" onchange="initTela()">
                         <option value="">Todas as Fazendas</option>
-                        <option value="">Fazenda Citrus</option>
                     </select>
                 </div>
             </div>
@@ -73,15 +65,17 @@
 </body>
 </html>
 
-<script src="../../middlewares/graphFinan.js"></script>
-<script src="../../middlewares/aside-menu.js"></script>
+<script src="../middlewares/graphFinan.js"></script>
+<script src="../middlewares/aside-menu.js"></script>
 
 <script>
     const userData = sessionStorage.getItem("USER_DATA");
     const parsedData = JSON.parse(userData);
     const companyId = parsedData.companyId;
+    
+    let isTelaInicializada = false;
 
-    function listNextBuyDefen(idEmpresa) {
+    function listNextBuyDefen(idEmpresa, filtro) {
         fetch(`/financ/listNextBuyDefen/${idEmpresa}`).then(function (resposta) {
             if (resposta.ok) {
                 if (resposta.status == 204) {
@@ -129,7 +123,10 @@
     }
 
     function createDrawer(data) {
-        const container = document.getElementsByClassName("next-buy-wrapper")[0];
+        let container = document.getElementsByClassName("next-buy-wrapper")[0];
+        if(isTelaInicializada){
+            container.innerHTML = '';
+        }
 
         data.forEach((entry, index) => {
             const box = document.createElement("div");
@@ -194,6 +191,25 @@
 
     }
 
-    getTotalValueMonth(companyId);
-    listNextBuyDefen(companyId)
+    function listarFazendas(idEmpresa) {
+        fetch(`/fazendas/exibirFazenda/${idEmpresa}`).then(res => {
+            res.json().then(res => {
+
+                for (let posicao = 0; posicao < res.length; posicao++) {
+                    fitro_fazenda.innerHTML += `<option value="${res[posicao].idFazenda}">${res[posicao].nomeFazenda}</option>`;
+                }
+            })
+        })
+    }
+    
+    function initTela(){
+        if(!isTelaInicializada){
+            listarFazendas(companyId)
+        }
+        getTotalValueMonth(companyId);
+        listNextBuyDefen(companyId);
+        isTelaInicializada = true;
+
+        
+    }
 </script>

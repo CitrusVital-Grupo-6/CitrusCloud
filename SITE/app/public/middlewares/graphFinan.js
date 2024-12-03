@@ -1,4 +1,6 @@
-function getTotalValueMonth(idEmpresa) {
+let graficoTotalMl;
+
+function getTotalValueMonth(idEmpresa, filtro) {
     fetch(`/financ/getTotalValueMonth/${idEmpresa}`)
         .then(function (resposta) {
             if (resposta.ok) {
@@ -22,7 +24,11 @@ function getTotalValueMonth(idEmpresa) {
                 console.log("Labels:", labelTotalValue);
                 console.log("Valores:", valueTotalValue);
 
-                atualizarGrafico();
+                if(isTelaInicializada){
+                    atualizarGrafico()
+                } else {
+                    criarGrafico();
+                }
             }
         })
         .catch(function (erro) {
@@ -30,9 +36,10 @@ function getTotalValueMonth(idEmpresa) {
         });
 }
 
-function atualizarGrafico() {
-    const divTotalMl = document.getElementById('total_ml_mensal').getContext('2d');
-    new Chart(divTotalMl, {
+function criarGrafico() {
+    divTotalMl = document.getElementById('total_ml_mensal').getContext('2d');
+
+    graficoTotalMl = new Chart(divTotalMl, {
         type: 'bar', // Define o tipo principal como 'bar'
         data: {
             labels: labelTotalValue,
@@ -84,6 +91,73 @@ function atualizarGrafico() {
             }
         }
     });    
+}
+
+function atualizarGrafico() {
+    if (graficoTotalMl) {
+        // Atualiza os dados do gráfico existente
+        graficoTotalMl.data.labels = labelTotalValue; // Atualiza as labels
+        graficoTotalMl.data.datasets[0].data = valueTotalValue; // Atualiza o dataset de barras
+        graficoTotalMl.data.datasets[1].data = valueTotalValue.map((value, index) =>
+            valueTotalValue.slice(0, index + 1).reduce((acc, curr) => acc + curr, 0) // Recalcula os acumulados
+        );
+        graficoTotalMl.update(); // Atualiza o gráfico
+    } else {
+        // Cria um novo gráfico se ainda não existir
+        divTotalMl = document.getElementById('total_ml_mensal').getContext('2d');
+        graficoTotalMl = new Chart(divTotalMl, {
+            type: 'bar',
+            data: {
+                labels: labelTotalValue,
+                datasets: [
+                    {
+                        type: 'bar',
+                        label: "Gasto Mensal",
+                        data: valueTotalValue,
+                        backgroundColor: '#FEA30150',
+                        borderColor: '#FEA301',
+                        borderWidth: 1,
+                    },
+                    {
+                        type: 'line',
+                        label: "Total Acumulado",
+                        data: valueTotalValue.map((value, index) =>
+                            valueTotalValue.slice(0, index + 1).reduce((acc, curr) => acc + curr, 0)
+                        ),
+                        borderColor: '#0288D1',
+                        backgroundColor: '#0288D150',
+                        fill: false,
+                        tension: 0.4,
+                    }
+                ]
+            },
+            options: {
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: {
+                        display: true,
+                    },
+                    tooltip: {
+                        callbacks: {
+                            label: function(context) {
+                                let value = context.raw;
+                                return `R$ ${value.toLocaleString('pt-BR', { minimumFractionDigits: 2 })}`;
+                            }
+                        }
+                    }
+                },
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        title: {
+                            display: true,
+                            text: 'Valor (BRL)',
+                        }
+                    }
+                }
+            }
+        });
+    }
 }
 
 // -------------------------------------------------------------------

@@ -26,9 +26,22 @@ body {
 }
 
 .main-agendar .title #confirmar{
+    border: 2px solid var(--primary-clr);
     background-color: var(--primary-clr);
     color: white;
     text-transform: uppercase;
+}
+
+.main-agendar .title #confirmar.disabled{
+    border: 2px solid var(--cor-font);
+    background-color: rgba(167, 167, 167, 0.514);
+    color: var(--cor-font);
+    text-transform: uppercase;
+}
+
+main .title .main-button.disabled:hover {
+    opacity: .7;
+    transform: scale(1.0);
 }
 
 /* ------------------------------------------------------ */

@@ -21,11 +21,7 @@ function adicionarFazenda(nome, idEndereco, idEmpresa) {
 
 
 function adicionarEndereco(cep, numero, complemento) {
-
-    console.log("ACESSEI O USUARIO MODEL \n \n\t\t >> Se aqui der erro de 'Error: connect ECONNREFUSED',\n \t\t >> verifique suas credenciais de acesso ao banco\n \t\t >> e se o servidor de seu BD está rodando corretamente. \n\n function adicionarFazenda():", cep, numero, complemento);
-
-    var instrucaoSql = `
-        INSERT INTO endereco (cep, numero, complemento) VALUES ('${cep}', '${numero}', '${complemento}')`;
+    var instrucaoSql = `INSERT INTO endereco (cep, numero, complemento) VALUES ('${cep}', '${numero}', '${complemento}')`;
 
     console.log("Executando a instrução SQL: \n" + instrucaoSql);
     return database.executar(instrucaoSql);
@@ -33,44 +29,30 @@ function adicionarEndereco(cep, numero, complemento) {
 }
 
 function consultarFazenda() {
-    var instrucaoSql = `
-        SELECT * FROM Fazenda JOIN endereco WHERE fkEndereco = idEndereco `;
+    var instrucaoSql = `SELECT * FROM Fazenda JOIN endereco WHERE fkEndereco = idEndereco `;
 
     console.log("Executando a instrução SQL: \n" + instrucaoSql);
     return database.executar(instrucaoSql);
 
 }
 
-
 function buscarFazenda(idFazenda) {
-
-    console.log("ACESSEI O USUARIO MODEL \n \n\t\t >> Se aqui der erro de 'Error: connect ECONNREFUSED',\n \t\t >> verifique suas credenciais de acesso ao banco\n \t\t >> e se o servidor de seu BD está rodando corretamente. \n\n function adicionarFazenda():", idFazenda);
-
-    var instrucaoSql = `
-        SELECT * FROM Fazenda JOIN Endereco ON fkEndereco = idEndereco  WHERE idFazenda = ${idFazenda} `;
+    var instrucaoSql = `SELECT * FROM Fazenda JOIN Endereco ON fkEndereco = idEndereco  WHERE idFazenda = ${idFazenda} `;
 
     console.log("Executando a instrução SQL: \n" + instrucaoSql);
     return database.executar(instrucaoSql);
-
 }
 
 function atualizarFazenda(nome, cep, numero, complemento, idFazenda) {
+    var instrucaoSql = `UPDATE Fazenda JOIN Endereco ON fkEndereco = idEndereco SET nome = '${nome}', cep = '${cep}', numero = '${numero}', complemento = '${complemento}' WHERE idFazenda = ${idFazenda};`;
 
-    console.log("ACESSEI O USUARIO MODEL \n \n\t\t >> Se aqui der erro de 'Error: connect ECONNREFUSED',\n \t\t >> verifique suas credenciais de acesso ao banco\n \t\t >> e se o servidor de seu BD está rodando corretamente. \n\n function adicionarFazenda():", idFazenda, nome, cep, numero, complemento,);
-
-
-    var instrucaoSql = `  
-    UPDATE Fazenda JOIN Endereco ON fkEndereco = idEndereco SET nome = '${nome}', cep = '${cep}', numero = '${numero}', complemento = '${complemento}' WHERE idFazenda = ${idFazenda};
-`;
     console.log("Executando a instrução SQL: \n" + instrucaoSql);
     return database.executar(instrucaoSql);
 }
 
 function deletarEndereco(idEndereco) {
-    console.log("Tentando deletar o endereço com ID: " + idEndereco);
-    var instrucaoSql = `
-        DELETE FROM Endereco WHERE idEndereco = ${idEndereco};
-    `;
+    var instrucaoSql = `DELETE FROM Endereco WHERE idEndereco = ${idEndereco};`;
+
     console.log("Executando a instrução SQL: \n" + instrucaoSql);
     return database.executar(instrucaoSql);
 }
@@ -100,6 +82,20 @@ function deletarTalhao(idTalhao) {
     return database.executar(instrucaoSql);
 }
 
+function buscarPulverizacaoPorFazenda(idFazenda) {
+    var instrucaoSql = `SELECT * FROM pulverizacao JOIN talhao WHERE fkFazenda = ${idFazenda};`;
+
+    console.log("Executando a instrução SQL: \n" + instrucaoSql);
+    return database.executar(instrucaoSql);
+}
+
+function deletarPulverizacao(idPulverizacao) {
+    var instrucaoSql = `DELETE FROM pulverizacao WHERE idPulverizacao = ${idPulverizacao};`;
+
+    console.log("Executando a instrução SQL: \n" + instrucaoSql);
+    return database.executar(instrucaoSql);
+}
+
 module.exports = {
     consultarEndereco,
     adicionarFazenda,
@@ -111,5 +107,7 @@ module.exports = {
     deletarFazenda,
     deletarEndereco,
     buscarTalhoesPorFazenda,
-    deletarTalhao
+    deletarTalhao,
+    buscarPulverizacaoPorFazenda,
+    deletarPulverizacao
 };
