@@ -1,0 +1,10 @@
+conex\S3Provider.class
+etl\AgrotoxicoRepository.class
+etl\EtlOrquestrador.class
+conex\ConexaoBancoDados.class
+etl\PragaRepository.class
+model\Agrotoxico.class
+model\Praga.class
+etl\ArquivoProcessado.class
+main\Main.class
+log\Logger.class

@@ -5,12 +5,10 @@ import java.sql.*;
 
 public class EnviarEmail {
 
-    private Connection connection; // Database connection
+    private Connection connection;
 
-    // Constructor to establish the database connection
     public EnviarEmail() throws SQLException {
-        // **CRUCIAL:** Replace with YOUR database credentials SECURELY (environment variables recommended)
-        String dbUrl = System.getenv("DB_URL"); // Example: jdbc:mysql://localhost:3306/your_database_name
+        String dbUrl = System.getenv("DB_URL");
         String dbUser = System.getenv("DB_USER");
         String dbPassword = System.getenv("DB_PASSWORD");
 
@@ -28,49 +26,17 @@ public class EnviarEmail {
         }
     }
 
-    public void sendEmail(int userId, String subject, String body, String fromEmail, String fromPassword) throws MessagingException, SQLException {
-        fromEmail = "mariana.lopes@sptech.school";
-        fromPassword = "#Gf54576086898";
-        subject = "IMPORTANTE! Dia da Pulverização se Aproxima!";
-        body = "Prezado usuário,\n" +
-                "\n" +
-                "Esperamos que esteja tudo bem com você. Gostaríamos de lembrá-lo de que o dia agendado para a realização da pulverização em seu talhão está se aproximando. É essencial garantir que todas as medidas necessárias sejam tomadas para garantir o sucesso do procedimento.\n" +
-                "\n" +
-                "Por favor, certifique-se de que a área a ser pulverizada esteja devidamente preparada, livre de objetos que possam interferir no processo. Além disso, lembre-se de seguir as instruções de segurança fornecidas para proteger a si mesmo e ao meio ambiente.\n" +
-                "\n" +
-                "Caso haja alguma dúvida, entre em contato conosco. Estamos aqui para garantir que tudo ocorra da melhor forma possível.\n" +
-                "\n" +
-                "Agradecemos pela confiança em nossos serviços e estamos à disposição para qualquer outra informação que precisar.\n" +
-                "\n" +
-                "Atenciosamente,\n" +
-                "\n" +
-                "Citrus Vital\n";
-
-        String to = null; // Get email from database
-
-        try {
-            to = getUserEmail(userId);
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
-
-        if (to == null) {
-            throw new MessagingException("User email not found in database for ID: " + userId);
-        }
-
-        // SMTP settings (you can still parameterize these if needed)
-        String smtpHost = "smtp-mail.outlook.com";
-        String smtpPort = "587";
-
+    public void sendEmail(String to, String subject, String body, String fromEmail, String fromPassword) throws MessagingException {
 
         Properties props = new Properties();
-        props.put("mail.smtp.host", smtpHost);
-        props.put("mail.smtp.port", smtpPort);
+        props.put("mail.smtp.host", "smtp-mail.outlook.com");
+        props.put("mail.smtp.port", "587");
         props.put("mail.smtp.auth", "true");
         props.put("mail.smtp.starttls.enable", "true");
 
         String finalFromEmail = fromEmail;
         String finalFromPassword = fromPassword;
+
         Session session = Session.getInstance(props, new javax.mail.Authenticator() {
             protected PasswordAuthentication getPasswordAuthentication() {
                 return new PasswordAuthentication(finalFromEmail, finalFromPassword);
@@ -86,44 +52,69 @@ public class EnviarEmail {
             Transport.send(message);
         } catch (MessagingException e) {
             throw new MessagingException("Error sending email: " + e.getMessage(), e);
-        } finally {
-            //Close the database connection after email sending is complete
-            closeConnection();
         }
     }
 
-    // Method to fetch user email from the database
-    private String getUserEmail(int userId) throws SQLException {
-        String email = null;
-        try (PreparedStatement statement = connection.prepareStatement("SELECT email FROM Usuario WHERE idUsuario = ?")) {
-            statement.setInt(1, userId);
-            try (ResultSet resultSet = statement.executeQuery()) {
-                if (resultSet.next()) {
-                    email = resultSet.getString("email");
+    public void sendEmailsForUpcomingPulverizations() throws SQLException, MessagingException {
+        String query = """
+                SELECT
+                	u.email,
+                	p.dataPulverizacao as dtPulverizacao,
+                    a.nome as nomeDefen,
+                    p.qtdMl,
+                	f.nomeFazenda AS nomeFazenda,
+                	t.nomeTalhao AS nomeTalhao
+                FROM Pulverizacao p
+                	JOIN Talhao t ON p.fkTalhao = t.idTalhao
+                	LEFT JOIN Agrotoxico a ON a.idAgrotoxico = p.fkAgrotoxico
+                	JOIN Fazenda f ON t.fkFazenda = f.idFazenda
+                	JOIN Empresa e ON f.fkEmpresa = e.idEmpresa
+                	JOIN Usuario u ON u.fkEmpresa = e.idEmpresa
+                WHERE p.dataPulverizacao
+                BETWEEN CURDATE() AND DATE_ADD(CURDATE(), INTERVAL 7 DAY);
+        """;
+
+        try (PreparedStatement statement = connection.prepareStatement(query);
+             ResultSet resultSet = statement.executeQuery()) {
+
+            String fromEmail = "mariana.lopes@sptech.school";
+            String fromPassword = "#Gf54576086898";
+            String subject = "IMPORTANTE! Dia da Pulverização se Aproxima!";
+
+            while (resultSet.next()) {
+                String to = resultSet.getString("email");
+                String dataPulverizacao = resultSet.getString("dtPulverizacao");
+                String nomeFazenda = resultSet.getString("nomeFazenda");
+                String nomeTalhao = resultSet.getString("nomeTalhao");
+
+                String body = String.format("""
+                        Prezado usuário,
+
+                        Gostaríamos de lembrá-lo de que o dia agendado para a pulverização no talhão %s da fazenda %s está se aproximando.
+                        Data prevista: %s.
+
+                        Certifique-se de que todas as medidas necessárias sejam tomadas para o sucesso do procedimento.
+                        Caso tenha dúvidas, entre em contato conosco.
+
+                        Atenciosamente,
+                        Citrus Vital
+                        """, nomeTalhao, nomeFazenda, dataPulverizacao);
+
+                try {
+                    sendEmail(to, subject, body, fromEmail, fromPassword);
+                    System.out.println("Email enviado para: " + to);
+                } catch (MessagingException e) {
+                    System.err.println("Erro ao enviar email para " + to + ": " + e.getMessage());
                 }
             }
         }
-        return email;
     }
-
-
-    // Method to close the database connection
-    private void closeConnection() {
-        try {
-            if (connection != null && !connection.isClosed()) {
-                connection.close();
-            }
-        } catch (SQLException e) {
-            System.err.println("Error closing database connection: " + e.getMessage());
-        }
-    }
-
 
     public static void main(String[] args) {
         try {
             EnviarEmail sender = new EnviarEmail();
-            sender.sendEmail(1, "Test Email", "This is a test email.", "mariana.lopes@sptech.school", "#Gf54576086898"); // Replace 1 with a valid user ID
-        } catch (MessagingException | SQLException e) {
+            sender.sendEmailsForUpcomingPulverizations();
+        } catch (SQLException | MessagingException e) {
             e.printStackTrace();
         }
     }

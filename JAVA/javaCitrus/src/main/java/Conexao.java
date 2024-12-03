@@ -12,7 +12,6 @@ public class Conexao {
         conexaoDoBanco = new JdbcTemplate(dataSource);
     }
 
-
     public JdbcTemplate getConexaoDoBanco(){
         return conexaoDoBanco;
     }
